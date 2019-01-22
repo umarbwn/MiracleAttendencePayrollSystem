@@ -1,0 +1,185 @@
+.main-header .sidebar-toggle::before{
+    content: "";
+}
+.sidebar-menu li.header {
+    font-size: 16px;
+    text-transform: capitalize;
+}
+.margin-bottom{
+    margin-bottom: 15px;
+}
+.form-error{
+    color: #dd4b39;
+}
+.employee-img{
+    width: auto;
+    height: 26px;
+}
+.profile-thumbnail{
+    width: 100px;
+    height: auto;
+}
+.custom-img-circle{
+    width: 100px;
+    height: 100px;
+    background-position: center;
+    border-radius: 100px;
+    background-size: cover;
+}
+#videoElement {
+    width: 100%;
+    height: 375px;
+    background-color: #000;
+}
+#emp-img{
+    width: 100%;
+    height: auto;
+}
+.login-page, .register-page{
+    background-image: url('../images/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: transparent
+}
+.login-logo a, .register-logo a {
+    color: #fff;
+}
+
+.login-box-body, .register-box-body {
+    box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.30);
+}
+.btn-spinner{
+    width: 20px;
+    height: 20px;
+    float: left;
+    display: none;
+}
+.register-box{
+    margin-top: 20px;
+}
+.custom-btn-link{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+/* 
+-------------------------------------------------------------------
+                        Hover tooltip
+-------------------------------------------------------------------
+*/
+.tooltip-parent{
+    position: relative;
+    border: 1px solid red;
+}
+.my-tooltip{
+    max-width: 150px;
+    min-height: 40px;
+    background-color: #333333;
+    /* float: left; */
+    position: absolute;
+    left: 0%;
+    bottom: 34px;
+    color: #fff;
+}
+.tooltip-marker{
+    padding: 0px;
+}
+.clear{
+    clear: both;
+}
+#pac-input{
+    width: 100%;
+}
+#map{
+    height: 400px;
+    width: 100%;
+}
+#pac-container{
+    background-color: #fff;
+}
+.full-width-item{
+    width: 100% !important;
+}
+.btn-status{
+    color: green;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.btn-status:hover{
+    color: #49ea3d;
+}
+#loading{
+    padding-top: 15%;
+}
+#loading h1{
+    float: left;
+    padding-left: 26px;
+    padding-top: 7px;
+}
+#loading .modal-dialog{
+    width: 491px;
+}
+.loading-image{
+    width: 100px;
+    height: 100px;
+    display: block;
+}
+.loading-modal{
+    min-height: 126px;
+}
+.nav-pills > li > a{
+    padding: 8px 15px;
+    font-weight: 300;
+    border-top: 0px;
+    min-width: 110px;
+    text-align: center;
+}
+.nav-pills > li.active > a {
+    font-weight: 300;
+}
+.nav-pills > li + li{
+    margin-left: 0px;
+    border-left: 1px solid rgba(0,0,0,0.1);
+}
+.nav-pills > li:last-child{
+    border-right: 1px solid rgba(0,0,0,0.1);
+}
+.top-menu-icons{
+    margin-bottom: 8px;
+    margin-top: 3px;
+    display: block;
+    text-align: center;
+}
+.main-header .logo{
+    height: 61px;
+    line-height: 61px;
+}
+.main-sidebar{
+    padding-top: 61px;
+}
+.main-header .sidebar-toggle{
+    padding: 20px 15px;
+    border-right: 1px solid rgba(0,0,0,0.1);
+}
+#vages-inputs{
+    display: none;
+}
+#monthly-inputs{
+    display: none;
+}
+.top-bottom-gap{
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+.approved-left-padding{
+    padding-left: 12px;
+}
+.tbl-cell-header-border{
+    border: 1px solid #d1d1d1 !important;
+    vertical-align: middle !important;
+}
+.table-hourly-chart th input,
+.table-hourly-chart1 th input ,
+.my-input-row td input{
+    width: 65px;
+    margin: 0 auto;
+}
