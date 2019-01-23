@@ -3,14 +3,12 @@
 class TimeClock extends MY_Controller
 {
 
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
         $this->load->model('TimeClockModel', 'model');
     }
 
-    public function index()
-    {
+    public function index(){
         $response = $this->get_time_clock();
 
         //        var_dump($response); exit;
@@ -78,8 +76,7 @@ class TimeClock extends MY_Controller
         $this->load->view('admin/common/footer');
     }
 
-    public function upload_clock_in_image()
-    {
+    public function upload_clock_in_image() {
         $emp_id = "";
         if ($this->session->userdata('attendence_data')) {
             $emp_id = $this->session->userdata('attendence_data')['id'];
@@ -118,8 +115,7 @@ class TimeClock extends MY_Controller
         }
     }
 
-    public function upload_clock_out_image()
-    {
+    public function upload_clock_out_image() {
         //         var_dump($this->input->post()); exit;
         $emp_id = "";
         if ($this->session->userdata('attendence_data')) {
@@ -172,8 +168,7 @@ class TimeClock extends MY_Controller
         }
     }
 
-    public function get_time_clock()
-    {
+    public function get_time_clock() {
         $emp_id = "";
         if ($this->session->userdata('attendence_data')) {
             $emp_id = $this->session->userdata('attendence_data')['id'];
@@ -184,8 +179,7 @@ class TimeClock extends MY_Controller
         return $response;
     }
 
-    public function time_clock_locs()
-    {
+    public function time_clock_locs() {
         $this->load->model('TimeClockModel', 'model');
         $results = $this->model->get_clock_locations();
         //        foreach ($results as $result) {
@@ -201,8 +195,7 @@ class TimeClock extends MY_Controller
         $this->load->view('admin/common/footer');
     }
 
-    public function add_clock_location()
-    {
+    public function add_clock_location() {
         $slug_for_js = "";
         $this->form_validation->set_rules('term_name', 'Terminal name', 'required');
         if ($this->form_validation->run()) {
@@ -228,8 +221,7 @@ class TimeClock extends MY_Controller
         }
     }
 
-    public function terminal_links()
-    {
+    public function terminal_links() {
         $terminals = $this->model->get_terminal_links();
         /*
         foreach ($terminals as $terminal) {
@@ -244,8 +236,7 @@ class TimeClock extends MY_Controller
         $this->load->view('admin/common/footer');
     }
 
-    public function generate_terminal_link()
-    {
+    public function generate_terminal_link() {
         $positions = $this->model->get_all_positions();
         //        foreach($locations as $location){
         //            $location->location = $this->lat_lng_to_loc(
@@ -282,8 +273,7 @@ class TimeClock extends MY_Controller
         }
     }
 
-    public function location_check($str)
-    {
+    public function location_check($str) {
         if ($str == '') {
             $this->form_validation->set_message(
                 'location_check',
@@ -295,8 +285,7 @@ class TimeClock extends MY_Controller
         }
     }
 
-    public function position_check($str)
-    {
+    public function position_check($str) {
         if ($str == '') {
             $this->form_validation->set_message(
                 'position_check',
@@ -308,8 +297,7 @@ class TimeClock extends MY_Controller
         }
     }
 
-    public function salary_calculator_in_out($clock_details)
-    {
+    public function salary_calculator_in_out($clock_details) {
         $emp_id = $clock_details->emp_id;
         $insert_id = $clock_details->tc_id;
         $start_date = $clock_details->emp_clock_in;
@@ -409,15 +397,21 @@ class TimeClock extends MY_Controller
         // var_dump($minutes);
         // exit;
         $last_counter = null;
+        // var_dump($start_date); exit;
         if ($clk_counter_indexes) {
+            $clock_in_obj = $start_date;
             // echo 'special times of foreach \n';
             foreach ($clk_counter_indexes as $counter) {
                 $special_over_time += $this->special_hours_counter(
                     $clock_in_hour,
                     $special_hours,
                     $clock_in_day,
-                    $per_hour_salary
+                    $per_hour_salary,
+                    24,
+                    $clock_in_obj,
+                    null
                 );
+                $clock_in_obj = null;
                 $clock_in_hour = 0;
                 $last_counter = $counter;
                 // echo '<h1>';
@@ -438,7 +432,9 @@ class TimeClock extends MY_Controller
                 $special_hours,
                 $clock_in_day,
                 $per_hour_salary,
-                $clock_out_hour
+                $clock_out_hour,
+                null,
+                $end_date
             );
             // echo 'all special times \n';
             // echo '<h2>'.$special_over_time.'</h2>';
@@ -465,8 +461,7 @@ class TimeClock extends MY_Controller
         }
     }
 
-    public function delete_location($id)
-    {
+    public function delete_location($id) {
         //        var_dump($id); exit;
         $response = $this->model->delete_location($id);
         if ($response) {
@@ -483,8 +478,7 @@ class TimeClock extends MY_Controller
         return redirect('TimeClock/time_clock_locs');
     }
 
-    public function approve_attendence($id)
-    {
+    public function approve_attendence($id) {
         $response = $this->model->approve_attendence($id);
         if ($response) {
             $this->session->set_flashdata('success_msge', 'Attendence approved successfully!');
@@ -499,12 +493,22 @@ class TimeClock extends MY_Controller
         $special_hours,
         $clock_in_day,
         $per_hour_salary,
-        $counter = 24
+        $counter = 24,
+        $clock_in_obj = null,
+        $clock_out_obj = null
     ) {
         $special_over_time = 0;
         // echo '<pre>';
         // print_r($clock_in_hour);
         // echo 'Clock in hour printed';
+        
+        
+        // else{
+        //     echo '<pre>';
+        //     print_r($clock_out_obj);
+        //     echo '<br>';
+        //     echo 'Clock out object printed \n';
+        // }
         for ($i = (int)$clock_in_hour; $i < $counter; $i++) {
                 // var_dump($i);
             foreach ($special_hours as $key => $special_hour) {
@@ -514,17 +518,27 @@ class TimeClock extends MY_Controller
                     // var_dump($position);
                     // exit;
                 if ($position) {
-                    preg_match_all('!\d+!', $key, $matches);
-                    $matched_hour = (int)$matches[0][0];
+                    $matched_hour = $this->numExtracter($key);
                         // var_dump($matched_hour);
                         // exit;
                     if ($i == $matched_hour) {
-                        preg_match_all('!\d+!', $special_hour, $matches);
-                        $special_hour = (int)$matches[0][0];
-                            // var_dump(strtolower($key));
-                            // echo '<pre>';
-                            // print_r($special_hour); exit;
-                        $special_hour = $special_hour - 100;
+                        $special_hour = $this->numExtracter($special_hour);
+                        // var_dump(strtolower($key));
+                        // echo '<pre>';
+                        // print_r($special_hour); exit;
+                        if($clock_in_obj != null){
+                            echo '<pre>';
+                            print_r($clock_in_obj);
+                            echo '<br>';
+                            echo 'Clock in object printed \n';
+                        }elseif($clock_out_obj != null){
+                            echo '<pre>';
+                            print_r($clock_out_obj);
+                            echo '<br>';
+                            echo 'Clock out object printed \n';
+                        }
+                        
+                        $special_hour = $special_hour - 100;    
                         $over_time = $per_hour_salary * $special_hour;
                         $special_over_time += $over_time / 100;
                     }

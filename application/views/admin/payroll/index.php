@@ -11,7 +11,8 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <?php $response = $this->session->flashdata('success_msge'); if( !empty( $response ) ): ?>
+                <?php $response = $this->session->flashdata('success_msge');
+                if (!empty($response)) : ?>
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h4><i class="icon fa fa-check"></i> Alert!</h4>
@@ -55,7 +56,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach($employees as $employee): ?>
+                                            <?php foreach ($employees as $employee) : ?>
                                                 <tr role="row" class="odd">
                                                     <td>
                                                         <label>
@@ -69,8 +70,8 @@
                                                         <?php echo $employee->emp_id; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $employee->first_name.' '
-                                                                .$employee->last_name; ?>
+                                                        <?php echo $employee->first_name . ' '
+                                                            . $employee->last_name; ?>
                                                     </td>
                                                     <td></td>
                                                     <td>
@@ -94,16 +95,16 @@
                                                     <td>
                                                         <?php 
 
-                                                            $date = explode(',', $employee->start_times);
+                                                        $date = explode(',', $employee->start_times);
 //                                                            var_dump($array); exit;
-                                                             echo date("g:i a", strtotime($date[0])); ?>
+                                                        echo date("g:i a", strtotime($date[0])); ?>
                                                     </td>
                                                     <td>
-                                                        <?php  
-                                                            $array = explode(',', $employee->end_times);
-                                                            foreach($array as $element){
-                                                                $date = $element;
-                                                            }
+                                                        <?php 
+                                                        $array = explode(',', $employee->end_times);
+                                                        foreach ($array as $element) {
+                                                            $date = $element;
+                                                        }
 //                                                            var_dump($array); exit;
                                                         echo date("g:i a", strtotime($date)); ?>                                                        
                                                     </td>
@@ -111,25 +112,34 @@
                                                     <td>col5</td>
                                                     <td>
                                                         <?php
-                                                            $clock_in = new DateTime($employee->emp_clock_in);
-                                                            $clock_out = new DateTime($employee->emp_clock_out);
-                                                            $interval = date_diff($clock_in, $clock_out);
-                                                            
-                                                            $day_to_hours = 0;
-                                                            $day = $interval->format('%d');if ($day == '0') {$day = '0';}
+                                                        $clock_in = new DateTime($employee->emp_clock_in);
+                                                        $clock_out = new DateTime($employee->emp_clock_out);
+                                                        $interval = date_diff($clock_in, $clock_out);
+
+                                                        $day_to_hours = 0;
+                                                        $day = $interval->format('%d');
+                                                        if ($day == '0') {
+                                                            $day = '0';
+                                                        }
                                                             // echo $day;
-                                                            if($day != null){
-                                                                $day_to_hours = $day * 24;
-                                                            }
+                                                        if ($day != null) {
+                                                            $day_to_hours = $day * 24;
+                                                        }
                                                             // echo $day_to_hours;
-                                                            $hours = (int)$interval->format('%h') + (int)$day_to_hours;
+                                                        $hours = (int)$interval->format('%h') + (int)$day_to_hours;
                                                             // echo $hours.' | '.
-                                                            $hours =  $hours. 'h ';if ($hours == '0h ') {$hours = '';}
+                                                        $hours = $hours . 'h ';
+                                                        if ($hours == '0h ') {
+                                                            $hours = '';
+                                                        }
                                                             // var_dump($hours);
-                                                            $minutes = $interval->format('%i') . 'm ';if ($minutes == '0m ') {$minutes = '';}
-                                                            $seconds = $interval->format('%s') . 'sec';
+                                                        $minutes = $interval->format('%i') . 'm ';
+                                                        if ($minutes == '0m ') {
+                                                            $minutes = '';
+                                                        }
+                                                        $seconds = $interval->format('%s') . 'sec';
                                                             // echo $employee->
-                                                            echo $hours . $minutes . $seconds;
+                                                        echo $hours . $minutes . $seconds;
                                                         ?>
                                                     </td>
                                                     <td>Total</td>

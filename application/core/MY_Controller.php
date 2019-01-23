@@ -28,4 +28,10 @@ class MY_Controller extends CI_Controller
         $address = $geo->getAddress($lat, $lng);
         return $address;
     }
+
+    public function numExtracter($str){
+        preg_match_all('!\d+!', $str, $matches);
+        $num = (int)$matches[0][0];
+        return $num;
+    }
 }
