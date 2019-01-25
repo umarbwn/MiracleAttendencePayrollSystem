@@ -263,10 +263,13 @@ class TimeClockModel extends CI_Model
             ->row();
         return $response;
     }
-    public function update_per_clk_salary($salary, $insert_id)
+    public function update_per_clk_salary($salary, $special_over_time, $insert_id)
     {
         $response = $this->db
-            ->set(['clock_pay' => $salary])
+            ->set([
+                'clock_pay'         => $salary,
+                'special_overtime'  => $special_over_time
+            ])
             ->where(['id' => $insert_id])
             ->update('time_clock');
         return $response;

@@ -407,7 +407,7 @@ class TimeClock extends MY_Controller
                     $special_hours,
                     $clock_in_day,
                     $per_hour_salary,
-                    24,
+                    23,
                     $clock_in_obj,
                     null
                 );
@@ -447,11 +447,12 @@ class TimeClock extends MY_Controller
                 $clock_out_hour
             );
         }
-        $one_clock_salary += $special_over_time;
+        // $one_clock_salary += $special_over_time;
         // echo '<h2> one clock salary: '.$one_clock_salary.'</h2>';
         // exit;
         $response = $this->model->update_per_clk_salary(
             $one_clock_salary,
+            $special_over_time,
             $insert_id
         );
         if ($response) {
@@ -493,7 +494,7 @@ class TimeClock extends MY_Controller
         $special_hours,
         $clock_in_day,
         $per_hour_salary,
-        $counter = 24,
+        $counter = 23,
         $clock_in_obj = null,
         $clock_out_obj = null
     ) {
@@ -509,10 +510,13 @@ class TimeClock extends MY_Controller
         //     echo '<br>';
         //     echo 'Clock out object printed \n';
         // }
+        echo "<h1>clock in hour: $clock_in_hour</h1>";
+        echo "<h1>counter: $counter</h1>";
+        $per_minute_overtime = 0;
         for ($i = (int)$clock_in_hour; $i < $counter; $i++) {
-                // var_dump($i);
+                // echo  "<h1>$i</h1>";
             foreach ($special_hours as $key => $special_hour) {
-                    // var_dump($key);
+                // echo '<pre>'; print_r($key);
                 $position = strpos($key, strtolower($clock_in_day));
                     // echo 'position is';
                     // var_dump($position);
@@ -526,11 +530,8 @@ class TimeClock extends MY_Controller
                         // var_dump(strtolower($key));
                         // echo '<pre>';
                         // print_r($special_hour); exit;
+                        /*
                         if($clock_in_obj != null){
-                            // echo '<pre>';
-                            // print_r($clock_in_obj);
-                            // echo '<br>';
-                            // echo 'Clock in object printed \n';
 
                             $clock_in_mins = (int)date('m', strtotime($clock_in_obj));
                             $clock_in_secs = $clock_in_mins * 60;
@@ -550,28 +551,56 @@ class TimeClock extends MY_Controller
                             
                         }
                         
-                        $special_hour = $special_hour - 100;    
-                        $over_time = $per_hour_salary * $special_hour;
-                        $special_over_time += $over_time / 100;
+                        */
                         
                         if($clock_out_obj != null){
-                            // echo '<pre>';
-                            // print_r($clock_out_obj);
-                            // echo '<br>';
-                            // echo 'Clock out object printed \n';
-                            $clock_out_mins = (int)date('m', strtotime($clock_out_obj));
+                            // echo $clock_out_obj; exit;
+                            $clock_out_mins = (int)date('i', strtotime($clock_out_obj));
+
                             $clock_out_secs = (int)date('s', strtotime($clock_out_obj));
+
+                            // echo '<pre>'; print_r($clock_out_mins);
+                            // echo '<pre>'; print_r($clock_out_secs);
+                            // exit;
+                            $mins_to_secs = $clock_out_mins * 60;
+                            $clock_out_secs += $mins_to_secs;
+
+
+                            $out_special_hour = $special_hour - 100;    
+                            $out_over_time = $per_hour_salary * $out_special_hour;
+                            $out_over_time = $out_over_time / 100;
+                            // echo '<pre>'; print_r($over_time); exit;
+                            // echo '<pre>'; print_r($over_time);
+
+                            $per_minute_over_time = $out_over_time/60;
+                            $per_second_over_time = $per_minute_over_time/60;
+                            // echo '<pre>'; print_r($per_second_over_time);                             
+                            // echo '<pre>'; print_r($clock_out_secs);                             
+                            $out_over_time = $per_second_over_time * $clock_out_secs;
+                            // echo '<pre>'; print_r($over_time); exit;                            
+                            
+                            // $GLOBALS['last_secs_overtime'] = $over_time;
+                            // echo 'clock out called';
+                            // echo $over_time;  
+                            // $clock_out_obj = null;
+                            // $special_over_time += $over_time;                        
+                            // global $per_minute_over_time;
+                            $per_minute_overtime = $out_over_time;
+                            // echo "<h1>$permin</h1>";
+                            
+                            $clock_out_obj = null;
                         }
+                        
+                        $overtime_special_hour = $special_hour - 100;    
+                        $over_time = $per_hour_salary * $overtime_special_hour;
+                        $over_time = $over_time / 100;
+                        $special_over_time += $over_time;
                     }
                 }
             }
-                // exit;
-                // if ($i > $clock_out_hour) {
-                //     echo 'and original value of clock out hour is: ' . $i . '<br>';
-                //     echo 'exiting from this hour: ' . $matched_hour;
-                //     // var_dump();
-                // }
         }
+        // echo "<h1> outer per minute overtime = ".$per_minute_overtime."</h1>";
+        $special_over_time = $special_over_time + $per_minute_overtime;
         return $special_over_time;
     }
 }
