@@ -83,6 +83,7 @@ class Users extends CI_Controller{
         }
     public function logout_user(){
         $this->session->unset_userdata('user_id');
+        $this->session->unset_userdata('attendence_data');
         return redirect('Users');
     }
 }

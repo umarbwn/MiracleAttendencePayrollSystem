@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2019 at 07:15 PM
+-- Generation Time: Jan 25, 2019 at 02:22 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -40,8 +40,8 @@ CREATE TABLE `clock_day_counter` (
 --
 
 INSERT INTO `clock_day_counter` (`id`, `clock_index`, `clock_time`, `emp_id`) VALUES
-(53, 346, '2019-01-25 00:00:10', 63),
-(54, 346, '2019-01-26 00:00:02', 63);
+(55, 347, '2019-01-24 00:00:02', 63),
+(56, 347, '2019-01-25 00:00:01', 63);
 
 -- --------------------------------------------------------
 
@@ -214,15 +214,16 @@ CREATE TABLE `time_clock` (
   `clock_out_img` text NOT NULL,
   `emp_clock_out_loc` text NOT NULL,
   `clock_pay` double NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  `special_overtime` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `time_clock`
 --
 
-INSERT INTO `time_clock` (`id`, `emp_clock_in`, `emp_clock_out`, `emp_loc`, `emp_id`, `clock_in_img`, `clock_out_img`, `emp_clock_out_loc`, `clock_pay`, `status`) VALUES
-(346, '2019-01-23 13:01:55', '2019-01-26 23:00:20', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 63, 'clock_in346.jpeg', 'clock_out346.jpeg', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 11056.701388889, 1);
+INSERT INTO `time_clock` (`id`, `emp_clock_in`, `emp_clock_out`, `emp_loc`, `emp_id`, `clock_in_img`, `clock_out_img`, `emp_clock_out_loc`, `clock_pay`, `status`, `special_overtime`) VALUES
+(347, '2019-01-23 19:48:57', '2019-01-25 16:34:24', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 63, 'clock_in347.jpeg', 'clock_out347.jpeg', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 5594.6875, 1, 835.565625);
 
 --
 -- Indexes for dumped tables
@@ -299,7 +300,7 @@ ALTER TABLE `time_clock`
 -- AUTO_INCREMENT for table `clock_day_counter`
 --
 ALTER TABLE `clock_day_counter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `employees`
@@ -347,7 +348,7 @@ ALTER TABLE `terminal_links`
 -- AUTO_INCREMENT for table `time_clock`
 --
 ALTER TABLE `time_clock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=347;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=348;
 
 --
 -- Constraints for dumped tables
