@@ -527,20 +527,41 @@ class TimeClock extends MY_Controller
                         // echo '<pre>';
                         // print_r($special_hour); exit;
                         if($clock_in_obj != null){
-                            echo '<pre>';
-                            print_r($clock_in_obj);
-                            echo '<br>';
-                            echo 'Clock in object printed \n';
-                        }elseif($clock_out_obj != null){
-                            echo '<pre>';
-                            print_r($clock_out_obj);
-                            echo '<br>';
-                            echo 'Clock out object printed \n';
+                            // echo '<pre>';
+                            // print_r($clock_in_obj);
+                            // echo '<br>';
+                            // echo 'Clock in object printed \n';
+
+                            $clock_in_mins = (int)date('m', strtotime($clock_in_obj));
+                            $clock_in_secs = $clock_in_mins * 60;
+                            $clock_in_secs += (int)date('s', strtotime($clock_in_obj));
+                            $total_clock_in_secs = 3600 - $clock_in_secs;
+
+
+                            $special_hour = $special_hour - 100;    
+                            $over_time = $per_hour_salary * $special_hour;
+                            $over_time = $over_time / 100;
+
+                            $per_minute_over_time = $over_time/60;
+                            $per_second_over_time = $per_minute_over_time/60;
+                            
+                            $over_time = $per_second_over_time * $total_clock_in_secs;
+                            $special_over_time += $over_time;     
+                            
                         }
                         
                         $special_hour = $special_hour - 100;    
                         $over_time = $per_hour_salary * $special_hour;
                         $special_over_time += $over_time / 100;
+                        
+                        if($clock_out_obj != null){
+                            // echo '<pre>';
+                            // print_r($clock_out_obj);
+                            // echo '<br>';
+                            // echo 'Clock out object printed \n';
+                            $clock_out_mins = (int)date('m', strtotime($clock_out_obj));
+                            $clock_out_secs = (int)date('s', strtotime($clock_out_obj));
+                        }
                     }
                 }
             }
