@@ -160,12 +160,13 @@
                                                         // }
                                                         // // -----------------------------------------------------------
                                                         $interval = date_diff($clock_in, $clock_out);
-                                                        $day = null;
+                                                        $day_to_hours = 0;
+                                                        // var_dump($interval->format('%d'));
                                                         if(!empty($interval->format('%d'))){
-                                                            $day = $interval->format('%d') . 'd ';if ($day == '0d ') {$day = '';}
-                                                            var_dump($day); 
+                                                            $day = $interval->format('%d');if ($day == '0') {$day = '0';}
+                                                            // var_dump($day); 
+                                                            $day_to_hours = $day * 24;
                                                         }
-                                                        $day_to_hours = $day * 24;
                                                         $hours = $day_to_hours + $interval->format('%h') . 'h ';if ($hours == '0h ') {$hours = '';}
                                                         $minutes = $interval->format('%i') . 'm ';if ($minutes == '0m ') {$minutes = '';}
                                                         $seconds = $interval->format('%s') . 'sec';

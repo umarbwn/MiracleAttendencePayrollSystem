@@ -115,14 +115,21 @@
                                                             $clock_out = new DateTime($employee->emp_clock_out);
                                                             $interval = date_diff($clock_in, $clock_out);
                                                             
-                                                            $day = $interval->format('%d') . 'd ';if ($day == '0d ') {$day = '';}
-                                                            $day_to_hours = $day * 24;
+                                                            $day_to_hours = 0;
+                                                            $day = $interval->format('%d');if ($day == '0') {$day = '0';}
+                                                            // echo $day;
+                                                            if($day != null){
+                                                                $day_to_hours = $day * 24;
+                                                            }
                                                             // echo $day_to_hours;
-                                                            $hours = $interval->format('%h') . 'h ';if ($hours == '0h ') {$hours = '';}
+                                                            $hours = (int)$interval->format('%h') + (int)$day_to_hours;
+                                                            // echo $hours.' | '.
+                                                            $hours =  $hours. 'h ';if ($hours == '0h ') {$hours = '';}
+                                                            // var_dump($hours);
                                                             $minutes = $interval->format('%i') . 'm ';if ($minutes == '0m ') {$minutes = '';}
                                                             $seconds = $interval->format('%s') . 'sec';
                                                             // echo $employee->
-                                                            // echo $hours . $minutes . $seconds;
+                                                            echo $hours . $minutes . $seconds;
                                                         ?>
                                                     </td>
                                                     <td>Total</td>

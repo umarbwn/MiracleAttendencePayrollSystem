@@ -15,14 +15,14 @@ class TimeClockModel extends CI_Model
         if (empty($check_id)) {
             $this->db->insert('time_clock', $data);
             $insert_id = $this->db->insert_id();
-            if ($insert_id) {
-                $day_counter_data = array(
-                    'clock_index' => $insert_id,
-                    'emp_id' => $data['emp_id'],
-                    'clock_time' => null
-                );
-                $response = $this->db->insert('clock_day_counter', $day_counter_data);
-            }
+            // if ($insert_id) {
+            //     $day_counter_data = array(
+            //         'clock_index' => $insert_id,
+            //         'emp_id' => $data['emp_id'],
+            //         'clock_time' => null
+            //     );
+            //     $response = $this->db->insert('clock_day_counter', $day_counter_data);
+            // }
             return $insert_id;
         } else {
             return 'exists';
@@ -320,6 +320,7 @@ class TimeClockModel extends CI_Model
 
     public function get_clk_day_counter_details($emp_id, $tc_id)
     {
+        // echo $emp_id; exit;
         $response = $this->db
             ->where([
                 'emp_id' => $emp_id,
@@ -327,22 +328,26 @@ class TimeClockModel extends CI_Model
                 'clock_time !=' => null
             ])
             ->get('clock_day_counter')
-            ->row();
+            ->result();
         return $response;
     }
     public function add_overtime_day_counter($current_date){
         $response = $this->db
-            ->select('e.clock_index, e.emp_id AS e_emp_id, tc.emp_id AS tc_emp_id, tc.clock_out_img')
-            ->join('time_clock tc', 'tc.id = e.clock_index AND tc.emp_id = e.emp_id', 'left')
-            ->where( [ 'tc.clock_out_img' => 0 ] )
-            ->get('clock_day_counter e')
-            ->result();
-            
-        return $response;
-
-        // $response = $this->db
-        //     ->set( [ 'clock_time' => $current_date ] )
-        //     ->where(  )
+            ->select('id as clock_index, emp_id')
+            ->where( [ 'clock_out_img' => '0' ] )
+            ->get('time_clock')
+            ->result_array();
+        // return $response;
+        if($response){
+            foreach($response as $result){
+                $data = array(
+                    'clock_index'   => $result['clock_index'],
+                    'emp_id'      => $result['emp_id'],
+                    'clock_time'    => $current_date
+                );
+                $this->db->insert('clock_day_counter', $data);
+            }
+        }
     }
 
 }
