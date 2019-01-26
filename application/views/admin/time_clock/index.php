@@ -26,13 +26,14 @@
                                     <input type="hidden" name="long" value="" id="long">
                                     <div class="btn-group btn-group-justified">
                                         <a type="submit" class="btn btn-success" id="capture-image">
-                                            <i class="fas fa-camera-retro"></i> <span>Capture Image</span>
+                                            <img src="<?php echo base_url('assets/images/spinner.svg'); ?>" alt="Loading" class="btn-spinner">
+                                            <i class="fas fa-camera-retro"></i> <span>Capture Image and Clock In</span>
                                         </a>
-                                        <a href="#" class="btn btn-primary disabled" id="btn-get-loc">
+                                        <!-- <a href="#" class="btn btn-primary disabled" id="btn-get-loc">
                                             <img src="<?php echo base_url('assets/images/spinner.svg'); ?>" alt="Loading" class="btn-spinner">
                                             Get location
                                         </a>
-                                        <a href="#" class="btn btn-primary disabled" id="btn-clock-in">Clock In</a>
+                                        <a href="#" class="btn btn-primary disabled" id="btn-clock-in">Clock In</a> -->
                                     </div> 
                                 </form>
                             </div>

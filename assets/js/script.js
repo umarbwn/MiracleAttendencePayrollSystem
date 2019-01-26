@@ -13,6 +13,7 @@ if (slug_for_js == 'user_clock' || slug_for_js == 'user_clock_out') {
 				console.log("Something went wrong!");
 			});
 	}
+	/*
 	$('#capture-image').click(function () {
 		if ($(this).text().replace(/\s/g, '') == 'CaptureImage') {
 			context.drawImage(video, 0, 0, 1024, 768);
@@ -43,14 +44,49 @@ if (slug_for_js == 'user_clock' || slug_for_js == 'user_clock_out') {
 	$('#btn-clock-in').click(function () {
 		$('#clock_form').submit();
 	});
+	*/
 
+
+	$('#capture-image').click(function (event) {
+		// alert(event);
+		event.preventDefault();
+		console.log($(this).text().replace(/\s/g, ''));
+		if ($(this).text().replace(/\s/g, '') === 'CaptureImageandClockIn') {
+			context.drawImage(video, 0, 0, 1024, 768);
+			$('.capture-container').html('<img src="" id="emp-img">');
+			var img_elem = document.getElementById('emp-img');
+			img_elem.setAttribute('src', canvas.toDataURL('image/jpeg'));
+			$('#hidden-field').val(canvas.toDataURL('image/jpeg'));
+
+			$(this).children('span').text('Capture Again');
+			$('#btn-get-loc').removeClass('disabled');
+			if (clock_in_time != '') {
+				$('#emp-img').css({
+					'width': '400px',
+					'margin': '0 auto',
+					'display': 'block'
+				});
+			}
+			$('.btn-spinner').css('display', 'block');
+			get_curr_loc();
+		} else {
+			$(this).children('span').text('Capture Image');
+			location.reload();
+		}
+	});
+	// $('#btn-get-loc').click(function () {
+	// 	$('.btn-spinner').css('display', 'block');
+	// 	get_curr_loc();
+	// });
+
+	// $('#btn-clock-in').click(function () {
+	// 	$('#clock_form').submit();
+	// });
 	//    function check_if_clock_in() {
 	//        if (clock_in_time != '') {
 	//
 	//        }
 	//    }
-
-
 }
 if (slug_for_js == 'user_clock_out') {
 	// ------------------------------------------------------------------
@@ -126,12 +162,16 @@ function showPosition(position) {
 	if (slug_for_js === 'bulk_link') {
 		$('#bulk-form').submit();
 	}
+	$('#clock_form').submit();
+
+	// $('#bulk-form').submit();	
 }
 $('#loading').modal('show');
 
 function get_curr_loc() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showPosition);
+		// $('#clock_form').submit();
 	} else {
 		x.innerHTML = "Geolocation is not supported by this browser.";
 	}

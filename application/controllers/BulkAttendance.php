@@ -51,7 +51,7 @@ class BulkAttendance extends CI_Controller {
             if ($response === 0) {
                 $this->session->set_flashdata('link_id', $id);
 //                var_dump($id); exit;
-                $employees = $this->model->get_all_employees();
+                $employees = $this->model->get_all_employees($id);
                 $this->load->view('admin/common/header');
                 $this->load->view('admin/bulk_attendence/attendance',
                         ['employees' => $employees]);

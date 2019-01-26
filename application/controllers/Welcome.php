@@ -29,7 +29,7 @@ class Welcome extends MY_Controller
 		// print_r($output);
 		// exit;
 		$this->load->view('admin/common/header');
-		$this->load->view('welcome_message');
+		$this->load->view('admin/dashboard/index');
 		$this->load->view('admin/common/footer');
 	}
 }
