@@ -37,7 +37,8 @@ class Payroll extends MY_Controller
         //            $employee->total_time = $total_seconds;
         //        }
         $this->load->view('admin/common/header');
-        if(parent::$is_admin){
+        // var_dump($this->is_admin()); exit;
+        if($this->is_admin()){
             $this->load->view('admin/payroll/index', ['employees' => $response]);
         }else{
             $this->load->view('admin/payroll/user/index');

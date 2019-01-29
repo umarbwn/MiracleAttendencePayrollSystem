@@ -11,13 +11,14 @@ class TimeClock extends MY_Controller
     public function index(){
         $response = $this->get_time_clock();
 
-        //        var_dump($response); exit;
+            //    var_dump($response); exit;
         $data = array();
         $slug_for_js = "";
         $view_to_load = "";
         if (!empty($response)) {
-            $data['emp_clock_in'] = $response->emp_clock_in;
-            $data['clock_in_img'] = $response->clock_in_img;
+            $data['emp_clock_in']   = $response->emp_clock_in;
+            $data['clock_in_img']   = $response->clock_in_img;
+            $data['emp_id']         = $response->emp_id;
             $view_to_load = 'time_out';
         } else {
             $data['emp_clock_in'] = '';
@@ -84,6 +85,7 @@ class TimeClock extends MY_Controller
         } else {
             $emp_id = $this->session->userdata('user_id')['id'];
         }
+        // var_dump($emp_id); exit;
         date_default_timezone_set("Asia/Karachi");
         $lat = $this->input->post('lat');
         $long = $this->input->post('long');
@@ -178,6 +180,7 @@ class TimeClock extends MY_Controller
             $emp_id = $this->session->userdata('user_id')['id'];
         }
         $response = $this->model->get_clock_in($emp_id);
+        $response->emp_id = $emp_id;
         return $response;
     }
 
@@ -356,102 +359,108 @@ class TimeClock extends MY_Controller
         // exit;
         $results = $this->model->overtime_plus_leave_details($clock_details);
         $special_hours = json_decode($results->hrly_rate_chart)->special_hours;
+        
         // echo '<pre>';
         // print_r($special_hours);
-
-        $clock_in_hour = (int)date('H', strtotime($start_date));
-        $clock_in_day = date('D', strtotime($start_date));
-
-        $clock_out_hour = (int)date('H', strtotime($end_date));
-
-        $clock_out_minutes = (int)date('m', strtotime($end_date));
-        $clock_out_seconds = (int)date('s', strtotime($end_date));
-        $clock_out_day = date('D', strtotime($end_date));
-
-        // var_dump($clock_out_minutes);
-        // var_dump($clock_out_seconds);
-        $special_over_time = 0;
-
-        // var_dump(date('D', strtotime($start_date)));
-        // var_dump( date( 'h:i:s', strtotime($employee->emp_clock_out) ).' out' );
-
-        // var_dump(date('H', strtotime($start_date)));
-        // var_dump(date('H', strtotime($start_date)));
-
-        // for($i = $clock_in_hour; $i <= $clock_out_hour; $i++; ){
-        // }
-        $matched_hour = null;
-        // var_dump($clock_in_hour);
-        // var_dump($clock_out_hour);
         // exit;
-        $from_date = new DateTime($start_date);
-        $to_date = new DateTime($end_date);
+        if(!empty($special_hour)){
 
-        // for ($date = $from_date; $date <= $to_date; $date->modify('+1 day')) {
-        //     echo $date->format('l') . "\n";
-        // }
-
-        // $minutes = array();
-        // while (strtotime($start_date) <= strtotime($end_date)) {
-        //     $minutes[] = date('H:i:s', strtotime($start_date));
-        //     $start = date('H:i:s', strtotime(' + 1 hour', strtotime($start_date)));
-        // }
-        // var_dump($minutes);
-        // exit;
-        $last_counter = null;
-        // var_dump($start_date); exit;
-        if ($clk_counter_indexes) {
-            $clock_in_obj = $start_date;
-            // echo 'special times of foreach \n';
-            foreach ($clk_counter_indexes as $counter) {
+            $clock_in_hour = (int)date('H', strtotime($start_date));
+            $clock_in_day = date('D', strtotime($start_date));
+    
+            $clock_out_hour = (int)date('H', strtotime($end_date));
+    
+            $clock_out_minutes = (int)date('m', strtotime($end_date));
+            $clock_out_seconds = (int)date('s', strtotime($end_date));
+            $clock_out_day = date('D', strtotime($end_date));
+    
+            // var_dump($clock_out_minutes);
+            // var_dump($clock_out_seconds);
+            $special_over_time = 0;
+    
+            // var_dump(date('D', strtotime($start_date)));
+            // var_dump( date( 'h:i:s', strtotime($employee->emp_clock_out) ).' out' );
+    
+            // var_dump(date('H', strtotime($start_date)));
+            // var_dump(date('H', strtotime($start_date)));
+    
+            // for($i = $clock_in_hour; $i <= $clock_out_hour; $i++; ){
+            // }
+            $matched_hour = null;
+            // var_dump($clock_in_hour);
+            // var_dump($clock_out_hour);
+            // exit;
+            $from_date = new DateTime($start_date);
+            $to_date = new DateTime($end_date);
+    
+            // for ($date = $from_date; $date <= $to_date; $date->modify('+1 day')) {
+            //     echo $date->format('l') . "\n";
+            // }
+    
+            // $minutes = array();
+            // while (strtotime($start_date) <= strtotime($end_date)) {
+            //     $minutes[] = date('H:i:s', strtotime($start_date));
+            //     $start = date('H:i:s', strtotime(' + 1 hour', strtotime($start_date)));
+            // }
+            // var_dump($minutes);
+            // exit;
+            $last_counter = null;
+            // var_dump($start_date); exit;
+            if ($clk_counter_indexes) {
+                $clock_in_obj = $start_date;
+                // echo 'special times of foreach \n';
+                foreach ($clk_counter_indexes as $counter) {
+                    $special_over_time += $this->special_hours_counter(
+                        $clock_in_hour,
+                        $special_hours,
+                        $clock_in_day,
+                        $per_hour_salary,
+                        23,
+                        $clock_in_obj,
+                        null
+                    );
+                    // $clock_in_obj = null;
+                    $clock_in_hour = 0;
+                    $last_counter = $counter;
+                    // echo '<h1>';
+                    // echo $special_over_time;
+                    // echo '</h1>';
+                }
+                // exit;
+    
+                // -----------------------------------------------------------
+                // exit;
+                $last_counter = (int)date('H', strtotime($last_counter->clock_time));
+                // echo '<pre>';
+                // print_r($last_counter);
+                // echo 'last counter';
+                // exit;
                 $special_over_time += $this->special_hours_counter(
                     $clock_in_hour,
                     $special_hours,
                     $clock_in_day,
                     $per_hour_salary,
-                    23,
-                    $clock_in_obj,
-                    null
+                    $clock_out_hour,
+                    null,
+                    $end_date
                 );
-                // $clock_in_obj = null;
-                $clock_in_hour = 0;
-                $last_counter = $counter;
-                // echo '<h1>';
-                // echo $special_over_time;
-                // echo '</h1>';
+                // echo 'all special times \n';
+                // echo '<h2>'.$special_over_time.'</h2>';
+            } else {
+                $special_over_time = $this->special_hours_counter(
+                    $clock_in_hour,
+                    $special_hours,
+                    $clock_in_day,
+                    $per_hour_salary,
+                    $clock_out_hour
+                );
             }
+            // $one_clock_salary += $special_over_time;
+            // echo '<h2> one clock salary: '.$one_clock_salary.'</h2>';
             // exit;
-
-            // -----------------------------------------------------------
-            // exit;
-            $last_counter = (int)date('H', strtotime($last_counter->clock_time));
-            // echo '<pre>';
-            // print_r($last_counter);
-            // echo 'last counter';
-            // exit;
-            $special_over_time += $this->special_hours_counter(
-                $clock_in_hour,
-                $special_hours,
-                $clock_in_day,
-                $per_hour_salary,
-                $clock_out_hour,
-                null,
-                $end_date
-            );
-            // echo 'all special times \n';
-            // echo '<h2>'.$special_over_time.'</h2>';
-        } else {
-            $special_over_time = $this->special_hours_counter(
-                $clock_in_hour,
-                $special_hours,
-                $clock_in_day,
-                $per_hour_salary,
-                $clock_out_hour
-            );
+        }else{
+            $special_over_time = 0;
         }
-        // $one_clock_salary += $special_over_time;
-        // echo '<h2> one clock salary: '.$one_clock_salary.'</h2>';
-        // exit;
         $response = $this->model->update_per_clk_salary(
             $one_clock_salary,
             $special_over_time,
@@ -604,5 +613,15 @@ class TimeClock extends MY_Controller
         // echo "<h1> clock in per minute overtime = ".$per_minute_out_overtime."</h1>";
         $special_over_time = $special_over_time + $per_minute_overtime + $per_minute_out_overtime;
         return $special_over_time;
+    }
+
+    public function get_updated_time(){
+        $current_date = new DateTime(date('Y-m-d H:i:s'));
+        $clock_in_date = new DateTime($this->input->post('clock_in_time'));
+        $interval = date_diff($current_date, $clock_in_date);
+        $hour = $interval->format("%h");
+        $minute = $interval->format("%i");
+        $second = $interval->format("%s");
+        echo $hour."h : ".$minute."m : ".$second."s";
     }
 }

@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 // var_dump($this->session->userdata('user_id')['emp_image'] ); exit;
     $is_admin = $this->session->flashdata('is_admin');
+    // echo uri_string(); exit;
 ?>
 <!DOCTYPE html>
 <html>
@@ -166,7 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
 <!--          <li class="header text-center">staff</li>-->
-          <?php if($this->uri->segment(1) == ''): ?>
+          <?php if($this->uri->segment(1) == '' || $this->uri->segment(1) == 'welcome'): ?>
             <li class="active treeview">
               <a href="#">
                 <i class="fas fa-tachometer-alt"></i> &nbsp; &nbsp; <span>Dashboard</span>
@@ -175,11 +176,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                <li class="<?php if(uri_string() == ''){ echo 'active'; } ?>"><a href="<?php echo base_url(); ?>"><i class="fa fa-circle-o"></i> Dashbaord</a></li>
+                <li class="<?php if(uri_string() == 'welcome/inbox'){ echo 'active'; } ?>"><a href="<?php echo base_url('welcome/inbox'); ?>"><i class="fa fa-circle-o"></i> Inbox</a></li>
               </ul>
             </li>
-            <li>
+            <!-- <li>
               <a href="pages/calendar.html">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                 <span class="pull-right-container">
@@ -187,7 +188,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <small class="label pull-right bg-blue">17</small>
                 </span>
               </a>
-            </li>
+            </li> -->
           <?php endif; ?>
 
           <?php if($is_admin): ?>

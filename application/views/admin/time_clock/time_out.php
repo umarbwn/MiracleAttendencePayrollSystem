@@ -52,7 +52,29 @@
 </div>
 <script>
     var clock_in_time = '<?php echo $emp_clock_in; ?>';
+    // alert(clock_in_time);
     slug_for_js = 'user_clock_out';
 //     alert(clock_in_time);
+    // var server_time = "<?php echo date('Y-m-d H:i:s'); ?>";
+    // alert(server_time);
+    // date_default_timezone_set("Asia/Karachi"); 
+    // echo date("F j, Y, g:i a");
+    // var timestamp = "<?php echo date('F j, Y, g:i a'); ?>";
+    var base_url = "<?php echo base_url(); ?>";
+    var emp_id = "<?php echo $emp_id; ?>";
+    setInterval(function(){
+        $.ajax({
+            type: "POST",
+            url: base_url + "/TimeClock/get_updated_time/",
+            data: {
+                clock_in_time: clock_in_time
+            },
+            success: function(response){
+                $('#timer').html(response);
+                // console.log(response);
+            }
+        });
+    }, 1000);
+
 </script>
 

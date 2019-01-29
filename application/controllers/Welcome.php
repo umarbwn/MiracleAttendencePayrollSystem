@@ -32,4 +32,9 @@ class Welcome extends MY_Controller
 		$this->load->view('admin/dashboard/index');
 		$this->load->view('admin/common/footer');
 	}
+	public function inbox(){
+		$this->load->view('admin/common/header');
+		$this->load->view('admin/dashboard/inbox');
+		$this->load->view('admin/common/footer');
+	}
 }

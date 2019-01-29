@@ -23,7 +23,7 @@
                                 href="<?php 
                                         echo base_url(
                                                 'BulkAttendance'
-                                                . '/user_attendence/'.$employee->id); 
+                                                . '/user_attendence/'.$employee->emp_id); 
                                 ?>">
                                 <img
                                     style=""

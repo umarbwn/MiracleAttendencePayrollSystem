@@ -35,19 +35,21 @@ class BulkAttendance extends CI_Controller {
     public function bulk_attendence() {
         if(!empty($this->input->post('id')) &&
                 !empty($this->input->post('lat')) &&
-                !empty($this->input->post('lng'))){
-            $lat = $this->input->post('lat');
-            $lng = $this->input->post('lng');
-            $id = $this->input->post('id');
+                !empty($this->input->post('lng'))
+            ){
 
-            $bulk_link = $this->model->get_terminal_links($id);
+                $lat = $this->input->post('lat');
+                $lng = $this->input->post('lng');
+                $id = $this->input->post('id');
 
-            $device_loc = $this->lat_lng_to_loc($lat, $lng);
-            //        var_dump(json_decode($bulk_link[0]->t_location)->lat); exit;
-            $terminal_loc = $bulk_link[0]->t_location;
-//            $terminal_loc = $this->lat_lng_to_loc(
-//                    json_decode($bulk_link[0]->t_location)->lat, json_decode($bulk_link[0]->t_location)->lng);
-            $response = strcmp($device_loc, $terminal_loc);
+                $bulk_link = $this->model->get_terminal_links($id);
+
+                $device_loc = $this->lat_lng_to_loc($lat, $lng);
+                //        var_dump(json_decode($bulk_link[0]->t_location)->lat); exit;
+                $terminal_loc = $bulk_link[0]->t_location;
+    //            $terminal_loc = $this->lat_lng_to_loc(
+    //                    json_decode($bulk_link[0]->t_location)->lat, json_decode($bulk_link[0]->t_location)->lng);
+                $response = strcmp($device_loc, $terminal_loc);
             if ($response === 0) {
                 $this->session->set_flashdata('link_id', $id);
 //                var_dump($id); exit;
@@ -72,7 +74,7 @@ class BulkAttendance extends CI_Controller {
     public function user_attendence($id){
 //        var_dump($id); exit;
         $response = $this->model->get_emp_details($id);
-//        var_dump($response); exit;
+    //    var_dump($response); exit;
         $session_data = array(
             'id'            => $response->id,
             'name'          => $response->first_name.' '.$response->last_name,

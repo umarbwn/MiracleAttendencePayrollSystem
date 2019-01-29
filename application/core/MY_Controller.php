@@ -5,7 +5,6 @@ use myPHPnotes\Geocoding;
 
 class MY_Controller extends CI_Controller
 {
-    public static $is_admin;
     public function __construct()
     {
         parent::__construct();
@@ -16,9 +15,12 @@ class MY_Controller extends CI_Controller
         if (!$this->session->userdata('user_id')) {
             return redirect('Users');
         }
-        $is_admin = $this->session->userdata('user_id')['role'] == '' ? null : $this->session->userdata('user_id')['role'];
-        $this->session->set_flashdata('is_admin', $is_admin);
+        $this->session->set_flashdata('is_admin', $this->is_admin());
         $this->session->set_flashdata('active_slug', $this->active_slug());
+    }
+    public function is_admin(){
+        $is_admin = $this->session->userdata('user_id')['role'] == '' ? null : $this->session->userdata('user_id')['role'];
+        return $is_admin;
     }
     public function active_slug()
     {

@@ -27,8 +27,15 @@ class Users extends CI_Controller{
                     'phone_no'      => $response->phone_no,
                     'emp_image'     => $response->emp_image,
                     'role'          => $response->role,
+                    'email_addr'    => $response->email_addr
                 );
                 // var_dump($response); exit;
+                // $cookie = array([
+                //     'name'      => 'remember_me',
+                //     'value'     => $response->email_addr,
+
+                // ]);
+                // $this->input->set_cookie($cookie);
                 $this->session->set_userdata('user_id', $session_data);
                 return redirect('Welcome');
             }else{

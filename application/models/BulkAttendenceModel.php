@@ -29,12 +29,12 @@ class BulkAttendenceModel extends CI_Model{
     public function get_all_employees($id){
         // echo $id; exit;
         $response = $this->db
-            ->select('*')
-            ->join('terminal_links', 'terminal_links.position_id = employees.position', 'left')
+            ->select('e.id AS emp_id, e.emp_image, e.first_name, e.last_name')
+            ->join('terminal_links', 'terminal_links.position_id = e.position', 'left')
             ->join('positions', 'positions.id = terminal_links.position_id', 'left')
             ->join('terminals', 'positions.location = terminals.id', 'left')
             ->where( [ 'terminal_links.id' => $id ] )
-            ->get('employees')->result();
+            ->get('employees e')->result();
         return $response;
     }
     public function get_emp_details($id){
