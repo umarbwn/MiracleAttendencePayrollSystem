@@ -5,6 +5,8 @@
 <script>
 //    var slug_for_js = '<?php //echo $slug_for_js; ?>';
     // alert(page_uri);
+    base_url = "<?php echo base_url(); ?>";
+    var custom_base_url = "<?php echo base_url(); ?>";
 </script>
 <!-- ./wrapper -->
 <!-- jQuery 3 -->

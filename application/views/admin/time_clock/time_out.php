@@ -60,7 +60,6 @@
     // date_default_timezone_set("Asia/Karachi"); 
     // echo date("F j, Y, g:i a");
     // var timestamp = "<?php echo date('F j, Y, g:i a'); ?>";
-    var base_url = "<?php echo base_url(); ?>";
     var emp_id = "<?php echo $emp_id; ?>";
     setInterval(function(){
         $.ajax({
