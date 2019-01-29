@@ -94,43 +94,56 @@ if (slug_for_js == 'user_clock_out') {
 	// ------------------------------------------------------------------
 	var startDateTime = new Date(clock_in_time); // YYYY (M-1) D H m s ms (start time and date from DB)
 	var startStamp = startDateTime.getTime();
-
-	var newDate = new Date();
-	var newStamp = newDate.getTime();
+	// console.log(clock_in_time);
+	// console.log(server_time);
+	// var newDate = new Date(server_time);
+	// var newStamp = newDate.getTime();
 
 	var timer; // for storing the interval (to stop or pause later if needed)
-
+	// alert(base_url);
+	var server_time;
+	
 	function updateClock() {
-		newDate = new Date();
-		newStamp = newDate.getTime();
-		var diff = Math.round((newStamp - startStamp) / 1000);
-
-		var d = Math.floor(diff / (24 * 60 * 60)); /* though I hope she won't be working for consecutive days :) */
-		diff = diff - (d * 24 * 60 * 60);
-		var h = Math.floor(diff / (60 * 60));
-		diff = diff - (h * 60 * 60);
-		var m = Math.floor(diff / (60));
-		diff = diff - (m * 60);
-		var s = diff;
-
-		if (d == 0) {
-			d = '';
-		} else {
-			d = d + " D, ";
-		}
-		if (h == 0) {
-			h = '';
-		} else {
-			h = h + " H, ";
-		}
-		if (m == 0) {
-			m = '';
-		} else {
-			m = m + " m, ";
-		}
-		// document.getElementById("time-elapsed").innerHTML = d + " day(s), " + h + " hour(s), " + m + " minute(s), " + s + " second(s) working";
-		// console.log(d + " day(s), " + h + " hour(s), " + m + " minute(s), " + s + " second(s) working");
-		$('#timer').text(d + h + m + +s + " s");
+		$.ajax({
+			method: 'GET',
+			url: base_url+'/TimeClock/get_updated_time',
+			success: function(response){
+				server_time = response
+				// $('#timer').text(d + h + m + +s + " s");
+				// console.log(server_time);
+				// newDate = new Date(server_time);
+				// newStamp = newDate.getTime();
+				// var diff = Math.round((newStamp - startStamp) / 1000);
+		
+				// var d = Math.floor(diff / (24 * 60 * 60)); /* though I hope she won't be working for consecutive days :) */
+				// diff = diff - (d * 24 * 60 * 60);
+				// var h = Math.floor(diff / (60 * 60));
+				// diff = diff - (h * 60 * 60);
+				// var m = Math.floor(diff / (60));
+				// diff = diff - (m * 60);
+				// var s = diff;
+		
+				// if (d == 0) {
+				// 	d = '';
+				// } else {
+				// 	d = d + " D, ";
+				// }
+				// if (h == 0) {
+				// 	h = '';
+				// } else {
+				// 	h = h + " H, ";
+				// }
+				// if (m == 0) {
+				// 	m = '';
+				// } else {
+				// 	m = m + " m, ";
+				// }
+				// // document.getElementById("time-elapsed").innerHTML = d + " day(s), " + h + " hour(s), " + m + " minute(s), " + s + " second(s) working";
+				// // console.log(d + " day(s), " + h + " hour(s), " + m + " minute(s), " + s + " second(s) working");
+				// $('#timer').text(d + h + m + +s + " s");
+			}
+		});
+		// console.log(server_time);
 	}
 	if (clock_in_time != '') {
 		timer = setInterval(updateClock, 1000);
@@ -161,8 +174,9 @@ function showPosition(position) {
 	$('#long').val(long);
 	if (slug_for_js === 'bulk_link') {
 		$('#bulk-form').submit();
+	}else{
+		$('#clock_form').submit();
 	}
-	$('#clock_form').submit();
 
 	// $('#bulk-form').submit();	
 }
@@ -418,3 +432,91 @@ function hourly_rate_chart(table_class){
 }
 hourly_rate_chart('.table-hourly-chart');
 hourly_rate_chart('.table-hourly-chart1');
+
+
+// alert(server_time);
+var timestamp = 1;
+// var dateString = server_time,
+// 	dateTimeParts = dateString.split(' '),
+// 	timeParts = dateTimeParts[1].split(':'),
+// 	dateParts = dateTimeParts[0].split('-'),
+// 	date;
+
+// date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+
+// timestamp = date.getTime() + timestamp
+
+// -----------------------------------------------------------------
+// console.log(timestamp); //1379426880000
+// function updateTime(){
+// 	d = new Date(Date.UTC(timestamp));
+// 	d.getSeconds(d.getSeconds() + 1);
+// 	console.log(d.getHours() +':' + d.getMinutes() + ':' + d.getSeconds());
+// 	// var timestamp = date.getTime(); 
+// 	// console.log( Date(timestamp) );
+// 	// timestamp++;
+// }
+// $(function(){
+// 	setInterval(updateTime, 1000);
+// });
+
+// var usaTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Karachi"});
+// usaTime = new Date(usaTime);
+// console.log('USA time: '+usaTime.toLocaleString());
+// date = new Date(timestamp);
+// console.log(date);
+
+
+
+
+
+/*
+---------------------------------------------------------------------------------------
+								Notice module logic
+---------------------------------------------------------------------------------------
+*/
+$('#notice-form').on('submit', function(event){
+	event.preventDefault();
+	var form_data = $(this);
+	// alert(custom_base_url);
+	$.ajax({
+		url: custom_base_url + 'Welcome/add_notice',
+		type: 'POST',
+		data: form_data.serialize(),
+		dataType: 'json',
+		success: function(response){
+			if(response.success === true){
+				window.location.href = base_url;
+			}else{
+				$('#name_error').html(response.errors.name);
+				$('#desc_error').html(response.errors.description);
+			}
+			
+		},
+		error: function(){
+			console.log('error');
+		}
+	});
+});
+
+
+function delete_notice() {
+	// $.ajax({
+	// 	url: base_url + 'Welcome/delete_notice/',
+	// 	data: { id: "hello" },
+	// 	type: 'POST',
+	// 	dataType: 'json',
+	// 	success: function(response){
+	// 		console.log(response);
+	// 	},
+	// 	error: function(){
+	// 		console.log('error');
+	// 	}
+	// });
+	$("#delete-form").submit();
+}
+
+function add_delete_id(id){
+	$('#btn-delete-notice').attr('onclick', "delete_notice("+id+")");
+	$('#delete-form').attr("action", custom_base_url + "Welcome/delete_notice/" + id );
+}
