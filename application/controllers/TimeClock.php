@@ -180,7 +180,9 @@ class TimeClock extends MY_Controller
             $emp_id = $this->session->userdata('user_id')['id'];
         }
         $response = $this->model->get_clock_in($emp_id);
-        $response->emp_id = $emp_id;
+        if(isset($response)){
+            $response->emp_id = $emp_id;
+        }
         return $response;
     }
 
@@ -353,6 +355,7 @@ class TimeClock extends MY_Controller
         }
 
         // ---------------------------------------------------------
+        // $response = '';
         $clk_counter_indexes = $this->model->get_clk_day_counter_details($emp_id, $insert_id);
         // echo '<pre>';
         // print_r($clk_counter_indexes);
@@ -361,10 +364,10 @@ class TimeClock extends MY_Controller
         $special_hours = json_decode($results->hrly_rate_chart)->special_hours;
         
         // echo '<pre>';
-        // print_r($special_hours);
+        // var_dump($special_hours);
         // exit;
-        if(!empty($special_hour)){
-
+        if(!empty($special_hours)){
+            // echo 'coming in if'; exit;
             $clock_in_hour = (int)date('H', strtotime($start_date));
             $clock_in_day = date('D', strtotime($start_date));
     
@@ -460,6 +463,7 @@ class TimeClock extends MY_Controller
             // exit;
         }else{
             $special_over_time = 0;
+            // echo 'coming in else';
         }
         $response = $this->model->update_per_clk_salary(
             $one_clock_salary,
@@ -601,7 +605,6 @@ class TimeClock extends MY_Controller
                             
                             $clock_out_obj = null;
                         }
-                        
                         $overtime_special_hour = $special_hour - 100;    
                         $over_time = $per_hour_salary * $overtime_special_hour;
                         $over_time = $over_time / 100;
@@ -616,6 +619,7 @@ class TimeClock extends MY_Controller
     }
 
     public function get_updated_time(){
+        date_default_timezone_set("Asia/Karachi");
         $current_date = new DateTime(date('Y-m-d H:i:s'));
         $clock_in_date = new DateTime($this->input->post('clock_in_time'));
         $interval = date_diff($current_date, $clock_in_date);
