@@ -59,9 +59,14 @@
                                                     value="<?php echo base_url('BulkAttendance/index/'.$terminal->tl_id); ?>">
                                             </td>
                                             <td>
+                                                <a
+                                                    href="<?php 
+                                                        echo base_url('TimeClock/update_terminal_link/')
+                                                        .$terminal->t_id; ?>"
+                                                    class="btn btn-primary btn-sm" >Update</a>
                                                 <button 
                                                     onclick="delete_terminal_link(<?php echo $terminal->tl_id; ?>)"
-                                                    class="btn btn-primary btn-sm" 
+                                                    class="btn btn-danger btn-sm" 
                                                     data-toggle="modal" 
                                                     data-target="#dialoge">Delete</button>
                                             </td>

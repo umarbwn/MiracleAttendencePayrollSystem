@@ -295,6 +295,57 @@ class TimeClock extends MY_Controller
         }
     }
 
+    public function update_terminal_link($id = ""){
+        $response = $this->model->get_terminal_link_data($id);
+        $positions = $this->model->get_all_positions();
+        $locations = $this->model->get_clock_locations();
+        //        foreach($locations as $location){
+        //            $location->location = $this->lat_lng_to_loc(
+        //                    json_decode($location->location)->lat,
+        //                    json_decode($location->location)->lng
+        //            );
+        //        }
+        //        exit;
+        //        var_dump($locations); exit;
+        $this->form_validation->set_rules(
+            'position_id[]',
+            'Position',
+            'callback_position_check'
+        );
+        $this->form_validation->set_rules(
+            'location',
+            'Location',
+            'callback_location_check'
+        );
+        //        $this->form_validation->set_rules(
+        //                'location_id',
+        //                'Location',
+        //                'callback_location_check');
+        if ($this->form_validation->run()) {
+            $location = $this->input->post('location');
+            $position_ids = $this->input->post('position_id');
+            foreach($position_ids as $position_id){
+                $data = array(
+                    'location_id' => $location,
+                    'position_id' => $position_id,
+                );
+                $response = $this->model->update_terminal_link($data, $location);
+            }
+            if ($response) {
+                $this->session->set_flashdata('success_msge', 'Terminal link added successfully!');
+                return redirect('TimeClock/terminal_links');
+            }
+        } else {
+            $this->load->view('admin/common/header');
+            $this->load->view('admin/time_clock/update_link', [
+                'positions' => $positions,
+                'locations' => $locations,
+                'exist_positions' => $response
+            ]);
+            $this->load->view('admin/common/footer');
+        }
+    }
+
     public function delete_terminal_link($id){
         $response = $this->model->delete_terminal_links($id);
         if($response){

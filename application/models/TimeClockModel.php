@@ -176,25 +176,50 @@ class TimeClockModel extends CI_Model
         $response = $this->db->insert('terminal_links', $data);
         return $response;
     }
-
-    public function get_terminal_links()
+    public function update_terminal_link($data, $location)
     {
+        $response = $this->db
+            ->set($data)
+            ->where([ 'location_id' => $location ])
+            ->update('terminal_links');
+        return $response;
+    }
+
+    public function get_terminal_links(){
         $response = $this->db
             ->select(
                 'tl.id AS tl_id, '
                     . 'tl.position_id,'
                     . 'p.id AS p_id, '
-                    . 'p.name AS p_name, '
+                    . 'GROUP_CONCAT(p.name SEPARATOR " | ") AS p_name,'
                     . 'p.location AS p_loc_id, '
                     . 't.id AS t_id, '
                     . 't.location AS t_location, '
-                    . 't.name AS t_name'
+                    . 't.name AS t_name,'
+                    . 'tl.location_id,'
             )
             ->join('positions p', 'tl.position_id = p.id', 'left')
-            ->join('terminals t', 'p.location = t.id', 'left')
+            ->join('terminals t', 'tl.location_id = t.id', 'left')
+            ->group_by('tl.location_id')
             ->get('terminal_links tl')
             ->result();
 
+        return $response;
+    }
+
+    public function get_terminal_link_data($id){
+        $response = $this->db
+            ->select(
+                't.id AS t_id,'
+                .'t.name AS t_name,'
+                .'p.id,'
+                .'p.name,'
+            )
+            ->join('positions p', 'tl.position_id = p.id')
+            ->join('terminals t', 'tl.location_id = t.id')
+            ->where([ 'location_id' => $id ])
+            ->get('terminal_links tl')
+            ->result();
         return $response;
     }
 
