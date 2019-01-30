@@ -26,7 +26,7 @@ class Staff extends MY_Controller
         $this->form_validation->set_rules(
             'last_name', 'Last Name', 'required');
         $this->form_validation->set_rules(
-            'phone_no', 'Phone #', 'required|min_length[11]|max_length[11]|numeric');
+            'phone_no', 'Phone #', 'required|min_length[11]|max_length[11]|numeric|is_unique[employees.phone_no]');
         $this->form_validation->set_rules(
             'email_addr', 'Email', 'valid_email|is_unique[employees.email_addr]');
         $this->form_validation->set_rules(
@@ -170,23 +170,21 @@ class Staff extends MY_Controller
     {
         //     var_dump($id); exit;
         //        $img_id = $this->
-        $data = $this->model->delete_employee($id);
-        //   var_dump($data); exit;
-        if ($data['response']) {
-            $this->load->helper('file');
-            delete_files('uploads/staff/emp_clock_in_out/' . $id, true);
-            if (file_exists('uploads/staff/emp_clock_in_out/' . $id)) {
-                rmdir('uploads/staff/emp_clock_in_out/' . $id);
+        $response = $this->model->delete_clock_counter($id);
+        if($response){
+            $data = $this->model->delete_employee($id);
+            if ($data['response']) {
+                $this->load->helper('file');
+                delete_files('uploads/staff/emp_clock_in_out/' . $id, true);
+                if (file_exists('uploads/staff/emp_clock_in_out/' . $id)) {
+                    rmdir('uploads/staff/emp_clock_in_out/' . $id);
+                }
+                unlink('uploads/staff/employees/' . $data['image_name']->emp_image);
+                $this->session->set_flashdata('success_msge', 'Employee delete successfully!');
+                return redirect('Staff/index');
             }
-//            if(){
-            //                rmdir('uploads/staff/emp_clock_in_out/' . $id);
-            //            }
-            //            var_dump($data);
-            //            exit;
-            unlink('uploads/staff/employees/' . $data['image_name']->emp_image);
-//            delete_files('uploads/staff/employees/'.$data['image_name']->emp_image);
-            $this->session->set_flashdata('success_msge', 'Employee delete successfully!');
-            return redirect('Staff/index');
+        }else{
+            echo '<h1 class="text-center">Unable to delete employee</h1>';
         }
     }
 

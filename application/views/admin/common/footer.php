@@ -51,10 +51,13 @@
 <script src="<?php echo base_url('assets/adminlte/'); ?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- iCheck 1.0.1 -->
 <script src="<?php echo base_url('assets/adminlte/'); ?>plugins/iCheck/icheck.min.js"></script>
-
+<!-- Select2 -->
+<script src="<?php echo base_url('assets/adminlte/'); ?>bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- page script -->
 <script>
     $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
         $('#example2').DataTable({
             'paging'      : true,
             'lengthChange': false,

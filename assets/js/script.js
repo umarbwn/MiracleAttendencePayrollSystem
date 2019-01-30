@@ -344,14 +344,27 @@ $('.tooltip-marker').on('mouseout', function () {
 	$(this).parent().children('.my-tooltip').hide();
 });
 
-//-----------------------------------------------------------------
-//                      Get id for delete row
-//-----------------------------------------------------------------
-function get_delete_id(id) {
-	var form_action = base_url + id;
+/*-----------------------------------------------------------------
+			Delete the employee
+-----------------------------------------------------------------*/
+function delete_employee(id) {
+	var form_action = emp_del_form_action + id;
 	$('#delete-form').attr('action', form_action);
 }
 
+/*-----------------------------------------------------------------
+			Delete terminal link
+-----------------------------------------------------------------*/
+function delete_terminal_link(id) {
+	var form_action = delete_terminal_link_url + id;
+	$('#delete-form').attr('action', form_action);
+}
+
+/* 
+----------------------------------------------------------------------
+				Salary select details
+----------------------------------------------------------------------
+*/
 $('#select-salary-type').on('change', function () {
 	// Store
 	localStorage.setItem("salary_type", $(this).val());
@@ -501,22 +514,38 @@ $('#notice-form').on('submit', function(event){
 
 
 function delete_notice() {
-	// $.ajax({
-	// 	url: base_url + 'Welcome/delete_notice/',
-	// 	data: { id: "hello" },
-	// 	type: 'POST',
-	// 	dataType: 'json',
-	// 	success: function(response){
-	// 		console.log(response);
-	// 	},
-	// 	error: function(){
-	// 		console.log('error');
-	// 	}
-	// });
 	$("#delete-form").submit();
 }
 
 function add_delete_id(id){
 	$('#btn-delete-notice').attr('onclick', "delete_notice("+id+")");
 	$('#delete-form').attr("action", custom_base_url + "Welcome/delete_notice/" + id );
+}
+
+function edit_notice(id){
+	if($('#add-notice').hasClass() === 'active'){
+		$('#add-notice').removeClass('active');
+		$('#all-notices').addClass('active');
+		$('#btn-add-new').parent().removeClass('active');
+		$('#btn-all-notices').parent().addClass('active');
+	}else{
+		$('#add-notice').addClass('active');
+		$('#all-notices').removeClass('active');
+		$('#btn-all-notices').parent().removeClass('active');
+		$('#btn-add-new').parent().addClass('active');
+	}
+	get_single_notice_data(id);
+}
+
+function get_single_notice_data(id){
+	$.ajax({
+		url: base_url + 'Welcome/get_single_notice/'+id,
+		type: 'get',
+		success: function(response){
+			console.log(response);
+			// $('#id').val(response.id);
+			// $('#name').val(response.name);
+			// $('#description').val(response.description);
+		}
+	});
 }

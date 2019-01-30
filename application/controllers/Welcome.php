@@ -8,7 +8,7 @@ class Welcome extends MY_Controller
 		$this->load->model('WelcomeModel', 'model');
 	}
 	public function index(){
-		$employees = $this->model->get_all_online_users();
+	    $employees = $this->model->get_all_online_users();
 		$notices = $this->model->get_all_notices();
 		// var_dump($employees);
 		$this->load->view('admin/common/header');
@@ -69,5 +69,15 @@ class Welcome extends MY_Controller
 		}else{
 			$this->session->set_flashdata('error_msge', 'Unable to delete!');
 		}
+	}
+
+	public function get_single_notice($id){
+		$response = $this->model->get_single_notice($id);
+		$data['data'] = array(
+			'id'	=> $response->id,
+			'name'	=> $response->name,
+			'description'	=> $response->description
+		);
+		echo json_encode($data);
 	}
 }

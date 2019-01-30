@@ -101,4 +101,11 @@ class StaffModel extends CI_Model {
                 ->update('employees');
         return $response;
     }
+
+    public function delete_clock_counter($id){
+        $response = $this->db
+            ->where([ 'emp_id' => $id ])
+            ->delete('clock_day_counter');
+        return $response;
+    }
 }

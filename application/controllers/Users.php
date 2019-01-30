@@ -12,7 +12,6 @@ class Users extends CI_Controller{
     public function emp_login(){
         $this->form_validation->set_rules('email_addr', 'Email address', 'required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required');
-
         if($this->form_validation->run()){
             $data = array(
                 'email_addr' => $this->input->post('email_addr'),

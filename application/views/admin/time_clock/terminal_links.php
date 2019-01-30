@@ -59,7 +59,11 @@
                                                     value="<?php echo base_url('BulkAttendance/index/'.$terminal->tl_id); ?>">
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-primary btn-sm">Delete</a>
+                                                <button 
+                                                    onclick="delete_terminal_link(<?php echo $terminal->tl_id; ?>)"
+                                                    class="btn btn-primary btn-sm" 
+                                                    data-toggle="modal" 
+                                                    data-target="#dialoge">Delete</button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

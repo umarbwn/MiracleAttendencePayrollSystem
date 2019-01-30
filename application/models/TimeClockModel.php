@@ -353,4 +353,19 @@ class TimeClockModel extends CI_Model
         }
     }
 
+    public function remove_day_counter($emp_id){
+        $response = $this->db
+            ->where([ 'emp_id' => $emp_id ])
+            ->delete('clock_day_counter');
+        $response;
+    }
+
+    public function delete_terminal_links($id){
+        $response = $this->db
+            ->where([ 'id' => $id ])
+            ->delete('terminal_links');
+            
+        return $response;
+    }
+
 }

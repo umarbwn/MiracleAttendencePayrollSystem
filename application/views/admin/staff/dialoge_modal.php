@@ -21,5 +21,5 @@
     <!-- /.modal-dialog -->
 </div>
 <script>
-    var base_url = '<?php echo base_url('Staff/delete_employee/'); ?>';
+    var emp_del_form_action = '<?php echo base_url('Staff/delete_employee/'); ?>';
 </script>

@@ -7,7 +7,8 @@ class WelcomeModel extends CI_Model{
                 e.last_name,
                 e.emp_image,
                 e.payroll_card,
-                p.name
+                p.name,
+                tc.emp_clock_in
             ')
             ->join('positions p', 'p.id = e.position', 'join')
             ->join('time_clock tc', 'tc.emp_id = e.id', 'join')
@@ -31,7 +32,6 @@ class WelcomeModel extends CI_Model{
             ->order_by('id', 'DESC')
             ->get('notices')
             ->result();
-
         return $response;
     }
 
@@ -42,5 +42,15 @@ class WelcomeModel extends CI_Model{
             ])
             ->delete('notices');
         return $response;
+    }
+
+    public function get_single_notice($id){
+        $response = $this->db
+			->where([
+				'id' => $id
+			])
+			->get('notices')
+			->row();
+		return $response;
     }
 }

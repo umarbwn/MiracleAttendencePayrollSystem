@@ -230,6 +230,8 @@ class TimeClock extends MY_Controller
 
     public function terminal_links() {
         $terminals = $this->model->get_terminal_links();
+        // var_dump($terminals); exit;
+        
         /*
         foreach ($terminals as $terminal) {
         $terminal->t_location = $this->lat_lng_to_loc(
@@ -240,11 +242,13 @@ class TimeClock extends MY_Controller
         //        exit;
         $this->load->view('admin/common/header');
         $this->load->view('admin/time_clock/terminal_links', ['terminals' => $terminals]);
+        $this->load->view('admin/time_clock/dialoge_modal');
         $this->load->view('admin/common/footer');
     }
 
     public function generate_terminal_link() {
         $positions = $this->model->get_all_positions();
+        $locations = $this->model->get_clock_locations();
         //        foreach($locations as $location){
         //            $location->location = $this->lat_lng_to_loc(
         //                    json_decode($location->location)->lat,
@@ -254,19 +258,29 @@ class TimeClock extends MY_Controller
         //        exit;
         //        var_dump($locations); exit;
         $this->form_validation->set_rules(
-            'position_id',
+            'position_id[]',
             'Position',
             'callback_position_check'
+        );
+        $this->form_validation->set_rules(
+            'location',
+            'Location',
+            'callback_location_check'
         );
         //        $this->form_validation->set_rules(
         //                'location_id',
         //                'Location',
         //                'callback_location_check');
         if ($this->form_validation->run()) {
-            $data = array(
-                'position_id' => $this->input->post('position_id'),
-            );
-            $response = $this->model->add_terminal_link($data);
+            $location = $this->input->post('location');
+            $position_ids = $this->input->post('position_id');
+            foreach($position_ids as $position_id){
+                $data = array(
+                    'location_id' => $location,
+                    'position_id' => $position_id,
+                );
+                $response = $this->model->add_terminal_link($data);
+            }
             if ($response) {
                 $this->session->set_flashdata('success_msge', 'Terminal link added successfully!');
                 return redirect('TimeClock/terminal_links');
@@ -275,8 +289,20 @@ class TimeClock extends MY_Controller
             $this->load->view('admin/common/header');
             $this->load->view('admin/time_clock/generate_link', [
                 'positions' => $positions,
+                'locations' => $locations,
             ]);
             $this->load->view('admin/common/footer');
+        }
+    }
+
+    public function delete_terminal_link($id){
+        $response = $this->model->delete_terminal_links($id);
+        if($response){
+            $this->session->set_flashdata('success_msge', 'Terminal link deleted successfully!');
+            return redirect('TimeClock/terminal_links');
+        }else{
+            $this->session->set_flashdata('error_msge', 'Unable to delete terminal link!');
+            return redirect('TimeClock/terminal_links');
         }
     }
 
@@ -293,7 +319,8 @@ class TimeClock extends MY_Controller
     }
 
     public function position_check($str) {
-        if ($str == '') {
+        // var_dump($str);
+        if ($str === null) {
             $this->form_validation->set_message(
                 'position_check',
                 'Please select position'
@@ -449,6 +476,10 @@ class TimeClock extends MY_Controller
                 );
                 // echo 'all special times \n';
                 // echo '<h2>'.$special_over_time.'</h2>';
+                $response = $this->model->remove_day_counter($emp_id);
+                if(!$response){
+                    echo '<h1 class="text-center">Unable to delete day counter from DB.</h1>';
+                }
             } else {
                 $special_over_time = $this->special_hours_counter(
                     $clock_in_hour,

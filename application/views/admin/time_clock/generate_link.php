@@ -17,36 +17,55 @@
                     <!-- /.box-header -->
                     <!-- form start -->
                     <?php echo form_open_multipart('TimeClock/generate_terminal_link');?>
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3">
-                                    <div class="form-group">
-                                        <label for="position_id">Select position:</label>
-                                        <select class="form-control" name="position_id">
-                                            <option value="">Select location</option>
-                                            <?php foreach($positions as $position): ?>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-3 col-sm-offset-3">
+                                <div class="form-group">
+                                    <label for="position_id">Select location</label>
+                                    <select class="form-control" name="location">
+                                        <option value="">Select location</option>
+                                        <?php foreach($locations as $location): ?>
+                                            <option value="<?php echo $location->id; ?>">
+                                                <?php echo $location->name; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?php echo form_error('location',
+                                                '<span class="form-error">',
+                                                '</span>'); ?>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Select positions</label>
+                                    <select class="form-control select2" multiple="multiple"
+                                        name="position_id[]"
+                                        data-placeholder="Select a State" style="width: 100%;">
+                                        <?php foreach($positions as $position): ?>
                                             <option value="<?php echo $position->id; ?>">
                                                 <?php echo $position->name; ?>
                                             </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <?php echo form_error('position_id',
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?php echo form_error('position_id[]',
                                                 '<span class="form-error">',
                                                 '</span>'); ?>
-                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Generate link</button>
                                 </div>
                             </div>
                         </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Generate link</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -55,4 +74,3 @@
         <!-- /.row -->
     </section>
 </div>
-

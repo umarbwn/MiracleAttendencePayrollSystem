@@ -97,7 +97,7 @@
                                                             class="btn btn-danger btn-sm" 
                                                             type="button" 
                                                             data-toggle="modal"
-                                                            onclick="get_delete_id(<?php echo $employee->id; ?>);"
+                                                            onclick="delete_employee(<?php echo $employee->id; ?>);"
                                                             data-target="#dialoge">Delete</button>
                                                     </td>
                                                 <?php else: ?>

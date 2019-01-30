@@ -12,7 +12,7 @@
             <form id="delete-form">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No</button>
-                    <button type="submit" id="btn-delete-url" class="btn btn-outline">Yes</button>
+                    <button type="submit" class="btn btn-outline">Yes</button>
                 </div>
             </form>
         </div>
@@ -21,5 +21,6 @@
     <!-- /.modal-dialog -->
 </div>
 <script>
-    var base_url = '<?php echo base_url('TimeClock/delete_location/'); ?>';
+    var delete_terminal_link_url = '<?php echo base_url('TimeClock/delete_terminal_link/'); ?>';
+    // alert(delete_terminal_link);
 </script>
