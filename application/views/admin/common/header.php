@@ -109,13 +109,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
               <li class="<?php echo ($this->uri->segment(1) == 'ratecard' || uri_string() == 'ratecard') ? 'active' : ''; ?>">
                   <a href="<?php echo base_url('ratecard'); ?>">
-                      <i class="fas fa-wallet top-menu-icons"></i>
+                    <i class="fas fa-id-card-alt top-menu-icons"></i>
                       Rate Card
                   </a>
               </li>
               <li class="<?php echo (uri_string() == 'terminal/generate' || uri_string() == 'terminal') ? 'active' : ''; ?>">
                   <a href="<?php echo base_url('terminal'); ?>">
-                      <i class="fas fa-wallet top-menu-icons"></i>
+                      <i class="fas fa-thumbtack top-menu-icons"></i>
                       Terminal
                   </a>
               </li>
