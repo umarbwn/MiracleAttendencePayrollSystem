@@ -43,7 +43,11 @@
                                         name="position_id[]"
                                         data-placeholder="Select a State" style="width: 100%;">
                                         <?php foreach($positions as $position): ?>
-                                            <option value="<?php echo $position->id; ?>">
+                                            <?php $arr_position['position'] = array(
+                                                'id'    => $position->id,
+                                                'name'    => $position->name,
+                                            ); ?>
+                                            <option value="<?php echo htmlentities(json_encode($arr_position)); ?>">
                                                 <?php echo $position->name; ?>
                                             </option>
                                         <?php endforeach; ?>

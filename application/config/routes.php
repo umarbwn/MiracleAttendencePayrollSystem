@@ -50,6 +50,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
  */
 $route['default_controller'] = 'welcome';
-$route['Payroll/update_rate_card/(:any)'] = 'Payroll/add_rate_card/$1';
+$route['welcome'] = '';
+
+$route['ratecard'] = 'payroll/get_all_rate_cards';
+$route['ratecard/update/(:any)'] = 'Payroll/add_rate_card/$1';
+
+$route['payroll'] = 'Payroll';
+$route['staff'] = 'Staff';
+
+$route['timeclock'] = 'TimeClock';
+$route['timeclock/location/add'] = 'TimeClock/add_clock_location';
+$route['timeclock/location'] = 'timeclock/time_clock_locs';
+
+$route['position'] = 'ShiftPlanning';
+$route['position/add'] = 'ShiftPlanning/add_position';
+
+$route['terminal'] = 'timeclock/terminal_links';
+$route['terminal/generate'] = 'TimeClock/generate_terminal_link';
+$route['terminal/update/(:any)'] = 'TimeClock/update_terminal_link/$1';
+
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = false;

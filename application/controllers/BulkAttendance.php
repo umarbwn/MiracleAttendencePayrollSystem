@@ -43,17 +43,31 @@ class BulkAttendance extends CI_Controller {
                 $id = $this->input->post('id');
 
                 $bulk_link = $this->model->get_terminal_links($id);
-
+                // var_dump($bulk_link); exit;
                 $device_loc = $this->lat_lng_to_loc($lat, $lng);
-                //        var_dump(json_decode($bulk_link[0]->t_location)->lat); exit;
+                    //    var_dump(json_decode($bulk_link[0]->t_location)->lat); exit;
                 $terminal_loc = $bulk_link[0]->t_location;
     //            $terminal_loc = $this->lat_lng_to_loc(
     //                    json_decode($bulk_link[0]->t_location)->lat, json_decode($bulk_link[0]->t_location)->lng);
                 $response = strcmp($device_loc, $terminal_loc);
             if ($response === 0) {
                 $this->session->set_flashdata('link_id', $id);
-//                var_dump($id); exit;
-                $employees = $this->model->get_all_employees($id);
+            //    var_dump($id); exit;
+                $locs = $this->model->get_pos_by_loc($id);
+                // var_dump($locs); exit;
+                $positions = json_decode($locs->positions);
+
+                $employees = array();
+
+                foreach($positions as $position){
+                    $id = json_decode($position)->position->id;
+                    var_dump($id);
+                    $employees[] = $this->model->get_all_employees($id);
+                    var_dump($employees);
+                }
+                // var_dump($employees); 
+                exit;
+                // var_dump($positions); exit;
                 $this->load->view('admin/common/header');
                 $this->load->view('admin/bulk_attendence/attendance',
                         ['employees' => $employees]);

@@ -17,7 +17,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="row">
-                        <?php foreach($employees as $employee): ?>
+                        <?php foreach($employees as $employee): $employee = $employee[0]; ?>
                         <div class="col-sm-2">
                             <a 
                                 href="<?php 

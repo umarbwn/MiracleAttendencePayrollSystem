@@ -186,24 +186,39 @@ class TimeClockModel extends CI_Model
     }
 
     public function get_terminal_links(){
+        // $response = $this->db
+        //     ->select(
+        //         'tl.id AS tl_id, '
+        //             . 'tl.position_id,'
+        //             . 'p.id AS p_id, '
+        //             . 'GROUP_CONCAT(p.name SEPARATOR " | ") AS p_name,'
+        //             . 'p.location AS p_loc_id, '
+        //             . 't.id AS t_id, '
+        //             . 't.location AS t_location, '
+        //             . 't.name AS t_name,'
+        //             . 'tl.location_id,'
+        //     )
+        //     ->join('positions p', 'tl.position_id = p.id', 'left')
+        //     ->join('terminals t', 'tl.location_id = t.id', 'left')
+        //     ->where([ 'tl.link_type' => 'bulk' ])
+        //     ->group_by('tl.location_id')
+        //     ->get('terminal_links tl')
+        //     ->result();
+
+        // return $response;
         $response = $this->db
-            ->select(
-                'tl.id AS tl_id, '
-                    . 'tl.position_id,'
-                    . 'p.id AS p_id, '
-                    . 'GROUP_CONCAT(p.name SEPARATOR " | ") AS p_name,'
-                    . 'p.location AS p_loc_id, '
-                    . 't.id AS t_id, '
-                    . 't.location AS t_location, '
-                    . 't.name AS t_name,'
-                    . 'tl.location_id,'
-            )
-            ->join('positions p', 'tl.position_id = p.id', 'left')
-            ->join('terminals t', 'tl.location_id = t.id', 'left')
-            ->group_by('tl.location_id')
+            ->select('
+                t.location,
+                t.name,
+                tl.id,
+                tl.positions,
+                t.id AS t_id,
+                tl.id AS tl_id
+            ')
+            ->join('terminals t', 't.id = tl.location_id', 'left')
             ->get('terminal_links tl')
             ->result();
-
+            // ->where()
         return $response;
     }
 

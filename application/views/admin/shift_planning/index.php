@@ -6,7 +6,7 @@
             Position
             <small>All Positions</small>
         </h1>
-        <a href="<?php echo base_url('ShiftPlanning/add_position'); ?>" 
+        <a href="<?php echo base_url('position/add'); ?>" 
            class="btn btn-primary pull-right margin-bottom">Add Position</a>
     </section>
     <section class="content">

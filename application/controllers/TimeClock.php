@@ -231,7 +231,20 @@ class TimeClock extends MY_Controller
     public function terminal_links() {
         $terminals = $this->model->get_terminal_links();
         // var_dump($terminals); exit;
-        
+        foreach($terminals as $terminal){
+            $tm = json_decode($terminal->positions); 
+            $positions_array = array();
+            foreach($tm as $pos){
+                $positions_array[] = json_decode($pos);
+            }
+            $terminal->positions = $positions_array;
+            // echo '<pre>';
+            // print_r($terminal->positions);
+        }
+        // var_dump($positions_array); exit; 
+        // echo '<pre>'; print_r($terminals); exit;
+        // var_dump($positions_array);
+        // exit;
         /*
         foreach ($terminals as $terminal) {
         $terminal->t_location = $this->lat_lng_to_loc(
@@ -249,6 +262,7 @@ class TimeClock extends MY_Controller
     public function generate_terminal_link() {
         $positions = $this->model->get_all_positions();
         $locations = $this->model->get_clock_locations();
+        // var_dump($positions); exit;
         //        foreach($locations as $location){
         //            $location->location = $this->lat_lng_to_loc(
         //                    json_decode($location->location)->lat,
@@ -272,15 +286,21 @@ class TimeClock extends MY_Controller
         //                'Location',
         //                'callback_location_check');
         if ($this->form_validation->run()) {
+            // var_dump($this->input->post('position_id')); exit;
             $location = $this->input->post('location');
-            $position_ids = $this->input->post('position_id');
-            foreach($position_ids as $position_id){
-                $data = array(
-                    'location_id' => $location,
-                    'position_id' => $position_id,
-                );
-                $response = $this->model->add_terminal_link($data);
-            }
+            $position_ids = json_encode($this->input->post('position_id'));
+            $data = array(
+                'location_id' => $location,
+                'positions' => $position_ids,
+            );
+            $response = $this->model->add_terminal_link($data);
+            // foreach($position_ids as $position_id){
+            //     $data = array(
+            //         'location_id' => $location,
+            //         'position_id' => $position_id,
+            //     );
+            //     $response = $this->model->add_terminal_link($data);
+            // }
             if ($response) {
                 $this->session->set_flashdata('success_msge', 'Terminal link added successfully!');
                 return redirect('TimeClock/terminal_links');

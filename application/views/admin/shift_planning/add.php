@@ -17,7 +17,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <?php echo form_open_multipart('ShiftPlanning/add_position');?>
+                    <?php echo form_open_multipart('position/add');?>
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3">

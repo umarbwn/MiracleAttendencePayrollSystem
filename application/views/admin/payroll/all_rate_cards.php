@@ -72,7 +72,7 @@
                                                 <td width="100px">
                                                     <a 
                                                         href="<?php 
-                                                            echo base_url('Payroll/update_rate_card/')
+                                                            echo base_url('ratecard/update/')
                                                             .$rate_card->id; 
                                                         ?>"
                                                         class="btn btn-primary btn-xs">

@@ -30,7 +30,7 @@
                         </h3>
                         <a class="btn btn-primary pull-right btn-sm" 
                            type="button" 
-                           href="<?php echo base_url('TimeClock/generate_terminal_link'); ?>">Generate link</a>
+                           href="<?php echo base_url('terminal/generate'); ?>">Generate link</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -48,20 +48,29 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach($terminals as $terminal): ?>
+                                        <?php //echo '<pre>'; print_r($terminal->positions); exit; ?>
                                         <tr role="row">
-                                            <td><?php echo $terminal->p_name ?></td>
-                                            <td><?php echo $terminal->t_location ?></td>
+                                            <td>
+                                                <?php foreach ($terminal->positions as $position): ?>
+                                                        <ol>
+                                                            <li>
+                                                                <?php echo $position->position->name; ?>
+                                                            </li>
+                                                        </ol> 
+                                                <?php endforeach; ?>
+                                            </td>
+                                            <td><?php echo $terminal->location ?></td>
                                             <td>
                                                 <input
                                                     id="term-link-input"
                                                     class="form-control"
                                                     onClick="this.setSelectionRange(0, this.value.length)"
-                                                    value="<?php echo base_url('BulkAttendance/index/'.$terminal->tl_id); ?>">
+                                                    value="<?php echo base_url('BulkAttendance/index/'.$terminal->t_id); ?>">
                                             </td>
                                             <td>
                                                 <a
                                                     href="<?php 
-                                                        echo base_url('TimeClock/update_terminal_link/')
+                                                        echo base_url('terminal/update/')
                                                         .$terminal->t_id; ?>"
                                                     class="btn btn-primary btn-sm" >Update</a>
                                                 <button 

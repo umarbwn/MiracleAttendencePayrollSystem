@@ -35,7 +35,12 @@
                             <?php //date_default_timezone_set("Asia/Karachi"); echo date("F j, Y, g:i a"); ?>
                             All time clock locations
                         </h3>
-                        <a class="btn btn-primary pull-right btn-sm" type="button" href="<?php echo base_url('TimeClock/add_clock_location'); ?>">Add New</a>
+                        <a 
+                            class="btn btn-primary pull-right btn-sm" 
+                            type="button" 
+                            href="<?php echo base_url('timeclock/location/add'); ?>">
+                            Add New
+                        </a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">

@@ -69,24 +69,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- Centered Tabs -->
           <ul class="nav nav-pills pull-left">
               <li class="<?php $slug = $this->session->flashdata('active_slug');
-                      if($slug == '' ){ echo 'active'; }
-                      elseif($slug == 'Welcome'){echo 'active'; }
+                      if($slug == 'welcome' ){ echo 'active'; }
+                      elseif($slug == 'welcome'){echo 'active'; }
                       ?> ">
-                  <a href="<?php echo base_url(); ?>"> 
+                  <a href="<?php echo base_url('welcome'); ?>"> 
                       <i class="fas fa-tachometer-alt top-menu-icons"></i> 
                       Dashboard
                   </a>
               </li>
               <?php if($is_admin): ?>
-                <li class="<?php echo $this->session->flashdata('active_slug') == 'ShiftPlanning' ? 'active' : ''; ?>">
-                    <a href="<?php echo base_url('ShiftPlanning/index'); ?>">
+                <li class="<?php echo (uri_string() == 'position' || uri_string() == 'position/add') ? 'active' : ''; ?>">
+                    <a href="<?php echo base_url('position'); ?>">
                         <i class="fas fa-solar-panel top-menu-icons"></i>
-                        ShiftPlanning
+                        Position
                     </a>
                 </li>
               <?php endif; ?>
-              <li class="<?php echo $this->session->flashdata('active_slug') == 'TimeClock' ? 'active' : ''; ?>">
-                  <a href="<?php echo base_url('TimeClock/index'); ?>">
+              <li class="<?php echo (uri_string() == 'timeclock' || uri_string() == 'timeclock/location') ? 'active' : ''; ?>">
+                  <a href="<?php echo base_url('timeclock'); ?>">
                       <i class="far fa-clock top-menu-icons"></i>
                       Time Clock
                   </a>
@@ -94,17 +94,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!--<li><a href="#">Leave</a></li>-->
               <!--<li><a href="#">Training</a></li>-->
               <?php if($is_admin): ?>
-                <li class="<?php echo $this->session->flashdata('active_slug') == 'Staff' ? 'active' : ''; ?>">
-                    <a href="<?php echo base_url('Staff/index'); ?>">
+                <li class="<?php echo uri_string() == 'staff' ? 'active' : ''; ?>">
+                    <a href="<?php echo base_url('staff'); ?>">
                         <i class="far fa-user top-menu-icons"></i>
                         Staff
                     </a>
                 </li>
               <?php endif; ?>
-              <li class="<?php echo $this->session->flashdata('active_slug') == 'Payroll' ? 'active' : ''; ?>">
-                  <a href="<?php echo base_url('Payroll/index'); ?>">
+              <li class="<?php echo uri_string() == 'payroll' ? 'active' : ''; ?>">
+                  <a href="<?php echo base_url('payroll'); ?>">
                       <i class="fas fa-wallet top-menu-icons"></i>
                       Payroll
+                  </a>
+              </li>
+              <li class="<?php echo ($this->uri->segment(1) == 'ratecard' || uri_string() == 'ratecard') ? 'active' : ''; ?>">
+                  <a href="<?php echo base_url('ratecard'); ?>">
+                      <i class="fas fa-wallet top-menu-icons"></i>
+                      Rate Card
+                  </a>
+              </li>
+              <li class="<?php echo (uri_string() == 'terminal/generate' || uri_string() == 'terminal') ? 'active' : ''; ?>">
+                  <a href="<?php echo base_url('terminal'); ?>">
+                      <i class="fas fa-wallet top-menu-icons"></i>
+                      Terminal
                   </a>
               </li>
               <!--<li><a href="#">Payroll</a></li>-->
@@ -168,7 +180,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-<!--          <li class="header text-center">staff</li>-->
           <?php if($this->uri->segment(1) == '' || $this->uri->segment(1) == 'welcome'): ?>
             <li class="active treeview">
               <a href="#">
@@ -178,23 +189,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="<?php if(uri_string() == ''){ echo 'active'; } ?>"><a href="<?php echo base_url(); ?>"><i class="fa fa-circle-o"></i> Dashbaord</a></li>
+                <li class="<?php if(uri_string() == 'welcome'){ echo 'active'; } ?>">
+                  <a href="<?php echo base_url('welcome'); ?>">
+                    <i class="fa fa-circle-o"></i> Dashbaord
+                  </a>
+                </li>
                 <li class="<?php if(uri_string() == 'welcome/inbox'){ echo 'active'; } ?>"><a href="<?php echo base_url('welcome/inbox'); ?>"><i class="fa fa-circle-o"></i> Inbox</a></li>
               </ul>
             </li>
-            <!-- <li>
-              <a href="pages/calendar.html">
-                <i class="fa fa-calendar"></i> <span>Calendar</span>
-                <span class="pull-right-container">
-                  <small class="label pull-right bg-red">3</small>
-                  <small class="label pull-right bg-blue">17</small>
-                </span>
-              </a>
-            </li> -->
           <?php endif; ?>
 
           <?php if($is_admin): ?>
-            <?php if($this->uri->segment(1) == 'TimeClock'): ?>
+            <?php if($this->uri->segment(1) == 'timeclock'): ?>
               <li class="active treeview">
                 <a href="#">
                   <i class="fas fa-tachometer-alt"></i> &nbsp; &nbsp; <span>Management</span>
@@ -203,49 +209,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li class="<?php if($this->uri->segment(2) == 'index'){ echo 'active'; } ?>">
-                    <a href="<?php echo base_url('TimeClock/index'); ?>">
+                  <li class="<?php if(uri_string() == 'timeclock'){ echo 'active'; } ?>">
+                    <a href="<?php echo base_url('timeclock'); ?>">
                       <i class="fa fa-circle-o"></i>Manage Time Sheets
                     </a>
                   </li>
-                  <li class="<?php if($this->uri->segment(2) == 'time_clock_locs'){ echo 'active'; } ?>">
-                    <a href="<?php echo base_url('TimeClock/time_clock_locs'); ?>">
+                  <li class="<?php if(uri_string() == 'timeclock/location' || uri_string() == 'timeclock/location/add'){ echo 'active'; } ?>">
+                    <a href="<?php echo base_url('timeclock/location'); ?>">
                       <i class="fa fa-circle-o"></i>Time Clock Locations
-                    </a>
-                  </li>
-                  <li class="<?php if($this->uri->segment(2) == 'terminal_links' ||
-                                      $this->uri->segment(2) == 'generate_terminal_link'){ echo 'active'; } ?>">
-                    <a href="<?php echo base_url('TimeClock/terminal_links'); ?>">
-                      <i class="fa fa-circle-o"></i>Terminal links
                     </a>
                   </li>
                 </ul>
               </li>
             <?php endif; ?>
           <?php endif; ?>
-          <?php if($this->uri->segment(1) == 'ShiftPlanning'): ?>
+          <?php if($this->uri->segment(1) == 'position'): ?>
             <li class="active treeview">
               <a href="#">
-                <i class="fas fa-solar-panel"></i> &nbsp; &nbsp; <span>ShiftPlanning</span>
+                <i class="fas fa-solar-panel"></i> &nbsp; &nbsp; <span>Position</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="<?php if($this->uri->segment(2) == 'index'){ echo 'active'; } ?>">
-                  <a href="<?php echo base_url('ShiftPlanning/index'); ?>">
-                    <i class="fa fa-circle-o"></i>Positions
+                <li class="<?php if(uri_string() == 'position' || uri_string() == 'position/add'){ echo 'active'; } ?>">
+                  <a href="<?php echo base_url('position'); ?>">
+                    <i class="fa fa-circle-o"></i>All positions
                   </a>
                 </li>
-<!--                <li class="<?php //if($this->uri->segment(2) == 'time_clock_locs'){ echo 'active'; } ?>">
-                  <a href="<?php //echo base_url('TimeClock/time_clock_locs'); ?>">
-                    <i class="fa fa-circle-o"></i>Time Clock Locations
-                  </a>
-                </li>-->
               </ul>
             </li>
           <?php endif; ?>
-            <?php if($this->uri->segment(1) == 'Payroll'): ?>
+            <?php if($this->uri->segment(1) == 'payroll'): ?>
             <li class="active treeview">
               <a href="#">
                 <i class="fas fa-wallet"></i> &nbsp; &nbsp; <span>Payroll</span>
@@ -254,18 +249,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="<?php if($this->uri->segment(2) == 'index'){ echo 'active'; } ?>">
-                  <a href="<?php echo base_url('Payroll/index'); ?>">
+                <li class="<?php if($this->uri->segment(1) == 'payroll'){ echo 'active'; } ?>">
+                  <a href="<?php echo base_url('payroll'); ?>">
                     <i class="fa fa-circle-o"></i>Confirmed Time Sheets
                   </a>
                 </li>
-                <?php if($is_admin): ?>
-                <li class="<?php if($this->uri->segment(2) == 'all_rate_cards'){ echo 'active'; } ?>">
-                  <a href="<?php echo base_url('Payroll/get_all_rate_cards'); ?>">
-                    <i class="fa fa-circle-o"></i>All rate cards
-                  </a>
-                </li>
-                <?php endif; ?>
               </ul>
             </li>
           <?php endif; ?>
