@@ -22,7 +22,7 @@ class BulkAttendenceModel extends CI_Model{
                         . 't.name AS t_name')
                 // ->join('positions p', 'tl.position_id = p.id', 'left')
                 ->join('terminals t', 'tl.location_id = t.id', 'left')
-                ->where(['tl.location_id' => $id])
+                ->where(['tl.id' => $id])
                 ->get('terminal_links tl')
                 ->result();
         
@@ -31,7 +31,7 @@ class BulkAttendenceModel extends CI_Model{
 
     public function get_pos_by_loc($id){
         $response = $this->db
-            ->where([ 'location_id' => $id ])
+            ->where([ 'id' => $id ])
             ->get('terminal_links')
             ->row();
         

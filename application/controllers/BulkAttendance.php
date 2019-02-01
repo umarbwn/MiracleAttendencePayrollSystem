@@ -41,7 +41,7 @@ class BulkAttendance extends CI_Controller {
                 $lat = $this->input->post('lat');
                 $lng = $this->input->post('lng');
                 $id = $this->input->post('id');
-
+                // var_dump($id); exit;
                 $bulk_link = $this->model->get_terminal_links($id);
                 // var_dump($bulk_link); exit;
                 $device_loc = $this->lat_lng_to_loc($lat, $lng);
@@ -61,19 +61,19 @@ class BulkAttendance extends CI_Controller {
 
                 foreach($positions as $position){
                     $id = json_decode($position)->position->id;
-                    var_dump($id);
+                    // var_dump($id);
                     $employees[] = $this->model->get_all_employees($id);
-                    var_dump($employees);
+                    // var_dump($employees);
                 }
                 // var_dump($employees); 
-                exit;
+                // exit;
                 // var_dump($positions); exit;
                 $this->load->view('admin/common/header');
                 $this->load->view('admin/bulk_attendence/attendance',
                         ['employees' => $employees]);
                 $this->load->view('admin/common/footer');
             } else {
-                echo 'location didn\'t match';
+                echo '<h1 class="text-center">location didn\'t match</h1>';
             }
         }else{
             return redirect('BulkAttendance/index/'.$this->session->flashdata('link_id'));

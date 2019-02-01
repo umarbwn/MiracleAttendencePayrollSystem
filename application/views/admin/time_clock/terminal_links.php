@@ -65,7 +65,7 @@
                                                     id="term-link-input"
                                                     class="form-control"
                                                     onClick="this.setSelectionRange(0, this.value.length)"
-                                                    value="<?php echo base_url('BulkAttendance/index/'.$terminal->t_id); ?>">
+                                                    value="<?php echo base_url('BulkAttendance/index/'.$terminal->id); ?>">
                                             </td>
                                             <td>
                                                 <a
