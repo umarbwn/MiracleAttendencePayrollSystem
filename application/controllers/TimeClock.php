@@ -303,7 +303,7 @@ class TimeClock extends MY_Controller
             // }
             if ($response) {
                 $this->session->set_flashdata('success_msge', 'Terminal link added successfully!');
-                return redirect('TimeClock/terminal_links');
+                return redirect('terminal');
             }
         } else {
             $this->load->view('admin/common/header');
@@ -370,10 +370,10 @@ class TimeClock extends MY_Controller
         $response = $this->model->delete_terminal_links($id);
         if($response){
             $this->session->set_flashdata('success_msge', 'Terminal link deleted successfully!');
-            return redirect('TimeClock/terminal_links');
+            return redirect('terminal');
         }else{
             $this->session->set_flashdata('error_msge', 'Unable to delete terminal link!');
-            return redirect('TimeClock/terminal_links');
+            return redirect('terminal');
         }
     }
 

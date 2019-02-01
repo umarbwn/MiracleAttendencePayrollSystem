@@ -28,7 +28,7 @@ class BulkAttendance extends CI_Controller {
             $this->load->view('admin/bulk_attendence/index');
             $this->load->view('admin/common/footer');
         }else{
-            return redirect('TimeClock/terminal_links');
+            return redirect('terminal');
         }
     }
 

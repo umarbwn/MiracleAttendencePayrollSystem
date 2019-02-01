@@ -16,7 +16,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <?php echo form_open_multipart('TimeClock/generate_terminal_link');?>
+                    <?php echo form_open_multipart('terminal/generate');?>
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-3 col-sm-offset-3">
