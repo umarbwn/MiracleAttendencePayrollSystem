@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 31, 2019 at 05:15 PM
+-- Generation Time: Feb 02, 2019 at 10:34 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `payroll_cards` (
 --
 
 INSERT INTO `payroll_cards` (`id`, `card_title`, `pay_rate`, `daily_hours`, `hrly_rate_chart`) VALUES
-(15, '8 Hours card', 100, 8, '{\"sun0\":\"100%\",\"mon0\":\"100%\",\"tue0\":\"100%\",\"wed0\":\"100%\",\"thu0\":\"100%\",\"fri0\":\"100%\",\"sat0\":\"100%\",\"sun0pm\":\"100%\",\"mon0pm\":\"100%\",\"tue0pm\":\"127%\",\"wed0pm\":\"100%\",\"thu0pm\":\"100%\",\"fri0pm\":\"100%\",\"sat0pm\":\"100%\",\"special_hours\":{\"_pm_ip_tue12\":\"127%\",\"_pm_ip_tue13\":\"127%\",\"_pm_ip_tue14\":\"127%\",\"_pm_ip_tue15\":\"127%\",\"_pm_ip_tue16\":\"127%\",\"_pm_ip_tue17\":\"127%\",\"_pm_ip_tue18\":\"127%\",\"_pm_ip_tue19\":\"127%\",\"_pm_ip_tue20\":\"127%\",\"_pm_ip_tue21\":\"127%\",\"_pm_ip_tue22\":\"127%\",\"_pm_ip_tue23\":\"127%\"}}');
+(15, '8 Hours card', 100, 8, '{\"sun0\":\"127%\",\"mon0\":\"127%\",\"tue0\":\"127%\",\"wed0\":\"127%\",\"thu0\":\"127%\",\"fri0\":\"127%\",\"sat0\":\"127%\",\"sun0pm\":\"127%\",\"mon0pm\":\"127%\",\"tue0pm\":\"127%\",\"wed0pm\":\"127%\",\"thu0pm\":\"127%\",\"fri0pm\":\"127%\",\"sat0pm\":\"127%\",\"special_hours\":{\"_am_ip_sun0\":\"127%\",\"_am_ip_mon0\":\"127%\",\"_am_ip_tue0\":\"127%\",\"_am_ip_wed0\":\"127%\",\"_am_ip_thu0\":\"127%\",\"_am_ip_fri0\":\"127%\",\"_am_ip_sat0\":\"127%\",\"_am_ip_sun1\":\"127%\",\"_am_ip_mon1\":\"127%\",\"_am_ip_tue1\":\"127%\",\"_am_ip_wed1\":\"127%\",\"_am_ip_thu1\":\"127%\",\"_am_ip_fri1\":\"127%\",\"_am_ip_sat1\":\"127%\",\"_am_ip_sun2\":\"127%\",\"_am_ip_mon2\":\"127%\",\"_am_ip_tue2\":\"127%\",\"_am_ip_wed2\":\"127%\",\"_am_ip_thu2\":\"127%\",\"_am_ip_fri2\":\"127%\",\"_am_ip_sat2\":\"127%\",\"_am_ip_sun3\":\"127%\",\"_am_ip_mon3\":\"127%\",\"_am_ip_tue3\":\"127%\",\"_am_ip_wed3\":\"127%\",\"_am_ip_thu3\":\"127%\",\"_am_ip_fri3\":\"127%\",\"_am_ip_sat3\":\"127%\",\"_am_ip_sun4\":\"127%\",\"_am_ip_mon4\":\"127%\",\"_am_ip_tue4\":\"127%\",\"_am_ip_wed4\":\"127%\",\"_am_ip_thu4\":\"127%\",\"_am_ip_fri4\":\"127%\",\"_am_ip_sat4\":\"127%\",\"_am_ip_sun5\":\"127%\",\"_am_ip_mon5\":\"127%\",\"_am_ip_tue5\":\"127%\",\"_am_ip_wed5\":\"127%\",\"_am_ip_thu5\":\"127%\",\"_am_ip_fri5\":\"127%\",\"_am_ip_sat5\":\"127%\",\"_am_ip_sun6\":\"127%\",\"_am_ip_mon6\":\"127%\",\"_am_ip_tue6\":\"127%\",\"_am_ip_wed6\":\"127%\",\"_am_ip_thu6\":\"127%\",\"_am_ip_fri6\":\"127%\",\"_am_ip_sat6\":\"127%\",\"_am_ip_sun7\":\"127%\",\"_am_ip_mon7\":\"127%\",\"_am_ip_tue7\":\"127%\",\"_am_ip_wed7\":\"127%\",\"_am_ip_thu7\":\"127%\",\"_am_ip_fri7\":\"127%\",\"_am_ip_sat7\":\"127%\",\"_am_ip_sun8\":\"127%\",\"_am_ip_mon8\":\"127%\",\"_am_ip_tue8\":\"127%\",\"_am_ip_wed8\":\"127%\",\"_am_ip_thu8\":\"127%\",\"_am_ip_fri8\":\"127%\",\"_am_ip_sat8\":\"127%\",\"_am_ip_sun9\":\"127%\",\"_am_ip_mon9\":\"127%\",\"_am_ip_tue9\":\"127%\",\"_am_ip_wed9\":\"127%\",\"_am_ip_thu9\":\"127%\",\"_am_ip_fri9\":\"127%\",\"_am_ip_sat9\":\"127%\",\"_am_ip_sun10\":\"127%\",\"_am_ip_mon10\":\"127%\",\"_am_ip_tue10\":\"127%\",\"_am_ip_wed10\":\"127%\",\"_am_ip_thu10\":\"127%\",\"_am_ip_fri10\":\"127%\",\"_am_ip_sat10\":\"127%\",\"_am_ip_sun11\":\"127%\",\"_am_ip_mon11\":\"127%\",\"_am_ip_tue11\":\"127%\",\"_am_ip_wed11\":\"127%\",\"_am_ip_thu11\":\"127%\",\"_am_ip_fri11\":\"127%\",\"_am_ip_sat11\":\"127%\",\"_pm_ip_sun12\":\"127%\",\"_pm_ip_mon12\":\"127%\",\"_pm_ip_tue12\":\"127%\",\"_pm_ip_wed12\":\"127%\",\"_pm_ip_thu12\":\"127%\",\"_pm_ip_fri12\":\"127%\",\"_pm_ip_sat12\":\"127%\",\"_pm_ip_sun13\":\"127%\",\"_pm_ip_mon13\":\"127%\",\"_pm_ip_tue13\":\"127%\",\"_pm_ip_wed13\":\"127%\",\"_pm_ip_thu13\":\"127%\",\"_pm_ip_fri13\":\"127%\",\"_pm_ip_sat13\":\"127%\",\"_pm_ip_sun14\":\"127%\",\"_pm_ip_mon14\":\"127%\",\"_pm_ip_tue14\":\"127%\",\"_pm_ip_wed14\":\"127%\",\"_pm_ip_thu14\":\"127%\",\"_pm_ip_fri14\":\"127%\",\"_pm_ip_sat14\":\"127%\",\"_pm_ip_sun15\":\"127%\",\"_pm_ip_mon15\":\"127%\",\"_pm_ip_tue15\":\"127%\",\"_pm_ip_wed15\":\"127%\",\"_pm_ip_thu15\":\"127%\",\"_pm_ip_fri15\":\"127%\",\"_pm_ip_sat15\":\"127%\",\"_pm_ip_sun16\":\"127%\",\"_pm_ip_mon16\":\"127%\",\"_pm_ip_tue16\":\"127%\",\"_pm_ip_wed16\":\"127%\",\"_pm_ip_thu16\":\"127%\",\"_pm_ip_fri16\":\"127%\",\"_pm_ip_sat16\":\"127%\",\"_pm_ip_sun17\":\"127%\",\"_pm_ip_mon17\":\"127%\",\"_pm_ip_tue17\":\"127%\",\"_pm_ip_wed17\":\"127%\",\"_pm_ip_thu17\":\"127%\",\"_pm_ip_fri17\":\"127%\",\"_pm_ip_sat17\":\"127%\",\"_pm_ip_sun18\":\"127%\",\"_pm_ip_mon18\":\"127%\",\"_pm_ip_tue18\":\"127%\",\"_pm_ip_wed18\":\"127%\",\"_pm_ip_thu18\":\"127%\",\"_pm_ip_fri18\":\"127%\",\"_pm_ip_sat18\":\"127%\",\"_pm_ip_sun19\":\"127%\",\"_pm_ip_mon19\":\"127%\",\"_pm_ip_tue19\":\"127%\",\"_pm_ip_wed19\":\"127%\",\"_pm_ip_thu19\":\"127%\",\"_pm_ip_fri19\":\"127%\",\"_pm_ip_sat19\":\"127%\",\"_pm_ip_sun20\":\"127%\",\"_pm_ip_mon20\":\"127%\",\"_pm_ip_tue20\":\"127%\",\"_pm_ip_wed20\":\"127%\",\"_pm_ip_thu20\":\"127%\",\"_pm_ip_fri20\":\"127%\",\"_pm_ip_sat20\":\"127%\",\"_pm_ip_sun21\":\"127%\",\"_pm_ip_mon21\":\"127%\",\"_pm_ip_tue21\":\"127%\",\"_pm_ip_wed21\":\"127%\",\"_pm_ip_thu21\":\"127%\",\"_pm_ip_fri21\":\"127%\",\"_pm_ip_sat21\":\"127%\",\"_pm_ip_sun22\":\"127%\",\"_pm_ip_mon22\":\"127%\",\"_pm_ip_tue22\":\"127%\",\"_pm_ip_wed22\":\"127%\",\"_pm_ip_thu22\":\"127%\",\"_pm_ip_fri22\":\"127%\",\"_pm_ip_sat22\":\"127%\",\"_pm_ip_sun23\":\"127%\",\"_pm_ip_mon23\":\"127%\",\"_pm_ip_tue23\":\"127%\",\"_pm_ip_wed23\":\"127%\",\"_pm_ip_thu23\":\"127%\",\"_pm_ip_fri23\":\"127%\",\"_pm_ip_sat23\":\"127%\"}}');
 
 -- --------------------------------------------------------
 
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `positions` (
   `location` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `location` (`location`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `positions`
@@ -191,7 +191,8 @@ CREATE TABLE IF NOT EXISTS `positions` (
 
 INSERT INTO `positions` (`id`, `name`, `location`) VALUES
 (4, 'Web Developers', 7),
-(5, 'Car Painter', 8);
+(5, 'Car Painter', 8),
+(6, 'Electrical Engineer', 8);
 
 -- --------------------------------------------------------
 
@@ -230,16 +231,14 @@ CREATE TABLE IF NOT EXISTS `terminal_links` (
   `link_type` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `location_id` (`location_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `terminal_links`
 --
 
 INSERT INTO `terminal_links` (`id`, `positions`, `location_id`, `link_type`) VALUES
-(28, '[\"{\\\"position\\\":{\\\"id\\\":\\\"4\\\",\\\"name\\\":\\\"Web Developers\\\"}}\",\"{\\\"position\\\":{\\\"id\\\":\\\"5\\\",\\\"name\\\":\\\"Car Painter\\\"}}\"]', 7, ''),
-(29, '[\"{\\\"position\\\":{\\\"id\\\":\\\"4\\\",\\\"name\\\":\\\"Web Developers\\\"}}\"]', 9, ''),
-(30, '[\"{\\\"position\\\":{\\\"id\\\":\\\"4\\\",\\\"name\\\":\\\"Web Developers\\\"}}\"]', 7, '');
+(31, '[\"{\\\"position\\\":{\\\"id\\\":\\\"4\\\",\\\"name\\\":\\\"Web Developers\\\"}}\",\"{\\\"position\\\":{\\\"id\\\":\\\"5\\\",\\\"name\\\":\\\"Car Painter\\\"}}\"]', 7, '');
 
 -- --------------------------------------------------------
 
@@ -262,14 +261,15 @@ CREATE TABLE IF NOT EXISTS `time_clock` (
   `special_overtime` double NOT NULL,
   PRIMARY KEY (`id`),
   KEY `emp_id` (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=387 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=393 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `time_clock`
 --
 
 INSERT INTO `time_clock` (`id`, `emp_clock_in`, `emp_clock_out`, `emp_loc`, `emp_id`, `clock_in_img`, `clock_out_img`, `emp_clock_out_loc`, `clock_pay`, `status`, `special_overtime`) VALUES
-(386, '2019-01-30 19:26:03', '2019-01-30 19:26:20', '1 Punj Mahal Rd, Mazang, Lahore, Punjab 54000, Pakistan', 66, 'clock_in386.jpeg', 'clock_out386.jpeg', '1 Punj Mahal Rd, Mazang, Lahore, Punjab 54000, Pakistan', 0.59027777777778, 1, 0);
+(386, '2019-01-30 19:26:03', '2019-01-30 19:26:20', '1 Punj Mahal Rd, Mazang, Lahore, Punjab 54000, Pakistan', 66, 'clock_in386.jpeg', 'clock_out386.jpeg', '1 Punj Mahal Rd, Mazang, Lahore, Punjab 54000, Pakistan', 0.59027777777778, 1, 0),
+(392, '2019-02-01 00:00:00', '2019-02-02 08:51:37', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 66, 'clock_in392.jpeg', 'clock_out392.jpeg', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 4107.5347222222, 1, 270);
 
 --
 -- Constraints for dumped tables
