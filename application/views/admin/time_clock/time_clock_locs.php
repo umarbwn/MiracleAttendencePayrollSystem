@@ -38,7 +38,7 @@
                         <a 
                             class="btn btn-primary pull-right btn-sm" 
                             type="button" 
-                            href="<?php echo base_url('timeclock/location/add'); ?>">
+                            href="<?php echo base_url('terminal/location/add'); ?>">
                             Add New
                         </a>
                     </div>

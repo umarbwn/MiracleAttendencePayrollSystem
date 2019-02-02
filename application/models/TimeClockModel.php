@@ -223,16 +223,9 @@ class TimeClockModel extends CI_Model
     }
 
     public function get_terminal_link_data($id){
+        // var_dump($id); exit;
         $response = $this->db
-            ->select(
-                't.id AS t_id,'
-                .'t.name AS t_name,'
-                .'p.id,'
-                .'p.name,'
-            )
-            ->join('positions p', 'tl.position_id = p.id')
-            ->join('terminals t', 'tl.location_id = t.id')
-            ->where([ 'location_id' => $id ])
+            ->where([ 'id' => $id ])
             ->get('terminal_links tl')
             ->result();
         return $response;

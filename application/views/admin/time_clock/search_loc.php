@@ -27,7 +27,7 @@
                     <div class="box-body">
                         <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                             <div class="row">
-                                <?php echo form_open('TimeClock/add_clock_location', 'id="my-form"'); ?>
+                                <?php echo form_open('terminal/location/add', 'id="my-form"'); ?>
                                     <div class="col-sm-6 col-sm-offset-3">
                                         <div class="pac-card" id="pac-card">
                                             <!-- <div>

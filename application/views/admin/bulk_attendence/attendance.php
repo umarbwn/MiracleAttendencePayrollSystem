@@ -1,6 +1,6 @@
 <?php //var_dump($employees); exit; ?>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-left: 0px">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -25,16 +25,18 @@
                                                 'BulkAttendance'
                                                 . '/user_attendence/'.$employee->emp_id); 
                                 ?>">
-                                <img
-                                    style=""
-                                    class="
-                                        img-responsive 
-                                        img-thumbnail 
-                                        center-block"
-                                    src="<?php echo base_url(
-                                        'uploads/staff/employees/'
-                                        .$employee->emp_image); ?>">
-                                <p class="text-center">
+                                <div class="thumbnail-link img-thumbnail center-block" style="background-image: url(<?php echo base_url(
+                                            'uploads/staff/employees/'
+                                            .$employee->emp_image); ?>);">
+                                    <!-- <img
+                                        style=""
+                                        class="
+                                            img-responsive 
+                                            img-thumbnail 
+                                            center-block"
+                                        src=""> -->
+                                </div>
+                                <p class="text-center bulk-user-name">
                                     <?php echo 
                                             $employee->first_name
                                             .' '

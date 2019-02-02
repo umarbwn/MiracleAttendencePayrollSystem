@@ -121,7 +121,7 @@ class Payroll extends MY_Controller
             }
             if ($response) {
                 $this->model->get_all_rate_cards();
-                return redirect('Payroll/get_all_rate_cards');
+                return redirect('ratecard');
             }
         } else {
             $result = $this->model->get_rate_card($id);

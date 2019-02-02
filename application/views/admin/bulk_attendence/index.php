@@ -15,7 +15,7 @@
                         <h3 class="box-title">Redirecting</h3>
                     </div>
                     <!-- /.box-header -->
-                    <?php echo form_open('BulkAttendance/bulk_attendence/', 
+                    <?php echo form_open('attendance/bulk/', 
                             ['id' => 'bulk-form']); ?>
                         <input 
                             type="hidden" 

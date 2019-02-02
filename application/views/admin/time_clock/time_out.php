@@ -37,7 +37,7 @@
                                         </a>
                                         <a href="#" class="btn btn-primary disabled" id="btn-clock-in">Clock In</a> -->
                                     </div>
-                                    <button class="btn btn-danger btn-block" id="btn-clock-out">Clock out</button>
+                                    <!-- <button class="btn btn-danger btn-block" id="btn-clock-out">Clock out</button> -->
                                 </form>
                             </div>
                         </div>

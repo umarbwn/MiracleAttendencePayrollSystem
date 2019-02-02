@@ -59,15 +59,20 @@ $route['payroll'] = 'Payroll';
 $route['staff'] = 'Staff';
 
 $route['timeclock'] = 'TimeClock';
-$route['timeclock/location/add'] = 'TimeClock/add_clock_location';
-$route['timeclock/location'] = 'timeclock/time_clock_locs';
 
 $route['position'] = 'ShiftPlanning';
 $route['position/add'] = 'ShiftPlanning/add_position';
 
-$route['terminal'] = 'timeclock/terminal_links';
+$route['terminal'] = 'TimeClock/terminal_links';
 $route['terminal/generate'] = 'TimeClock/generate_terminal_link';
 $route['terminal/update/(:any)'] = 'TimeClock/update_terminal_link/$1';
+$route['terminal/location'] = 'TimeClock/time_clock_locs';
+$route['terminal/location/add'] = 'TimeClock/add_clock_location';
+$route['terminal/location/delete/(:any)'] = 'TimeClock/delete_location/$1';
+
+$route['attendance/bulk'] = 'BulkAttendance/bulk_attendence';
+
+
 
 
 $route['404_override'] = '';

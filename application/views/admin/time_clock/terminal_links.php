@@ -71,7 +71,7 @@
                                                 <a
                                                     href="<?php 
                                                         echo base_url('terminal/update/')
-                                                        .$terminal->t_id; ?>"
+                                                        .$terminal->id; ?>"
                                                     class="btn btn-primary btn-sm" >Update</a>
                                                 <button 
                                                     onclick="delete_terminal_link(<?php echo $terminal->tl_id; ?>)"

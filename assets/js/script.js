@@ -146,15 +146,15 @@ if (slug_for_js == 'user_clock_out') {
 		// console.log(server_time);
 	}
 	if (clock_in_time != '') {
-		timer = setInterval(updateClock, 1000);
-		$('.btn-group-clock-in-out').css('display', 'none');
-	} else {}
-	$('#btn-clock-out').click(function (event) {
-		event.preventDefault();
+		// timer = setInterval(updateClock, 1000);
 		$('.btn-group-clock-in-out').css('display', 'block');
-		$(this).css('display', 'none');
-		$('#btn-clock-in').text('Clock Out');
-	});
+	} else {}
+	// $('#btn-clock-out').click(function (event) {
+	// 	event.preventDefault();
+	// 	$('.btn-group-clock-in-out').css('display', 'block');
+	// 	$(this).css('display', 'none');
+	// 	$('#btn-clock-in').text('Clock Out');
+	// });
 }
 //$('.btn-add-current-loc').click(function () {
 //    $('.btn-spinner').css('display', 'block');
@@ -410,7 +410,8 @@ function set_id_to_form() {
 //                      Delete location
 //------------------------------------------------------------------
 function delete_location(id) {
-	var form_action = base_url + id;
+	var delete_location_url = base_url + 'terminal/location/delete/'
+	var form_action = delete_location_url + id;
 	$('#delete-form').attr('action', form_action);
 }
 $('#btn-delete-url').click(function () {

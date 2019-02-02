@@ -219,7 +219,7 @@ class TimeClock extends MY_Controller
             $response = $this->model->add_clock_location($data);
             if ($response) {
                 $this->session->set_flashdata('success_msge', 'Location added successfuly!');
-                return redirect('TimeClock/time_clock_locs');
+                return redirect('terminal/location');
             }
         } else {
             $this->load->view('admin/common/header');
@@ -316,7 +316,9 @@ class TimeClock extends MY_Controller
     }
 
     public function update_terminal_link($id = ""){
+        // var_dump($id); exit;
         $response = $this->model->get_terminal_link_data($id);
+        echo var_dump($response); exit;
         $positions = $this->model->get_all_positions();
         $locations = $this->model->get_clock_locations();
         //        foreach($locations as $location){
@@ -593,7 +595,7 @@ class TimeClock extends MY_Controller
                 'Unable to delete because the location added to position/employee'
             );
         }
-        return redirect('TimeClock/time_clock_locs');
+        return redirect('terminal/location');
     }
 
     public function approve_attendence($id) {
