@@ -550,3 +550,49 @@ function get_single_notice_data(id){
 		}
 	});
 }
+
+/*
+----------------------------------------------------------------
+					Position filter
+----------------------------------------------------------------
+*/
+function pos_filter(){
+	var json_val = $('#filter').val();
+	// alert(json_val);
+	if(json_val != ''){
+		var value = JSON.parse(json_val);
+		// alert(value.id);
+		localStorage.setItem("pos_filter", json_val);
+		$.ajax({
+			url: pos_filter_url + 'Bulkattendance/position_filter/' + value.id,
+			type: 'get',
+			success: function(response){
+				if(response === 'true'){
+					// alert('working');
+	
+					// var redirect_url = pos_filter_url + 'Bulkattendance';
+					// var redirect_url = 'http://localhost/humanity/index.php/attendance/bulk/';
+					// alert(redirect_url);
+					// window.location.href = redirect_url;
+					location.reload();
+				}
+			} 
+		});
+	}else{
+		localStorage.setItem("pos_filter", "");
+		pos_fil_curr_val();
+		location.reload();
+	}
+}
+function pos_fil_curr_val(){
+	var filter_pos = localStorage.getItem('pos_filter');
+	if(filter_pos == ""){
+		$('#pos_filter_option').val("");
+		$('#pos_filter_option').text("All positions selected");
+	}else{
+		filter_pos = JSON.parse(filter_pos);
+		$('#pos_filter_option').val(filter_pos.id);
+		$('#pos_filter_option').text(filter_pos.name + " selected");
+	}
+}
+pos_fil_curr_val();

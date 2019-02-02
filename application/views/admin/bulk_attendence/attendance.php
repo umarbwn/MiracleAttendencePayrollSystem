@@ -2,18 +2,42 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="margin-left: 0px">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <!-- <section class="content-header">
         <h1>
             Attendence
             <small>Bulk attendence</small>
         </h1>
-    </section>
+    </section> -->
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Bulk attendance</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3 class="box-title pull-left">Bulk attendance</h3>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-inline pull-right">
+                                        <label for="filter">Filter: </label>
+                                        <select 
+                                            name="filter_positions" 
+                                        id="filter" 
+                                            class="form-control select2 position_filter"
+                                            onchange="pos_filter()">
+                                            <option id="pos_filter_option" selected="selected" value=""></option>
+                                            <?php foreach($pos_filter as $filter): ?>
+                                                <option value="">All positions</option>
+                                                <option value="<?php echo htmlentities(json_encode($filter)); ?>">
+                                                    <?php echo $filter->name; ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="row">
@@ -57,5 +81,5 @@
 
 <script>
     slug_for_js = '';
-//    alert(slug_for_js);
+    var pos_filter_url = "<?php echo base_url(); ?>";
 </script>

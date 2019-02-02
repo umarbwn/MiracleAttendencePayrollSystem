@@ -165,6 +165,14 @@ class TimeClockModel extends CI_Model
         return $response->result();
     }
 
+    public function get_single_location($id){
+        $response = $this->db
+            ->where([ "id" => $id ])
+            ->get('terminals')
+            ->row();
+        return $response;
+    }
+
     public function get_all_positions()
     {
         $response = $this->db->get('positions');

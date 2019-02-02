@@ -58,25 +58,45 @@ class BulkAttendance extends CI_Controller {
                 $positions = json_decode($locs->positions);
 
                 $employees = array();
-
+                $pos_filter = array();
+                $filter_id = $this->session->flashdata('pos_filter');
+                // var_dump($pos_id); exit;
                 foreach($positions as $position){
-                    $id = json_decode($position)->position->id;
+                    $pos = json_decode($position)->position;
                     // var_dump($id);
-                    $employees[] = $this->model->get_all_employees($id);
+                    $employees[] = $this->model->get_all_employees($pos->id);
                     // var_dump($employees);
+                    $pos_filter[] = $pos;
+                }
+
+                if($filter_id !== null){
+                    $employees = array();
+                    $employees[] = $this->model->get_all_employees($filter_id);
                 }
                 // var_dump($employees); 
                 // exit;
+                // $positions = json_decode($positions);
+                // var_dump($pos_filter); exit;
                 // var_dump($positions); exit;
                 $this->load->view('admin/common/header');
-                $this->load->view('admin/bulk_attendence/attendance',
-                        ['employees' => $employees]);
+                $this->load->view('admin/bulk_attendence/attendance',[
+                    'employees' => $employees,
+                    'pos_filter' => $pos_filter
+                ]);
                 $this->load->view('admin/common/footer');
             } else {
                 echo '<h1 class="text-center">location didn\'t match</h1>';
             }
         }else{
             return redirect('BulkAttendance/index/'.$this->session->flashdata('link_id'));
+        }
+    }
+
+    public function position_filter($id){
+        $this->session->set_flashdata('pos_filter', $id);
+        $session_id = $this->session->flashdata('pos_filter');
+        if($session_id != null){
+            echo json_encode(true);
         }
     }
 

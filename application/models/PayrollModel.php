@@ -40,6 +40,7 @@ class PayrollModel extends CI_Model
                 . 'tc.emp_clock_in,'
                 . 'tc.emp_clock_out,'
                 . 'tc.id AS tc_id,'
+                . 'tc.special_overtime,'
                 . 'GROUP_CONCAT(tc.emp_clock_in SEPARATOR ",") AS start_times,'
                 . 'GROUP_CONCAT(tc.emp_clock_out SEPARATOR ",") AS end_times')
             ->join('employees e', 'tc.emp_id = e.id', 'left')

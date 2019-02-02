@@ -23,9 +23,9 @@
                                 <div class="form-group">
                                     <label for="position_id">Select location</label>
                                     <select class="form-control" name="location">
-                                        <?php if(!empty($exist_positions)): ?>
-                                            <option value="<?php echo $exist_positions[0]->t_id; ?>">
-                                                <?php echo $exist_positions[0]->t_name; ?> Selected
+                                        <?php if(!empty($exist_loc)): ?>
+                                            <option value="<?php echo $exist_loc->id; ?>">
+                                                <?php echo $exist_loc->name; ?> Selected
                                             </option>
                                         <?php endif; ?>
                                         <?php foreach($locations as $location): ?>
@@ -46,11 +46,24 @@
                                     <select class="form-control select2" multiple="multiple"
                                         name="position_id[]"
                                         data-placeholder="Select a State" style="width: 100%;">
-                                        <?php if(!empty($exist_positions)): ?>
-                                            <?php foreach($exist_positions as $position): ?>
-                                                <option value="<?php echo $position->id; ?>" selected>
-                                                    <?php echo $position->name; ?>
-                                                </option>
+                                        <?php if(!empty($positions)): ?>
+                                            <?php foreach($positions as $position): $flag = false; ?>
+                                                <?php if(!empty($exist_pos)): ?>
+                                                    <?php foreach($exist_pos as $pos): ?>
+                                                        <?php $pos = json_decode($pos)->position; ?>
+                                                        <?php if($position->id === $pos->id): ?>
+                                                            <option value="<?php echo $position->id; ?>" selected>
+                                                                <?php echo $position->name; ?>
+                                                            </option>
+                                                            <?php $flag = true; ?>
+                                                        <?php else: ?>    
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
+                                                        <?php if($flag === true){ continue; }  ?>
+                                                        <option value="<?php echo $position->id; ?>">
+                                                            <?php echo $position->name; ?>
+                                                        </option>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                     </select>

@@ -36,7 +36,7 @@ class Users extends CI_Controller{
                 // ]);
                 // $this->input->set_cookie($cookie);
                 $this->session->set_userdata('user_id', $session_data);
-                return redirect('Welcome');
+                return redirect('welcome');
             }else{
                 $this->session->set_flashdata('invalid_login', 'Invalid Username/Password!');
                 $this->index();

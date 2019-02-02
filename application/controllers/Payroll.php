@@ -11,6 +11,7 @@ class Payroll extends MY_Controller
     public function index()
     {
         $response = $this->model->get_all_payroll();
+        // var_dump($response); exit;
         //        foreach($response as $employee){
         //            $lat = json_decode($employee->t_loc)->lat;
         //            $lng = json_decode($employee->t_loc)->lng;

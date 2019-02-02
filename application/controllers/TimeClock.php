@@ -318,17 +318,23 @@ class TimeClock extends MY_Controller
     public function update_terminal_link($id = ""){
         // var_dump($id); exit;
         $response = $this->model->get_terminal_link_data($id);
-        echo var_dump($response); exit;
+        // var_dump($response); exit;
+        $exist_pos = json_decode($response[0]->positions);
+        // var_dump($exist_pos); exit; 
         $positions = $this->model->get_all_positions();
         $locations = $this->model->get_clock_locations();
-        //        foreach($locations as $location){
-        //            $location->location = $this->lat_lng_to_loc(
-        //                    json_decode($location->location)->lat,
-        //                    json_decode($location->location)->lng
-        //            );
-        //        }
+        // var_dump($positions); exit;
+        $loc_id = $response[0]->location_id;
+        $curr_loc = $this->model->get_single_location($loc_id);
+        // var_dump($curr_loc); exit;
+        // foreach($locations as $location){
+        //     $location->location = $this->lat_lng_to_loc(
+        //             json_decode($location->location)->lat,
+        //             json_decode($location->location)->lng
+        //     );
+        // }
         //        exit;
-        //        var_dump($locations); exit;
+            //    var_dump($locations); exit;
         $this->form_validation->set_rules(
             'position_id[]',
             'Position',
@@ -362,7 +368,8 @@ class TimeClock extends MY_Controller
             $this->load->view('admin/time_clock/update_link', [
                 'positions' => $positions,
                 'locations' => $locations,
-                'exist_positions' => $response
+                "exist_pos" => $exist_pos,
+                'exist_loc' => $curr_loc
             ]);
             $this->load->view('admin/common/footer');
         }

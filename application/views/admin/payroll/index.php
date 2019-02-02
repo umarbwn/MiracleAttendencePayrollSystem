@@ -39,13 +39,13 @@
                                                 </th>
                                                 <th>Userid</th>
                                                 <th>Employee</th>
-                                                <th>Eid</th>
+                                                <!-- <th>Eid</th> -->
                                                 <th>Date</th>
-                                                <th>Shift title</th>
+                                                <!-- <th>Shift title</th> -->
                                                 <th>Location</th>
                                                 <th>Position</th>
                                                 <th>Rate</th>
-                                                <th>Ratecard</th>
+                                                <th>Rate Card</th>
                                                 <th>Start time</th>
                                                 <th>End time</th>
                                                 <th>Regular</th>
@@ -73,13 +73,13 @@
                                                         <?php echo $employee->first_name . ' '
                                                             . $employee->last_name; ?>
                                                     </td>
-                                                    <td></td>
+                                                    <!-- <td></td> -->
                                                     <td>
                                                         <?php echo str_replace('-', '&nbsp;', $employee->date); ?>
                                                     </td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <?php //echo $employee->date; ?>
-                                                    </td>
+                                                    </td> -->
                                                     <td>
                                                         <?php echo $employee->t_name; ?>
                                                     </td>
@@ -87,7 +87,16 @@
                                                         <?php echo $employee->p_name; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $employee->per_hour_amount; ?>
+                                                        <?php 
+                                                            $hourly_rate = $employee->per_hour_amount; 
+                                                            if($hourly_rate > 0){
+                                                                echo $employee->per_hour_amount;
+                                                            }else{
+                                                                $month_pay = number_format($employee->monthly_salary);
+                                                                $month_pay = $month_pay.'/-';
+                                                                echo $month_pay;
+                                                            }
+                                                        ?>
                                                     </td>
                                                     <td>
                                                         <?php echo $employee->card_title; ?>
@@ -109,40 +118,49 @@
                                                         echo date("g:i a", strtotime($date)); ?>                                                        
                                                     </td>
                                                     <td>col5</td>
-                                                    <td>col5</td>
+                                                    <td>
+                                                        <?php echo $employee->special_overtime.'/-'; ?>
+                                                    </td>
                                                     <td>
                                                         <?php
-                                                        $clock_in = new DateTime($employee->emp_clock_in);
-                                                        $clock_out = new DateTime($employee->emp_clock_out);
-                                                        $interval = date_diff($clock_in, $clock_out);
+                                                            $clock_in = new DateTime($employee->emp_clock_in);
+                                                            $clock_out = new DateTime($employee->emp_clock_out);
+                                                            $interval = date_diff($clock_in, $clock_out);
 
-                                                        $day_to_hours = 0;
-                                                        $day = $interval->format('%d');
-                                                        if ($day == '0') {
-                                                            $day = '0';
-                                                        }
-                                                            // echo $day;
-                                                        if ($day != null) {
-                                                            $day_to_hours = $day * 24;
-                                                        }
-                                                            // echo $day_to_hours;
-                                                        $hours = (int)$interval->format('%h') + (int)$day_to_hours;
-                                                            // echo $hours.' | '.
-                                                        $hours = $hours . 'h ';
-                                                        if ($hours == '0h ') {
-                                                            $hours = '';
-                                                        }
-                                                            // var_dump($hours);
-                                                        $minutes = $interval->format('%i') . 'm ';
-                                                        if ($minutes == '0m ') {
-                                                            $minutes = '';
-                                                        }
-                                                        $seconds = $interval->format('%s') . 'sec';
-                                                            // echo $employee->
-                                                        echo $hours . $minutes . $seconds;
+                                                            $day_to_hours = 0;
+                                                            $day = $interval->format('%d');
+                                                            if ($day == '0') {
+                                                                $day = '0';
+                                                            }
+                                                                // echo $day;
+                                                            if ($day != null) {
+                                                                $day_to_hours = $day * 24;
+                                                            }
+                                                                // echo $day_to_hours;
+                                                            $hours = (int)$interval->format('%h') + (int)$day_to_hours;
+                                                                // echo $hours.' | '.
+                                                            $hours = $hours;
+                                                            if ($hours == '0') {
+                                                                $hours = '';
+                                                            }
+                                                                // var_dump($hours);
+                                                            $minutes = $interval->format('%i') . 'm ';
+                                                            if ($minutes == '0m ') {
+                                                                $minutes = '';
+                                                            }
+                                                            $seconds = $interval->format('%s') . 'sec';
+                                                            
+                                                            if( $hours > $employee->daily_Hours ){
+                                                                $over_time_hours = doubleval($hours) - doubleval($employee->daily_Hours);
+                                                                echo $over_time_hours.'h ' . $minutes . $seconds;                                                                
+                                                            }else{
+                                                                echo "Not available";
+                                                            }
                                                         ?>
                                                     </td>
-                                                    <td>Total</td>
+                                                    <td>
+                                                        <?php echo $hours.'h ' . $minutes . $seconds; ?>
+                                                    </td>
                                                     <td>
                                                         <?php echo round($employee->cost, 2); ?>
                                                     </td>
