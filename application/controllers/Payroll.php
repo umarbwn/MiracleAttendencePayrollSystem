@@ -8,37 +8,41 @@ class Payroll extends MY_Controller
         $this->load->model('PayrollModel', 'model');
     }
 
-    public function index()
-    {
+    public function index(){
         $response = $this->model->get_all_payroll();
-        // var_dump($response); exit;
-        //        foreach($response as $employee){
-        //            $lat = json_decode($employee->t_loc)->lat;
-        //            $lng = json_decode($employee->t_loc)->lng;
-        ////            $employee->t_loc =
-        //            $employee->t_loc = $this->lat_lng_to_loc($lat, $lng);
-        ////            var_dump($employee->t_loc); exit;
-        //
-        //        }
-        //        var_dump($response); exit;
-        //        foreach ($response as $employee) {
-        //            $date_a = new DateTime($employee->emp_clock_in);
-        //            $date_b = new DateTime($employee->emp_clock_out);
-        //            $interval = date_diff($date_a, $date_b);
-        //
-        //            $hours = $interval->format('%h');
-        //            $ts_from_hours = $hours * 60 * 60;
-        //
-        //            $minutes = $interval->format('%i');
-        //            $ts_from_minutes = $minutes * 60;
-        //
-        //            $seconds = $interval->format('%s');
-        //            $total_seconds = $ts_from_hours + $ts_from_minutes + $seconds;
-        //
-        //            $employee->total_time = $total_seconds;
-        //        }
+        foreach($response as $employee){
+            $breaks = array();
+            $days = 0;
+            $hours = 0;
+            $minutes = 0;
+            $seconds = 0;
+
+            $emp_breaks = $this->model->get_single_user_breaks($employee->breaks);
+            foreach($emp_breaks as $break){
+                $break_in = new DateTime($break->break_in);
+                $break_out = new DateTime($break->break_out);
+                $interval = date_diff($break_in, $break_out);
+                $breaks[] = array(
+                    'd' => $interval->format('%d'),
+                    'h' => $interval->format('%h'),
+                    'i' => $interval->format('%i'),
+                    's' => $interval->format('%s'),
+                ); 
+                $days += intval($interval->format('%d'));
+                $hours += intval($interval->format('%h'));
+                $minutes += intval($interval->format('%i'));
+                $seconds += intval($interval->format('%s'));
+            }
+            $employee->total_break = array(
+                'd' => $days,
+                'h' => $hours,
+                'i' => $minutes,
+                's' => $seconds,
+            );
+            $employee->new_breaks = $breaks;
+        }
+        // echo "<pre>"; print_r($response); exit;  
         $this->load->view('admin/common/header');
-        // var_dump($this->is_admin()); exit;
         if($this->is_admin()){
             $this->load->view('admin/payroll/index', ['employees' => $response]);
         }else{

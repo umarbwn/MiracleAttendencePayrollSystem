@@ -56,7 +56,7 @@
                                             class="btn btn-danger" 
                                             id="capture-image">
                                             <img src="<?php echo base_url('assets/images/spinner.svg'); ?>" alt="Loading" class="btn-spinner">
-                                            <i class="fas fa-camera-retro"></i> <span>Capture Image and Clock out</span>
+                                            <i class="fas fa-camera-retro"></i> <span>Capture Image and Clock Out</span>
                                         </a>
                                         <!-- <a type="submit" class="btn btn-success" id="capture-image">
                                             <i class="fas fa-camera-retro"></i> <span>Capture Image</span>

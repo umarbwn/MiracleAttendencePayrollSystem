@@ -29,7 +29,10 @@ class BreakModel extends CI_Model{
     public function get_time_clock($id){
         // var_dump($id); exit;
         $response = $this->db
-            ->where([ 'emp_id' => $id ])
+            ->where([
+                'emp_id' => $id,
+                'clock_out_img' => '0',
+            ])
             ->get('time_clock')
             ->row()
         ;

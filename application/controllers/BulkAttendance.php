@@ -60,7 +60,7 @@ class BulkAttendance extends CI_Controller {
                 $employees = array();
                 $pos_filter = array();
                 $filter_id = $this->session->flashdata('pos_filter');
-                // var_dump($pos_id); exit;
+                // var_dump($filter_id); exit;
                 foreach($positions as $position){
                     $pos = json_decode($position)->position;
                     // var_dump($id);

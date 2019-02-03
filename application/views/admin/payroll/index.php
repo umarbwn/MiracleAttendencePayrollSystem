@@ -44,15 +44,16 @@
                                                 <!-- <th>Shift title</th> -->
                                                 <th>Location</th>
                                                 <th>Position</th>
-                                                <th>Rate</th>
+                                                <th>Wages / Monthly</th>
                                                 <th>Rate Card</th>
                                                 <th>Start time</th>
                                                 <th>End time</th>
-                                                <th>Regular</th>
+                                                <th>Breaks</th>
                                                 <th>Special</th>
                                                 <th>Overtime</th>
                                                 <th>Total</th>
-                                                <th>Cost</th>
+                                                <th>With Break Cost</th>
+                                                <th>Without Break Cost</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -91,10 +92,22 @@
                                                             $hourly_rate = $employee->per_hour_amount; 
                                                             if($hourly_rate > 0){
                                                                 echo $employee->per_hour_amount;
+                                                                $sec_cost_h = 0;
+                                                                if(!empty($employee->per_hour_amount)){
+                                                                    $sec_cost_h = $employee->per_hour_amount/60;
+                                                                    $sec_cost_h = $employee->per_hour_amount/60;
+                                                                }
                                                             }else{
-                                                                $month_pay = number_format($employee->monthly_salary);
-                                                                $month_pay = $month_pay.'/-';
-                                                                echo $month_pay;
+                                                                $month_pay = $employee->monthly_salary;
+                                                                $month_pay = $month_pay;
+                                                                echo number_format($month_pay)."/-";
+                                                                $sec_cost_m = 0;
+                                                                if(!empty($employee->monthly_salary)){
+                                                                    $sec_cost_m = $month_pay/30;
+                                                                    $sec_cost_m = $sec_cost_m/$employee->daily_Hours;
+                                                                    $sec_cost_m = $sec_cost_m/60;
+                                                                    $sec_cost_m = $sec_cost_m/60;
+                                                                }
                                                             }
                                                         ?>
                                                     </td>
@@ -117,7 +130,27 @@
 //                                                            var_dump($array); exit;
                                                         echo date("g:i a", strtotime($date)); ?>                                                        
                                                     </td>
-                                                    <td>col5</td>
+                                                    <td>
+                                                        <?php 
+                                                            $break = "";
+                                                            $d = intval($employee->total_break['d']);
+                                                            $h = intval($employee->total_break['h']);
+                                                            $m = intval($employee->total_break['i']);
+                                                            $s = intval($employee->total_break['s']);
+
+                                                            $break_in_secs = $d * 24;
+                                                            $break_in_secs = ($break_in_secs + $h) * 60;
+                                                            $break_in_secs = ($break_in_secs + $m) * 60;
+                                                            $break_in_secs = ($break_in_secs + $s);
+
+                                                            $break .= $d > 0 ? $d."d : " : ""; 
+                                                            $break .= $h > 0 ? $h."h : " : ""; 
+                                                            $break .= $m > 0 ? $m."s : " : ""; 
+                                                            $break .= $s > 0 ? $s."s" : ""; 
+
+                                                            echo $break;
+                                                        ?>
+                                                    </td>
                                                     <td>
                                                         <?php echo $employee->special_overtime.'/-'; ?>
                                                     </td>
@@ -142,13 +175,15 @@
                                                             $hours = $hours;
                                                             if ($hours == '0') {
                                                                 $hours = '';
+                                                            }else{
+                                                                $hours .= "h ";
                                                             }
                                                                 // var_dump($hours);
                                                             $minutes = $interval->format('%i') . 'm ';
                                                             if ($minutes == '0m ') {
                                                                 $minutes = '';
                                                             }
-                                                            $seconds = $interval->format('%s') . 'sec';
+                                                            $seconds = $interval->format('%s') . 'sec ';
                                                             
                                                             if( $hours > $employee->daily_Hours ){
                                                                 $over_time_hours = doubleval($hours) - doubleval($employee->daily_Hours);
@@ -159,10 +194,20 @@
                                                         ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $hours.'h ' . $minutes . $seconds; ?>
+                                                        <?php echo $hours . $minutes . $seconds; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo round($employee->cost, 2); ?>
+                                                        <?php echo round($employee->cost, 2)."/-"; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php 
+                                                            // echo $sec_cost_m." monthly_cost <br>";
+                                                            // echo $break_in_secs." seconds_break <br>";
+                                                            $deducted_break_pay = $sec_cost_m * $break_in_secs;
+                                                            // echo $deducted_break_pay;
+                                                            $deducted_break_pay = $employee->cost - $deducted_break_pay;  
+                                                            echo round($deducted_break_pay, 2)."/-"; 
+                                                        ?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

@@ -19,6 +19,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <?php //var_dump($pos_filter); exit; ?>
                                     <div class="form-inline pull-right">
                                         <label for="filter">Filter: </label>
                                         <select 
@@ -27,8 +28,8 @@
                                             class="form-control select2 position_filter"
                                             onchange="pos_filter()">
                                             <option id="pos_filter_option" selected="selected" value=""></option>
+                                            <option value="">All positions</option>
                                             <?php foreach($pos_filter as $filter): ?>
-                                                <option value="">All positions</option>
                                                 <option value="<?php echo htmlentities(json_encode($filter)); ?>">
                                                     <?php echo $filter->name; ?>
                                                 </option>
@@ -42,34 +43,36 @@
                     <!-- /.box-header -->
                     <div class="row">
                         <?php foreach($employees as $employee):  ?>
-                            <?php //    var_dump($emp); exit; ?>
-                        <div class="col-sm-2">
-                            <a 
-                                href="<?php 
-                                        echo base_url(
-                                                'BulkAttendance'
-                                                . '/user_attendence/'.$employee[0]->emp_id); 
-                                ?>">
-                                <div class="thumbnail-link img-thumbnail center-block" style="background-image: url(<?php echo base_url(
-                                            'uploads/staff/employees/'
-                                            .$employee[0]->emp_image); ?>);">
-                                    <!-- <img
-                                        style=""
-                                        class="
-                                            img-responsive 
-                                            img-thumbnail 
-                                            center-block"
-                                        src=""> -->
+                            <!-- <?php     //var_dump($employee); exit; ?> -->
+                            <?php if(!empty($employee)): ?>
+                                <div class="col-sm-2">
+                                    <a 
+                                        href="<?php 
+                                                echo base_url(
+                                                        'BulkAttendance'
+                                                        . '/user_attendence/'.$employee[0]->emp_id); 
+                                        ?>">
+                                        <div class="thumbnail-link img-thumbnail center-block" style="background-image: url(<?php echo base_url(
+                                                    'uploads/staff/employees/'
+                                                    .$employee[0]->emp_image); ?>);">
+                                            <!-- <img
+                                                style=""
+                                                class="
+                                                    img-responsive 
+                                                    img-thumbnail 
+                                                    center-block"
+                                                src=""> -->
+                                        </div>
+                                        <p class="text-center bulk-user-name">
+                                            <?php echo 
+                                                    $employee[0]->first_name
+                                                    .' '
+                                                    .$employee[0]->last_name; 
+                                            ?>
+                                        </p>
+                                    </a>
                                 </div>
-                                <p class="text-center bulk-user-name">
-                                    <?php echo 
-                                            $employee[0]->first_name
-                                            .' '
-                                            .$employee[0]->last_name; 
-                                    ?>
-                                </p>
-                            </a>
-                        </div>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -81,7 +84,7 @@
 </div>
 
 <script>
-    var slug_for_js = '';
+    slug_for_js = '';
     var pos_filter_url = "<?php echo base_url(); ?>";
     filter_status = true;
 </script>

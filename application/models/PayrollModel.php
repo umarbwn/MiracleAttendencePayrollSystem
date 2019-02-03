@@ -41,11 +41,13 @@ class PayrollModel extends CI_Model
                 . 'tc.emp_clock_out,'
                 . 'tc.id AS tc_id,'
                 . 'tc.special_overtime,'
+                . 'GROUP_CONCAT(b.id SEPARATOR ",") AS breaks,'
                 . 'GROUP_CONCAT(tc.emp_clock_in SEPARATOR ",") AS start_times,'
                 . 'GROUP_CONCAT(tc.emp_clock_out SEPARATOR ",") AS end_times')
             ->join('employees e', 'tc.emp_id = e.id', 'left')
             ->join('positions p', 'e.position = p.id', 'left')
             ->join('terminals t', 'p.location = t.id', 'left')
+            ->join('breaks b', 'b.time_clock = tc.id', 'left')
             ->join('payroll_cards pc', 'e.payroll_card = pc.id', 'left')
             ->join('pays pay', 'tc.emp_id = pay.emp_id', 'left')
             ->join('leaves leave', 'tc.emp_id = leave.emp_id', 'left')
@@ -53,7 +55,10 @@ class PayrollModel extends CI_Model
             //                ->distinct()
             ->group_by('date')
             ->group_by('tc.emp_id')
-            ->where(['tc.status' => '1'])
+            ->where([
+                'tc.status' => '1',
+                'b.break_out !=' => null,
+            ])
             ->get('time_clock tc')
             ->result();
             //        print_r($this->db->last_query()); exit;
@@ -105,4 +110,14 @@ class PayrollModel extends CI_Model
         return $response;
     }
 
+    public function get_single_user_breaks($ids){
+        $ids = explode(", ", $ids);
+        // var_dump($ids); exit;
+        $response = $this->db
+            ->where_in('id', $ids)
+            ->get('breaks')
+            ->result();
+        // var_dump($response); exit;
+        return $response;
+    }
 }

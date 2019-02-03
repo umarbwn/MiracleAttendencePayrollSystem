@@ -51,7 +51,8 @@ if (slug_for_js == 'user_clock' || slug_for_js == 'user_clock_out') {
 		// alert(event);
 		event.preventDefault();
 		console.log($(this).text().replace(/\s/g, ''));
-		if ($(this).text().replace(/\s/g, '') === 'CaptureImageandClockIn') {
+		if ($(this).text().replace(/\s/g, '') === 'CaptureImageandClockIn' || 
+			$(this).text().replace(/\s/g, '') === 'CaptureImageandClockOut') {
 			context.drawImage(video, 0, 0, 1024, 768);
 			$('.capture-container').html('<img src="" id="emp-img">');
 			var img_elem = document.getElementById('emp-img');
@@ -568,12 +569,6 @@ function pos_filter(){
 			type: 'get',
 			success: function(response){
 				if(response === 'true'){
-					// alert('working');
-	
-					// var redirect_url = pos_filter_url + 'Bulkattendance';
-					// var redirect_url = 'http://localhost/humanity/index.php/attendance/bulk/';
-					// alert(redirect_url);
-					// window.location.href = redirect_url;
 					location.reload();
 				}
 			} 
@@ -586,7 +581,8 @@ function pos_filter(){
 }
 function pos_fil_curr_val(){
 	var filter_pos = localStorage.getItem('pos_filter');
-	if(filter_pos == ""){
+	// alert(filter_pos);
+	if(filter_pos == null || filter_pos == ""){
 		$('#pos_filter_option').val("");
 		$('#pos_filter_option').text("All positions selected");
 	}else{
@@ -596,9 +592,9 @@ function pos_fil_curr_val(){
 	}
 }
 if(filter_status == true){
-	alert('working');
+	// alert('working');
 	pos_fil_curr_val();
-	// localStorage.removeItem("pos_filter");
+}else{
 }
 
 

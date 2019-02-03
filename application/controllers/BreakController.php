@@ -8,6 +8,7 @@ class BreakController extends MY_Controller{
     public function take_break($id){
         // var_dump($id); exit;
         $response = $this->model->get_time_clock($id);
+        // var_dump($response); exit;
         $data = array(
             "break_in" => date("Y-m-d H:i:s"),
             "time_clock" => $response->id,
