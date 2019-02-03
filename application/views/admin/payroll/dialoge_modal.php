@@ -12,7 +12,7 @@
             <form id="delete-form">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No</button>
-                    <button type="submit" class="btn btn-outline">Yes</button>
+                    <button type="submit" class="btn btn-outline" id="delete-btn">Yes</button>
                 </div>
             </form>
         </div>
@@ -21,5 +21,5 @@
     <!-- /.modal-dialog -->
 </div>
 <script>
-    var base_url = '<?php echo base_url('Payroll/delete_rate_card/'); ?>';
+    var delete_ratecard_url = '<?php echo base_url('ratecard/delete/'); ?>';
 </script>

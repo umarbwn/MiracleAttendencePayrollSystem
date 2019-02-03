@@ -207,6 +207,10 @@
     color: #000;
 }
 
+.timeout-heading{
+    margin: 0px;
+}
+
 .select2-container .select2-selection--single .select2-selection__rendered{
     margin-top: -7px;
     padding-left: 0px !important;

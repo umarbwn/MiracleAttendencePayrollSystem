@@ -184,13 +184,17 @@ class TimeClockModel extends CI_Model
         $response = $this->db->insert('terminal_links', $data);
         return $response;
     }
-    public function update_terminal_link($data, $location)
+    public function update_terminal_link($data, $id)
     {
+        // var_dump($id); exit;
         $response = $this->db
             ->set($data)
-            ->where([ 'location_id' => $location ])
-            ->update('terminal_links');
-        return $response;
+            ->where([ 'id' => $id ])
+            ->delete('terminal_links');
+        if($response){
+            $response = $this->db->insert('terminal_links', $data);
+            return $response;
+        }
     }
 
     public function get_terminal_links(){
@@ -406,6 +410,25 @@ class TimeClockModel extends CI_Model
             ->where([ 'id' => $id ])
             ->delete('terminal_links');
             
+        return $response;
+    }
+
+    public function get_single_break($id){
+        // var_dump($id); exit;
+        $response = $this->db
+            ->select("
+                b.id, 
+                b.break_in, 
+                b.break_out, 
+                b.time_clock, 
+            ")
+            ->join("time_clock tc", "tc.id = b.time_clock", "join")
+            ->where([ 
+                "tc.clock_out_img" => "0",
+                "b.break_out" => NULL
+             ])
+            ->get('breaks b')
+            ->row();
         return $response;
     }
 

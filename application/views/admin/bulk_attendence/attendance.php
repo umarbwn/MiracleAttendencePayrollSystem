@@ -41,17 +41,18 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="row">
-                        <?php foreach($employees as $employee): $employee = $employee[0]; ?>
+                        <?php foreach($employees as $employee):  ?>
+                            <?php //    var_dump($emp); exit; ?>
                         <div class="col-sm-2">
                             <a 
                                 href="<?php 
                                         echo base_url(
                                                 'BulkAttendance'
-                                                . '/user_attendence/'.$employee->emp_id); 
+                                                . '/user_attendence/'.$employee[0]->emp_id); 
                                 ?>">
                                 <div class="thumbnail-link img-thumbnail center-block" style="background-image: url(<?php echo base_url(
                                             'uploads/staff/employees/'
-                                            .$employee->emp_image); ?>);">
+                                            .$employee[0]->emp_image); ?>);">
                                     <!-- <img
                                         style=""
                                         class="
@@ -62,9 +63,9 @@
                                 </div>
                                 <p class="text-center bulk-user-name">
                                     <?php echo 
-                                            $employee->first_name
+                                            $employee[0]->first_name
                                             .' '
-                                            .$employee->last_name; 
+                                            .$employee[0]->last_name; 
                                     ?>
                                 </p>
                             </a>
@@ -80,6 +81,7 @@
 </div>
 
 <script>
-    slug_for_js = '';
+    var slug_for_js = '';
     var pos_filter_url = "<?php echo base_url(); ?>";
+    filter_status = true;
 </script>

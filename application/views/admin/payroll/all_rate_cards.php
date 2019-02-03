@@ -82,7 +82,7 @@
                                                         data-toggle="modal" 
                                                         data-target=".dialoge"
                                                         class="btn btn-danger btn-xs"
-                                                        onclick="get_delete_id(<?php echo $rate_card->id; ?>);">
+                                                        onclick="delete_ratecard(<?php echo $rate_card->id; ?>);">
                                                         delete
                                                     </button>
                                                 </td>

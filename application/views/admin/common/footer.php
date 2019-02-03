@@ -7,6 +7,7 @@
     // alert(page_uri);
     base_url = "<?php echo base_url(); ?>";
     var custom_base_url = "<?php echo base_url(); ?>";
+    var filter_status = false;
 </script>
 <!-- ./wrapper -->
 <!-- jQuery 3 -->

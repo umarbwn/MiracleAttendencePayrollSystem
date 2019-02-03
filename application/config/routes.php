@@ -54,6 +54,7 @@ $route['welcome'] = '';
 
 $route['ratecard'] = 'payroll/get_all_rate_cards';
 $route['ratecard/update/(:any)'] = 'Payroll/add_rate_card/$1';
+$route['ratecard/delete/(:any)'] = 'Payroll/delete_rate_card/$1';
 
 $route['payroll'] = 'Payroll';
 $route['staff'] = 'Staff';
@@ -73,6 +74,9 @@ $route['terminal/location/delete/(:any)'] = 'TimeClock/delete_location/$1';
 $route['attendance/bulk'] = 'BulkAttendance/bulk_attendence';
 
 
+
+$route['break/get/(:any)'] = 'BreakController/take_break/$1';
+$route['break/break_out'] = 'BreakController/break_out';
 
 
 $route['404_override'] = '';

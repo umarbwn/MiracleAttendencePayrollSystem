@@ -116,7 +116,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li class="<?php echo ( uri_string() == 'terminal/generate' || 
                                         uri_string() == 'terminal' || 
                                         uri_string() == 'terminal/location' || 
-                                        uri_string() == 'terminal/location/add' 
+                                        uri_string() == 'terminal/location/add' ||
+                                        strpos(uri_string(), "terminal/update/") !== FALSE
                                       ) ? 'active' : ''; ?>">
                     <a href="<?php echo base_url('terminal'); ?>">
                         <i class="fas fa-thumbtack top-menu-icons"></i>

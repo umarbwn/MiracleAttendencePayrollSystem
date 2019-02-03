@@ -155,7 +155,7 @@ class Payroll extends MY_Controller
         }else{
             $this->session->set_flashdata('success_msge', 'Rate card deleted successfully!');
         }
-        return redirect('Payroll/get_all_rate_cards');
+        return redirect('ratecard');
     }
 
 }

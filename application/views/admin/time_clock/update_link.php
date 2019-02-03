@@ -1,3 +1,4 @@
+<?php //var_dump($update_id); exit; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -17,6 +18,7 @@
                     <!-- /.box-header -->
                     <!-- form start -->
                     <?php echo form_open_multipart('TimeClock/update_terminal_link');?>
+                    <input type="hidden" name="update_id" value="<?php echo $update_id; ?>">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-3 col-sm-offset-3">
@@ -52,7 +54,11 @@
                                                     <?php foreach($exist_pos as $pos): ?>
                                                         <?php $pos = json_decode($pos)->position; ?>
                                                         <?php if($position->id === $pos->id): ?>
-                                                            <option value="<?php echo $position->id; ?>" selected>
+                                                            <?php $arr_position['position'] = array(
+                                                                'id'    => $position->id,
+                                                                'name'    => $position->name,
+                                                            ); ?>
+                                                            <option value="<?php echo htmlentities(json_encode($arr_position)); ?>" selected>
                                                                 <?php echo $position->name; ?>
                                                             </option>
                                                             <?php $flag = true; ?>
@@ -61,7 +67,11 @@
                                                     <?php endforeach; ?>
                                                 <?php endif; ?>
                                                         <?php if($flag === true){ continue; }  ?>
-                                                        <option value="<?php echo $position->id; ?>">
+                                                        <?php $arr_position['position'] = array(
+                                                            'id'    => $position->id,
+                                                            'name'    => $position->name,
+                                                        ); ?>
+                                                        <option value="<?php echo htmlentities(json_encode($arr_position)); ?>">
                                                             <?php echo $position->name; ?>
                                                         </option>
                                             <?php endforeach; ?>
@@ -80,7 +90,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-sm-offset-3">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Generate link</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Update link</button>
                                 </div>
                             </div>
                         </div>

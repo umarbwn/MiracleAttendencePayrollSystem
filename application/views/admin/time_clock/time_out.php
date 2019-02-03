@@ -1,15 +1,43 @@
 <!-- Content Wrapper. Contains page content -->
+<?php //var_dump($emp_id); exit; ?>
 <div class="content-wrapper">
     <section class="content">
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-default">
                     <div class="box-header with-border">
-                        <i class="fa fa-warning"></i>
-                        <h3 class="box-title pull-left">
-                            <?php date_default_timezone_set("Asia/Karachi"); echo date("F j, Y, g:i a"); ?>
-                        </h3>
-                        <h3 class="box-title pull-right" id="timer"></h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <?php //var_dump($break); exit; ?>
+                                <?php if($break === false): ?>
+                                    <a 
+                                        href="<?php echo base_url("break/get/").$emp_id; ?>" 
+                                        class="btn btn-warning text-center">
+                                        Take break
+                                    </a>
+                                <?php else: ?>
+                                    <?php echo form_open('break/break_out'); ?>
+                                        <input type="hidden" name="id" value="<?php echo $break_out->id; ?>">
+                                        <input type="hidden" name="break_in" value="<?php echo $break_out->break_in; ?>">
+                                        <input type="hidden" name="break_out" value="<?php echo $break_out->break_out; ?>">
+                                        <input type="hidden" name="time_clock" value="<?php echo $break_out->time_clock; ?>">
+                                        <button
+                                            type="submit" 
+                                            class="btn btn-primary text-center">
+                                            Break Out
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
+                            <div class="col-sm-4">
+                                <h3 class="timeout-heading text-center">
+                                    <?php date_default_timezone_set("Asia/Karachi"); echo date("F j, Y, g:i a"); ?>
+                                </h3>
+                            </div>
+                            <div class="col-sm-4">
+                                <h3 class="box-title pull-right" id="timer"></h3>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -24,9 +52,11 @@
                                     <input type="hidden" name="lat" value="" id="lat">
                                     <input type="hidden" name="long" value="" id="long">
                                     <div class="btn-group btn-group-justified btn-group-clock-in-out">
-                                        <a type="submit" class="btn btn-success" id="capture-image">
+                                        <a type="submit" 
+                                            class="btn btn-danger" 
+                                            id="capture-image">
                                             <img src="<?php echo base_url('assets/images/spinner.svg'); ?>" alt="Loading" class="btn-spinner">
-                                            <i class="fas fa-camera-retro"></i> <span>Capture Image and Clock In</span>
+                                            <i class="fas fa-camera-retro"></i> <span>Capture Image and Clock out</span>
                                         </a>
                                         <!-- <a type="submit" class="btn btn-success" id="capture-image">
                                             <i class="fas fa-camera-retro"></i> <span>Capture Image</span>

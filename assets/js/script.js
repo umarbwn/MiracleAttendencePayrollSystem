@@ -595,4 +595,23 @@ function pos_fil_curr_val(){
 		$('#pos_filter_option').text(filter_pos.name + " selected");
 	}
 }
-pos_fil_curr_val();
+if(filter_status == true){
+	alert('working');
+	pos_fil_curr_val();
+	// localStorage.removeItem("pos_filter");
+}
+
+
+/*
+-------------------------------------------------------------------------------------------------
+								Delete rate Card
+-------------------------------------------------------------------------------------------------
+*/
+function delete_ratecard(id){
+	var delete_url = delete_ratecard_url + id;
+	var form_id = '#delete-form';
+	$(form_id).attr('action', delete_url);
+}
+$('#delete-btn').click(function(){
+	$(form_id).submit();
+});
