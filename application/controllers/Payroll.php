@@ -10,6 +10,7 @@ class Payroll extends MY_Controller
 
     public function index(){
         $response = $this->model->get_all_payroll();
+        // var_dump($response); exit;
         foreach($response as $employee){
             $breaks = array();
             $days = 0;

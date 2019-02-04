@@ -9,7 +9,7 @@
 class StaffModel extends CI_Model {
 
     public function add_employee($data) {
-    //    var_dump($data); exit;
+        //    var_dump($data); exit;
         $query = $this->db->insert('employees', $data);
         if($query){
             $insert_id = $this->db->insert_id();
@@ -46,7 +46,7 @@ class StaffModel extends CI_Model {
         $response = $this->db
                 ->get('payroll_cards')
                 ->result();
-//        var_dump($response); exit;
+        //        var_dump($response); exit;
         return $response;
     }
     public function get_single_employee($id) {

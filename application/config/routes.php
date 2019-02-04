@@ -58,7 +58,9 @@ $route['ratecard/delete/(:any)'] = 'Payroll/delete_rate_card/$1';
 $route['ratecard/add'] = 'Payroll/add_rate_card';
 
 $route['payroll'] = 'Payroll';
+
 $route['staff'] = 'Staff';
+$route['staff/update/(:any)'] = 'Staff/update_employee/$1';
 
 $route['timeclock'] = 'TimeClock';
 

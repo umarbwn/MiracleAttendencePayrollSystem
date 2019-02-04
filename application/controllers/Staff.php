@@ -64,7 +64,7 @@ class Staff extends MY_Controller
         $this->load->library('upload', $config);
         $data = $error = "";
         if ($this->form_validation->run() == true && $this->upload->do_upload('emp_image')) {
-//            var_dump($this->input->post()); exit;
+        //            var_dump($this->input->post()); exit;
             //            var_dump($this->upload->data()); exit;
             $old_name = $this->upload->data()['orig_name'];
             $file_ext = $this->upload->data()['file_ext'];
@@ -134,6 +134,16 @@ class Staff extends MY_Controller
         $this->load->view('admin/common/header');
         $this->load->view('admin/staff/view_emp_profile', ['employee' => $response]);
         $this->load->view('admin/common/footer');
+    }
+
+    public function update_employee($id){
+        $response = $this->model->get_single_employee($id);
+        // var_dump($response); exit;
+        $this->load->view("admin/common/header");
+        $this->load->view("admin/staff/update",[
+            'employee' => $response
+        ]);
+        $this->load->view("admin/common/footer");
     }
 
     public function position_check($str)

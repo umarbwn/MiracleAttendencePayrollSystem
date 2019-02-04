@@ -162,14 +162,14 @@
                                     <select name="deduct_hours" id="deduct-hours" class="form-control select2">
                                         <?php for( $i = 0; $i<24; $i++ ): ?>
                                             <?php if($i < 1): ?>
-                                                <option value="<?php echo $i; ?>"><?php echo $i."hr"?></option>
-                                                <option value="<?php echo $i.".5"; ?>"><?php echo $i.".5hr"?></option>
+                                                <option value="<?php echo $i; ?>"><?php echo $i." hr"?></option>
+                                                <option value="<?php echo $i.".5"; ?>"><?php echo $i.".5 hr"?></option>
                                             <?php elseif($i < 2): ?>
-                                                <option value="<?php echo $i; ?>"><?php echo $i."hr"?></option>
-                                                <option value="<?php echo $i.".5"; ?>"><?php echo $i.".5hr"?></option>
+                                                <option value="<?php echo $i; ?>"><?php echo $i." hr"?></option>
+                                                <option value="<?php echo $i.".5"; ?>"><?php echo $i.".5 hrs"?></option>
                                             <?php else: ?>
-                                                <option value="<?php echo $i; ?>"><?php echo $i.".hrs"?></option>
-                                                <option value="<?php echo $i.".5"; ?>"><?php echo $i.".5hrs"?></option>
+                                                <option value="<?php echo $i; ?>"><?php echo $i." hrs"?></option>
+                                                <option value="<?php echo $i.".5"; ?>"><?php echo $i.".5 hrs"?></option>
                                             <?php endif; ?>
                                         <?php endfor; ?>
                                     </select>

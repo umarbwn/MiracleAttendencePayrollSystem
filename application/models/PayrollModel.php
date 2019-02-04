@@ -11,6 +11,8 @@ class PayrollModel extends CI_Model
 
     public function get_all_payroll()
     {
+        // print_r($this->is_empty_break()); exit;
+        $data = $this->is_empty_break();
         $response = $this->db
             //                ->select('emp_clock_in')
             ->select('tc.emp_id,'
@@ -55,14 +57,26 @@ class PayrollModel extends CI_Model
             //                ->distinct()
             ->group_by('date')
             ->group_by('tc.emp_id')
-            ->where([
-                'tc.status' => '1',
-                'b.break_out !=' => null,
-            ])
+            ->where( $data["where_clause"] )
             ->get('time_clock tc')
             ->result();
-            //        print_r($this->db->last_query()); exit;
+                //    print_r($this->db->last_query()); exit;
         return $response;
+    }
+    public function is_empty_break(){
+        $response = $this->db->get("breaks")->num_rows();
+        $data = array();
+        if($response > 0){
+            $data["where_clause"] = array(
+                'tc.status' => '1',
+                'b.break_out !=' => null,
+            );
+        }else{
+            $data["where_clause"] = array(
+                'tc.status' => '1'
+            );
+        }
+        return $data;
     }
 
     public function add_rate_card($data)

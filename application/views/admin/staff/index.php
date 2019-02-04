@@ -91,7 +91,7 @@
                                                             <i class="far fa-check-circle"></i> Approved
                                                         </button>
                                                     </td>
-                                                    <td>
+                                                    <td style="width: 180px;">
                                                         <button class="btn btn-warning btn-sm">Disable</button> 
                                                         <button 
                                                             class="btn btn-danger btn-sm" 
@@ -99,6 +99,11 @@
                                                             data-toggle="modal"
                                                             onclick="delete_employee(<?php echo $employee->id; ?>);"
                                                             data-target="#dialoge">Delete</button>
+                                                        <a 
+                                                            class="btn btn-primary btn-sm"
+                                                            href="<?php echo base_url("staff/update/").$employee->id; ?>">
+                                                            Update
+                                                        </a> 
                                                     </td>
                                                 <?php else: ?>
                                                     <td></td>
