@@ -48,6 +48,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css'); ?>">
   <!-- Select2 -->
   <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/'); ?>bower_components/select2/dist/css/select2.min.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/'); ?>plugins/timepicker/bootstrap-timepicker.min.css">
   <script>
     var filter_status = false;
   </script>

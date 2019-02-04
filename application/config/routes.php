@@ -55,6 +55,7 @@ $route['welcome'] = '';
 $route['ratecard'] = 'payroll/get_all_rate_cards';
 $route['ratecard/update/(:any)'] = 'Payroll/add_rate_card/$1';
 $route['ratecard/delete/(:any)'] = 'Payroll/delete_rate_card/$1';
+$route['ratecard/add'] = 'Payroll/add_rate_card';
 
 $route['payroll'] = 'Payroll';
 $route['staff'] = 'Staff';

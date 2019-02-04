@@ -64,6 +64,7 @@ class Payroll extends MY_Controller
             'pay_rate', 'Pay Rate', 'required');
         $salary_type = $this->input->post('salary_type');
         if ($this->form_validation->run()) {
+            // var_dump($this->input->post()); exit;    
             $hrly_rate_chart = array(
                 'sun0' => $this->input->post('sun0'),
                 'mon0' => $this->input->post('mon0'),
@@ -104,19 +105,36 @@ class Payroll extends MY_Controller
             // var_dump($pm_days);
             // exit;
             $hrly_rate_chart['special_hours'] = $special_hours;
+            
+            $arrivel_time = $this->input->post('arrivel_time');
+            $arrivel_time = $this->set_time_to_db($arrivel_time);
+            
+            $fine_time = $this->input->post('fine_time');
+            $fine_time = $this->set_time_to_db($fine_time);
+            
             $data = array(
                 'card_title' => $this->input->post('payroll_title'),
                 'daily_hours' => $this->input->post('daily_hours'),
                 'hrly_rate_chart' => json_encode($hrly_rate_chart),
                 'pay_rate' => $this->input->post('pay_rate'),
+                'arrivel_time'  => $arrivel_time,
+                'fine_time'  => $fine_time,
+                'deduct_hours'  => $this->input->post('deduct_hours'),
             );
             // var_dump($id); exit;
             if( $id === '' ){
-                $this->session->set_flashdata(
-                    'success_msge',
-                    'Rate card added successfully!'
-                );
                 $response = $this->model->add_rate_card($data);
+                if($response){
+                    $this->session->set_flashdata(
+                        'success_msge',
+                        'Rate card added successfully!'
+                    );
+                }else{
+                    $this->session->set_flashdata(
+                        'error_msge',
+                        'Unable to add ratecard.'
+                    );
+                }
             }else{
                 $response = $this->model->update_rate_card($data, $id);
                 $this->session->set_flashdata(
@@ -131,7 +149,12 @@ class Payroll extends MY_Controller
         } else {
             $result = $this->model->get_rate_card($id);
             $this->load->view('admin/common/header');
-            // var_dump($row); exit;
+            if(isset($result->arrivel_time)){
+                $result->arrivel_time = $this->get_time_from_db($result->arrivel_time);
+            }
+            if(isset($result->fine_time)){
+                $result->fine_time = $this->get_time_from_db($result->fine_time);
+            }
             $this->load->view('admin/payroll/add_rate_card', [
                 'rate_card' => $result
             ]);

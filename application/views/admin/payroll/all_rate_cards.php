@@ -3,11 +3,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1 class="pull-left">
-            Payroll
-            <small>All payroll</small>
+            Payroll <small>All payroll</small>
         </h1>
-        <a href="<?php echo base_url('Payroll/add_rate_card'); ?>" class="btn btn-primary pull-right margin-bottom">New
-            Rate Card</a>
+        <a 
+            href="<?php echo base_url('ratecard/add'); ?>" 
+            class="btn btn-primary pull-right margin-bottom">
+            New Rate Card
+        </a>
     </section>
     <section class="content">
         <div class="row">

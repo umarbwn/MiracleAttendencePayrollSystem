@@ -98,7 +98,7 @@ class Staff extends MY_Controller
 
             );
 
-            $insert_id = $this->model->add_employee($data);
+            $insert_id = $this->model->add_employee($data['emp_data']);
             $new_name = 'employee' . $insert_id . $file_ext;
             rename('./uploads/staff/employees/' . $old_name, './uploads/staff/employees/' . $new_name);
             $new_name = array(

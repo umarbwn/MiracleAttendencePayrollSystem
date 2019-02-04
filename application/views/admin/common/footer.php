@@ -53,6 +53,11 @@
 <script src="<?php echo base_url('assets/adminlte/'); ?>plugins/iCheck/icheck.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url('assets/adminlte/'); ?>bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="<?php echo base_url('assets/js/script.js'); ?>"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZUGQeUX65hAXw-vH0z5EWlnbpjl-y5Gk&libraries=places&callback=initMap"
+        async defer></script>
+<!-- bootstrap time picker -->
+<script src="<?php echo base_url('assets/adminlte/'); ?>plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 <script>
     $(function () {
@@ -86,9 +91,10 @@
     $('.select-all').click(function(){
         console.log($(this).prop());
     });
+    //Timepicker
+    $('.timepicker').timepicker({
+      showInputs: false
+    })
 </script>
-<script src="<?php echo base_url('assets/js/script.js'); ?>"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZUGQeUX65hAXw-vH0z5EWlnbpjl-y5Gk&libraries=places&callback=initMap"
-        async defer></script>
 </body>
 </html>

@@ -39,4 +39,39 @@ class MY_Controller extends CI_Controller
         $num = (int)$matches[0][0];
         return $num;
     }
+
+    public function get_gooogle_map_url(){
+        $data["google_map_api_url"] = $this->config->item("google_map_api_url");
+        $data["google_map_api_private_key"] = $this->config->item("google_map_api_public_key");
+        $data["url"] = $data["google_map_api_url"].$data["google_map_api_private_key"];
+        return $data;
+    }
+
+    public function set_time_to_db($arrivel_time){
+        $arrivel_time = explode(" ", $arrivel_time);
+        if($arrivel_time[1] === 'PM'){
+            $arrivel_time[0] = explode(":", $arrivel_time[0]);
+            // var_dump(intval($arrivel_time[0][0])); exit;
+            if($arrivel_time[0][0] === "12"){
+                $arrivel_time[0][0] = 12 - intval($arrivel_time[0][0]);
+                $arrivel_time[0][0] = $arrivel_time[0][0]."0";
+            }else{
+                $arrivel_time[0][0] = 12 + intval($arrivel_time[0][0]);
+            }
+            $arrivel_time[0] = (string)$arrivel_time[0][0].":".$arrivel_time[0][1];
+        }
+        return $arrivel_time[0];
+    }
+    public function get_time_from_db($arrivel_time){
+        $arrivel_time = explode(":", $arrivel_time);
+        $am_or_pm = "";
+        if( intval($arrivel_time[0]) > 12 ){
+            $am_or_pm = "PM";
+            $arrivel_time[0] = 12 - $arrivel_time[0];
+        }else{
+            $am_or_pm = "AM";
+        }
+        $arrivel_time = $arrivel_time[0].":".$arrivel_time[1]." ".$am_or_pm;
+        return $arrivel_time;
+    }
 }

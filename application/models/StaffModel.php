@@ -9,8 +9,8 @@
 class StaffModel extends CI_Model {
 
     public function add_employee($data) {
-//        var_dump($data); exit;
-        $query = $this->db->insert('employees', $data['emp_data']);
+    //    var_dump($data); exit;
+        $query = $this->db->insert('employees', $data);
         if($query){
             $insert_id = $this->db->insert_id();
 

@@ -1,11 +1,12 @@
 <?php
 
 class TimeClock extends MY_Controller{
-
+    private $google_api_url;
     public function __construct(){
         parent::__construct();
         $this->load->model('TimeClockModel', 'model');
         $this->load->model('BreakModel', 'breakModel');
+        $this->google_api_url = $this->get_gooogle_map_url()["url"];
     }
 
     public function index(){
@@ -176,6 +177,7 @@ class TimeClock extends MY_Controller{
     }
 
     public function add_clock_location() {
+        // var_dump($this->google_api_url); exit;
         $slug_for_js = "";
         $this->form_validation->set_rules('term_name', 'Terminal name', 'required');
         if ($this->form_validation->run()) {
@@ -194,7 +196,10 @@ class TimeClock extends MY_Controller{
             }
         } else {
             $this->load->view('admin/common/header');
-            $this->load->view('admin/time_clock/search_loc', ['slug_for_js' => $slug_for_js]);
+            $this->load->view('admin/time_clock/search_loc', [
+                'slug_for_js' => $slug_for_js,
+                'google_api_url' => $this->google_api_url,
+            ]);
             $this->load->view('admin/common/footer');
         }
     }
