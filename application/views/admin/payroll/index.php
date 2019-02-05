@@ -228,6 +228,8 @@
                                                         <?php
                                                             $late_time = ""; 
                                                             $is_late_class = "";
+                                                            $late_fine = 0;
+                                                            $is_fine_class = "";
                                                             $date_start_time = new DateTime($date_start_time[0]);
                                                             $date_start_time = $date_start_time->format("h:i:s");
                                                             $arr_emp_time = explode(":", $date_start_time);
@@ -239,6 +241,16 @@
                                                                     $m_diff = intval($arr_emp_time[1]) - intval($arr_fine_time[1]);
                                                                     $late_time = $h_diff."h : ".$m_diff."m Late";
                                                                     $is_late_class = "bg-danger";
+
+                                                                    $hours_in_secs = $employee->deduct_hours * 60 * 60;
+                                                                    if(!empty($sec_cost_m)){
+                                                                        $late_fine = $hours_in_secs * $sec_cost_m;
+                                                                        $is_fine_class = "bg-warning";
+                                                                    }else{
+                                                                        $late_fine = $hours_in_secs * $sec_cost_h;
+                                                                        $is_fine_class = "bg-warning";
+                                                                    }
+                                                                    $late_fine = round($late_fine, 2);
                                                                 }else{
                                                                     $is_late_class = "bg-success";
                                                                 }
@@ -250,19 +262,6 @@
                                                         <td class="<?php echo $is_late_class; ?>">
                                                             <?php echo $late_time; ?>
                                                         </td>
-                                                        <?php 
-                                                            $late_fine = 0;
-                                                            $is_fine_class = "";
-                                                            $hours_in_secs = $employee->deduct_hours * 60 * 60;
-                                                            if(!empty($sec_cost_m)){
-                                                                $late_fine = $hours_in_secs * $sec_cost_m;
-                                                                $is_fine_class = "bg-warning";
-                                                            }else{
-                                                                $late_fine = $hours_in_secs * $sec_cost_h;
-                                                                $is_fine_class = "bg-warning";
-                                                            }
-                                                            $late_fine = round($late_fine, 2);
-                                                        ?>
                                                         <td class="<?php echo $is_fine_class; ?>">
                                                             <?php echo $late_fine."/-"; ?>
                                                         </td>

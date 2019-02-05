@@ -43,8 +43,9 @@
                     <!-- /.box-header -->
                     <div class="row">
                         <?php foreach($employees as $employee):  ?>
-                            <!-- <?php     //var_dump($employee); exit; ?> -->
-                            <?php if(!empty($employee)): ?>
+                            <?php //var_dump($employee); ?>
+                            <?php //if(!empty($employee)): ?>
+                            <?php     //var_dump($employee);  ?>
                                 <div class="col-sm-2">
                                     <a 
                                         href="<?php 
@@ -72,7 +73,7 @@
                                         </p>
                                     </a>
                                 </div>
-                            <?php endif; ?>
+                            <?php //endif; ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
