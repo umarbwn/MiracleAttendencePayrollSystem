@@ -10,7 +10,7 @@ class StaffModel extends CI_Model {
 
     public function add_employee($data) {
         //    var_dump($data); exit;
-        $query = $this->db->insert('employees', $data);
+        $query = $this->db->insert('employees', $data['emp_data']);
         if($query){
             $insert_id = $this->db->insert_id();
 
@@ -59,11 +59,24 @@ class StaffModel extends CI_Model {
 
     public function update_employee($id, $data){
         $response = $this->db
-            ->set($data)
+            ->set($data['emp_data'])
             ->where([ 'id' => $id])
             ->update("employees");
         if($response){
-            return $id;
+            $insert_id = $id;
+
+            $data['pays_data']['emp_id'] = $insert_id;
+            $query = $this->db
+                ->set($data['pays_data'])
+                ->where([ 'emp_id' => $id ])
+                ->update('pays');
+
+            $data['leaves']['emp_id'] = $insert_id;
+            $query = $this->db
+                ->set($data['leaves'])
+                ->where([ "emp_id" => $id ])
+                ->update('leaves');
+            return $insert_id;
         }
         // return $response;
     }

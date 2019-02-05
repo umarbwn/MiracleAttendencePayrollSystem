@@ -107,10 +107,10 @@ class Staff extends MY_Controller
             );
             $msge = "";
             if($id === ""){
-                $insert_id = $this->model->add_employee($data['emp_data']);
+                $insert_id = $this->model->add_employee($data);
                 $msge = 'Employee added successfully!';
             }else{
-                $insert_id = $this->model->update_employee($id, $data['emp_data']);
+                $insert_id = $this->model->update_employee($id, $data);
                 $msge = 'Employee updated successfully!';
             }
             $new_name = 'employee' . $insert_id . $file_ext;
