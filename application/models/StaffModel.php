@@ -49,11 +49,33 @@ class StaffModel extends CI_Model {
         //        var_dump($response); exit;
         return $response;
     }
+
     public function get_single_employee($id) {
         $query = $this->db
                 ->where(['id' => $id])
                 ->get('employees');
         return $query->row();
+    }
+
+    public function update_employee($id, $data){
+        $response = $this->db
+            ->set($data)
+            ->where([ 'id' => $id])
+            ->update("employees");
+        if($response){
+            return $id;
+        }
+        // return $response;
+    }
+
+    public function get_single_postion($id){
+        $response = $this->db->get_where('positions', [ 'id' => $id ])->row();
+        return $response;
+    }
+
+    public function get_single_payroll_card($id){
+        $response = $this->db->get_where('payroll_cards', [ "id" => $id ])->row();
+        return $response;
     }
 
     public function login_staff($data) {

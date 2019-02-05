@@ -17,7 +17,15 @@
                     <!-- /.box-header -->
                     <!-- form start -->
 
-                    <?php echo form_open_multipart('Staff/add_employee'); ?>
+                    <?php echo form_open_multipart('staff/update'); ?>
+                        <input type="hidden" name="update_id"
+                            value="<?php 
+                            if( isset($update_id) ){
+                                echo $update_id;
+                            }else{
+                                echo '';
+                            }
+                        ?>">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-6 col-sm-offset-3">
@@ -125,9 +133,13 @@
                             <div class="col-sm-6 col-sm-offset-3">
                                 <div class="form-group">
                                     <label>Select position:</label>
+                                    <?php //var_dump($employee->position); ?>
                                     <select class="form-control" name="position">
-                                        <?php //if( !empty($employee->) ): ?>
-                                        <option value="">Select position</option>
+                                        <?php if(!empty($employee->position)): $position = $employee->position; ?>
+                                            <option value="<?php echo $position->id; ?>">
+                                                <?php echo $position->name." selected"; ?>
+                                            </option>
+                                        <?php endif; ?>
                                         <?php foreach ($positions as $position): ?>
                                             <option value="<?php echo $position->id; ?>">
                                                 <?php echo $position->name; ?>
@@ -144,7 +156,11 @@
                                 <div class="form-group">
                                     <label>Select payroll card:</label>
                                     <select class="form-control" name="payroll_card">
-                                        <option value="">Select payroll card</option>
+                                        <?php if(!empty($employee->payroll_card)): $payroll_card = $employee->payroll_card; ?>
+                                            <option value="<?php echo $payroll_card->id; ?>">
+                                                <?php echo $payroll_card->card_title." selected"; ?>
+                                            </option>
+                                        <?php endif; ?>
                                         <?php foreach ($payroll_cards as $card): ?>
                                             <option value="<?php echo $card->id; ?>">
                                                 <?php echo $card->card_title; ?>

@@ -60,7 +60,9 @@ $route['ratecard/add'] = 'Payroll/add_rate_card';
 $route['payroll'] = 'Payroll';
 
 $route['staff'] = 'Staff';
+$route['staff/add'] = 'Staff/add_employee';
 $route['staff/update/(:any)'] = 'Staff/update_employee/$1';
+$route['staff/update'] = 'Staff/update_employee';
 
 $route['timeclock'] = 'TimeClock';
 
