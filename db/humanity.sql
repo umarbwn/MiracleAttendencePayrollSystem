@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 02, 2019 at 10:34 AM
+-- Generation Time: Feb 06, 2019 at 10:30 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -21,6 +21,24 @@ SET time_zone = "+00:00";
 --
 -- Database: `humanity`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `breaks`
+--
+
+DROP TABLE IF EXISTS `breaks`;
+CREATE TABLE IF NOT EXISTS `breaks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `break_in` datetime NOT NULL,
+  `break_out` datetime DEFAULT NULL,
+  `time_clock` int(11) NOT NULL,
+  `emp_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `time_clock` (`time_clock`),
+  KEY `emp_id` (`emp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -61,16 +79,16 @@ CREATE TABLE IF NOT EXISTS `employees` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_addr` (`email_addr`),
   KEY `payroll_card` (`payroll_card`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employees`
 --
 
 INSERT INTO `employees` (`id`, `first_name`, `last_name`, `email_addr`, `phone_no`, `password`, `emp_image`, `role`, `position`, `payroll_card`, `total_pay`) VALUES
-(45, 'test', 'admin', 'admin@gmail.com', '03035787036', 'd2VsY29tZQ==', '48381465_355644638322851_7153055705484754944_n.jpg', 'superadmin', 0, NULL, 0),
-(66, 'Ali', 'Raza', 'aliraza@gmail.com', '03037645434', 'cXc0aGRkcWNyZw==', 'employee66.jpg', '', 4, 15, 0),
-(67, 'Abdul', 'Rehman', 'abdulrehman@gmail.com', '03037645433', 'cXc0aGRkcWNyZw==', 'employee67.jpg', '', 5, 15, 0);
+(68, 'umar', 'farooq', 'umarbwn@gmail.com', '03037645434', 'cXc0aGRkcWNyZw==', 'download.jpg', 'superadmin', 0, NULL, 0),
+(73, 'rashid', 'raza', 'rashid@gmail.com', '03037645432', 'cXc0aGRkcWNyZw==', 'employee73.jpg', '', 7, 21, 0),
+(74, 'ali', 'raza', 'aliraza@gmail.com', '03035787036', 'cXc0aGRkcWNyZw==', 'employee74.jpg', '', 7, 21, 0);
 
 -- --------------------------------------------------------
 
@@ -86,15 +104,16 @@ CREATE TABLE IF NOT EXISTS `leaves` (
   `leave_condition` int(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `emp_id` (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `leaves`
 --
 
 INSERT INTO `leaves` (`id`, `paid_leaves`, `emp_id`, `leave_condition`) VALUES
-(8, 0, 66, 0),
-(9, 0, 67, 0);
+(10, 0, 68, 0),
+(15, 0, 73, 0),
+(16, 0, 74, 0);
 
 -- --------------------------------------------------------
 
@@ -110,17 +129,6 @@ CREATE TABLE IF NOT EXISTS `notices` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `notices`
---
-
-INSERT INTO `notices` (`id`, `name`, `description`) VALUES
-(1, 'sdfsdf', 'sample details'),
-(2, 'sdfsdf', 'sample details'),
-(5, 'This is sample name', 'This is sample description '),
-(6, 'This is sample name', 'This is sample description '),
-(7, 'This is sample name', 'This is sample description ');
-
 -- --------------------------------------------------------
 
 --
@@ -134,15 +142,18 @@ CREATE TABLE IF NOT EXISTS `payroll_cards` (
   `pay_rate` int(3) NOT NULL,
   `daily_hours` int(2) NOT NULL,
   `hrly_rate_chart` text NOT NULL,
+  `arrivel_time` time NOT NULL,
+  `fine_time` time NOT NULL,
+  `deduct_hours` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `payroll_cards`
 --
 
-INSERT INTO `payroll_cards` (`id`, `card_title`, `pay_rate`, `daily_hours`, `hrly_rate_chart`) VALUES
-(15, '8 Hours card', 100, 8, '{\"sun0\":\"127%\",\"mon0\":\"127%\",\"tue0\":\"127%\",\"wed0\":\"127%\",\"thu0\":\"127%\",\"fri0\":\"127%\",\"sat0\":\"127%\",\"sun0pm\":\"127%\",\"mon0pm\":\"127%\",\"tue0pm\":\"127%\",\"wed0pm\":\"127%\",\"thu0pm\":\"127%\",\"fri0pm\":\"127%\",\"sat0pm\":\"127%\",\"special_hours\":{\"_am_ip_sun0\":\"127%\",\"_am_ip_mon0\":\"127%\",\"_am_ip_tue0\":\"127%\",\"_am_ip_wed0\":\"127%\",\"_am_ip_thu0\":\"127%\",\"_am_ip_fri0\":\"127%\",\"_am_ip_sat0\":\"127%\",\"_am_ip_sun1\":\"127%\",\"_am_ip_mon1\":\"127%\",\"_am_ip_tue1\":\"127%\",\"_am_ip_wed1\":\"127%\",\"_am_ip_thu1\":\"127%\",\"_am_ip_fri1\":\"127%\",\"_am_ip_sat1\":\"127%\",\"_am_ip_sun2\":\"127%\",\"_am_ip_mon2\":\"127%\",\"_am_ip_tue2\":\"127%\",\"_am_ip_wed2\":\"127%\",\"_am_ip_thu2\":\"127%\",\"_am_ip_fri2\":\"127%\",\"_am_ip_sat2\":\"127%\",\"_am_ip_sun3\":\"127%\",\"_am_ip_mon3\":\"127%\",\"_am_ip_tue3\":\"127%\",\"_am_ip_wed3\":\"127%\",\"_am_ip_thu3\":\"127%\",\"_am_ip_fri3\":\"127%\",\"_am_ip_sat3\":\"127%\",\"_am_ip_sun4\":\"127%\",\"_am_ip_mon4\":\"127%\",\"_am_ip_tue4\":\"127%\",\"_am_ip_wed4\":\"127%\",\"_am_ip_thu4\":\"127%\",\"_am_ip_fri4\":\"127%\",\"_am_ip_sat4\":\"127%\",\"_am_ip_sun5\":\"127%\",\"_am_ip_mon5\":\"127%\",\"_am_ip_tue5\":\"127%\",\"_am_ip_wed5\":\"127%\",\"_am_ip_thu5\":\"127%\",\"_am_ip_fri5\":\"127%\",\"_am_ip_sat5\":\"127%\",\"_am_ip_sun6\":\"127%\",\"_am_ip_mon6\":\"127%\",\"_am_ip_tue6\":\"127%\",\"_am_ip_wed6\":\"127%\",\"_am_ip_thu6\":\"127%\",\"_am_ip_fri6\":\"127%\",\"_am_ip_sat6\":\"127%\",\"_am_ip_sun7\":\"127%\",\"_am_ip_mon7\":\"127%\",\"_am_ip_tue7\":\"127%\",\"_am_ip_wed7\":\"127%\",\"_am_ip_thu7\":\"127%\",\"_am_ip_fri7\":\"127%\",\"_am_ip_sat7\":\"127%\",\"_am_ip_sun8\":\"127%\",\"_am_ip_mon8\":\"127%\",\"_am_ip_tue8\":\"127%\",\"_am_ip_wed8\":\"127%\",\"_am_ip_thu8\":\"127%\",\"_am_ip_fri8\":\"127%\",\"_am_ip_sat8\":\"127%\",\"_am_ip_sun9\":\"127%\",\"_am_ip_mon9\":\"127%\",\"_am_ip_tue9\":\"127%\",\"_am_ip_wed9\":\"127%\",\"_am_ip_thu9\":\"127%\",\"_am_ip_fri9\":\"127%\",\"_am_ip_sat9\":\"127%\",\"_am_ip_sun10\":\"127%\",\"_am_ip_mon10\":\"127%\",\"_am_ip_tue10\":\"127%\",\"_am_ip_wed10\":\"127%\",\"_am_ip_thu10\":\"127%\",\"_am_ip_fri10\":\"127%\",\"_am_ip_sat10\":\"127%\",\"_am_ip_sun11\":\"127%\",\"_am_ip_mon11\":\"127%\",\"_am_ip_tue11\":\"127%\",\"_am_ip_wed11\":\"127%\",\"_am_ip_thu11\":\"127%\",\"_am_ip_fri11\":\"127%\",\"_am_ip_sat11\":\"127%\",\"_pm_ip_sun12\":\"127%\",\"_pm_ip_mon12\":\"127%\",\"_pm_ip_tue12\":\"127%\",\"_pm_ip_wed12\":\"127%\",\"_pm_ip_thu12\":\"127%\",\"_pm_ip_fri12\":\"127%\",\"_pm_ip_sat12\":\"127%\",\"_pm_ip_sun13\":\"127%\",\"_pm_ip_mon13\":\"127%\",\"_pm_ip_tue13\":\"127%\",\"_pm_ip_wed13\":\"127%\",\"_pm_ip_thu13\":\"127%\",\"_pm_ip_fri13\":\"127%\",\"_pm_ip_sat13\":\"127%\",\"_pm_ip_sun14\":\"127%\",\"_pm_ip_mon14\":\"127%\",\"_pm_ip_tue14\":\"127%\",\"_pm_ip_wed14\":\"127%\",\"_pm_ip_thu14\":\"127%\",\"_pm_ip_fri14\":\"127%\",\"_pm_ip_sat14\":\"127%\",\"_pm_ip_sun15\":\"127%\",\"_pm_ip_mon15\":\"127%\",\"_pm_ip_tue15\":\"127%\",\"_pm_ip_wed15\":\"127%\",\"_pm_ip_thu15\":\"127%\",\"_pm_ip_fri15\":\"127%\",\"_pm_ip_sat15\":\"127%\",\"_pm_ip_sun16\":\"127%\",\"_pm_ip_mon16\":\"127%\",\"_pm_ip_tue16\":\"127%\",\"_pm_ip_wed16\":\"127%\",\"_pm_ip_thu16\":\"127%\",\"_pm_ip_fri16\":\"127%\",\"_pm_ip_sat16\":\"127%\",\"_pm_ip_sun17\":\"127%\",\"_pm_ip_mon17\":\"127%\",\"_pm_ip_tue17\":\"127%\",\"_pm_ip_wed17\":\"127%\",\"_pm_ip_thu17\":\"127%\",\"_pm_ip_fri17\":\"127%\",\"_pm_ip_sat17\":\"127%\",\"_pm_ip_sun18\":\"127%\",\"_pm_ip_mon18\":\"127%\",\"_pm_ip_tue18\":\"127%\",\"_pm_ip_wed18\":\"127%\",\"_pm_ip_thu18\":\"127%\",\"_pm_ip_fri18\":\"127%\",\"_pm_ip_sat18\":\"127%\",\"_pm_ip_sun19\":\"127%\",\"_pm_ip_mon19\":\"127%\",\"_pm_ip_tue19\":\"127%\",\"_pm_ip_wed19\":\"127%\",\"_pm_ip_thu19\":\"127%\",\"_pm_ip_fri19\":\"127%\",\"_pm_ip_sat19\":\"127%\",\"_pm_ip_sun20\":\"127%\",\"_pm_ip_mon20\":\"127%\",\"_pm_ip_tue20\":\"127%\",\"_pm_ip_wed20\":\"127%\",\"_pm_ip_thu20\":\"127%\",\"_pm_ip_fri20\":\"127%\",\"_pm_ip_sat20\":\"127%\",\"_pm_ip_sun21\":\"127%\",\"_pm_ip_mon21\":\"127%\",\"_pm_ip_tue21\":\"127%\",\"_pm_ip_wed21\":\"127%\",\"_pm_ip_thu21\":\"127%\",\"_pm_ip_fri21\":\"127%\",\"_pm_ip_sat21\":\"127%\",\"_pm_ip_sun22\":\"127%\",\"_pm_ip_mon22\":\"127%\",\"_pm_ip_tue22\":\"127%\",\"_pm_ip_wed22\":\"127%\",\"_pm_ip_thu22\":\"127%\",\"_pm_ip_fri22\":\"127%\",\"_pm_ip_sat22\":\"127%\",\"_pm_ip_sun23\":\"127%\",\"_pm_ip_mon23\":\"127%\",\"_pm_ip_tue23\":\"127%\",\"_pm_ip_wed23\":\"127%\",\"_pm_ip_thu23\":\"127%\",\"_pm_ip_fri23\":\"127%\",\"_pm_ip_sat23\":\"127%\"}}');
+INSERT INTO `payroll_cards` (`id`, `card_title`, `pay_rate`, `daily_hours`, `hrly_rate_chart`, `arrivel_time`, `fine_time`, `deduct_hours`) VALUES
+(21, '8 Hours card', 100, 8, '{\"sun0\":\"100%\",\"mon0\":\"100%\",\"tue0\":\"100%\",\"wed0\":\"100%\",\"thu0\":\"100%\",\"fri0\":\"100%\",\"sat0\":\"100%\",\"sun0pm\":\"100%\",\"mon0pm\":\"100%\",\"tue0pm\":\"100%\",\"wed0pm\":\"100%\",\"thu0pm\":\"100%\",\"fri0pm\":\"100%\",\"sat0pm\":\"100%\",\"special_hours\":[]}', '11:00:00', '11:15:00', 2);
 
 -- --------------------------------------------------------
 
@@ -160,15 +171,16 @@ CREATE TABLE IF NOT EXISTS `pays` (
   `per_hour_amount` double NOT NULL,
   PRIMARY KEY (`id`),
   KEY `emp_id` (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pays`
 --
 
 INSERT INTO `pays` (`id`, `emp_id`, `monthly_salary`, `calculated_salary`, `salary_type`, `per_hour_amount`) VALUES
-(8, 66, 30000, 0, 'monthly', 0),
-(9, 67, 30000, 0, 'monthly', 0);
+(10, 68, 0, 0, '', 0),
+(15, 73, 30000, 0, 'monthly', 0),
+(16, 74, 0, 0, 'wages', 0);
 
 -- --------------------------------------------------------
 
@@ -183,16 +195,14 @@ CREATE TABLE IF NOT EXISTS `positions` (
   `location` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `location` (`location`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `positions`
 --
 
 INSERT INTO `positions` (`id`, `name`, `location`) VALUES
-(4, 'Web Developers', 7),
-(5, 'Car Painter', 8),
-(6, 'Electrical Engineer', 8);
+(7, 'Web Developers', 10);
 
 -- --------------------------------------------------------
 
@@ -206,16 +216,14 @@ CREATE TABLE IF NOT EXISTS `terminals` (
   `location` text NOT NULL,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `terminals`
 --
 
 INSERT INTO `terminals` (`id`, `location`, `name`) VALUES
-(7, 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 'Showroom'),
-(8, 'Abbaseen Ave, Block F 1 Wapda Town Phase 1 WAPDA Town, Lahore, Punjab, Pakistan', 'Fectory'),
-(9, 'Unnamed Road, Mazang, Lahore, Punjab 54000, Pakistan', 'Friend hostel');
+(10, 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 'Showroom');
 
 -- --------------------------------------------------------
 
@@ -231,14 +239,14 @@ CREATE TABLE IF NOT EXISTS `terminal_links` (
   `link_type` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `location_id` (`location_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `terminal_links`
 --
 
 INSERT INTO `terminal_links` (`id`, `positions`, `location_id`, `link_type`) VALUES
-(31, '[\"{\\\"position\\\":{\\\"id\\\":\\\"4\\\",\\\"name\\\":\\\"Web Developers\\\"}}\",\"{\\\"position\\\":{\\\"id\\\":\\\"5\\\",\\\"name\\\":\\\"Car Painter\\\"}}\"]', 7, '');
+(70, '[\"{\\\"position\\\":{\\\"id\\\":\\\"7\\\",\\\"name\\\":\\\"Web Developers\\\"}}\"]', 10, '');
 
 -- --------------------------------------------------------
 
@@ -261,26 +269,32 @@ CREATE TABLE IF NOT EXISTS `time_clock` (
   `special_overtime` double NOT NULL,
   PRIMARY KEY (`id`),
   KEY `emp_id` (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=393 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=401 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `time_clock`
 --
 
 INSERT INTO `time_clock` (`id`, `emp_clock_in`, `emp_clock_out`, `emp_loc`, `emp_id`, `clock_in_img`, `clock_out_img`, `emp_clock_out_loc`, `clock_pay`, `status`, `special_overtime`) VALUES
-(386, '2019-01-30 19:26:03', '2019-01-30 19:26:20', '1 Punj Mahal Rd, Mazang, Lahore, Punjab 54000, Pakistan', 66, 'clock_in386.jpeg', 'clock_out386.jpeg', '1 Punj Mahal Rd, Mazang, Lahore, Punjab 54000, Pakistan', 0.59027777777778, 1, 0),
-(392, '2019-02-01 00:00:00', '2019-02-02 08:51:37', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 66, 'clock_in392.jpeg', 'clock_out392.jpeg', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 4107.5347222222, 1, 270);
+(399, '2019-02-05 09:35:39', '2019-02-05 09:35:46', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 73, 'clock_in399.jpeg', 'clock_out399.jpeg', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 0.24305555555556, 1, 0),
+(400, '2019-02-05 09:38:12', '2019-02-05 09:38:22', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 73, 'clock_in400.jpeg', 'clock_out400.jpeg', 'Plot 52, Tipu Block Garden Town, Lahore, Punjab, Pakistan', 0.34722222222222, 1, 0);
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `breaks`
+--
+ALTER TABLE `breaks`
+  ADD CONSTRAINT `breaks_ibfk_1` FOREIGN KEY (`time_clock`) REFERENCES `time_clock` (`id`);
+
+--
 -- Constraints for table `clock_day_counter`
 --
 ALTER TABLE `clock_day_counter`
   ADD CONSTRAINT `clock_day_counter_ibfk_1` FOREIGN KEY (`clock_index`) REFERENCES `time_clock` (`id`),
-  ADD CONSTRAINT `clock_day_counter_ibfk_2` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`id`);
+  ADD CONSTRAINT `clock_day_counter_ibfk_2` FOREIGN KEY (`emp_id`) REFERENCES `breaks` (`emp_id`);
 
 --
 -- Constraints for table `employees`

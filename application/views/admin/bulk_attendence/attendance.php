@@ -43,7 +43,7 @@
                     <!-- /.box-header -->
                     <div class="row">
                         <?php foreach($employees as $employee):  ?>
-                            <?php //var_dump($employee); ?>
+                            <?php var_dump($employee); ?>
                             <?php //if(!empty($employee)): ?>
                             <?php     //var_dump($employee);  ?>
                                 <div class="col-sm-2">
