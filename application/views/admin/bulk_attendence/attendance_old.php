@@ -42,8 +42,8 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="row">
-                        <?php foreach($employees[0] as $employee):  ?>
-                            <?php //var_dump($employee); ?>
+                        <?php foreach($employees as $employee):  ?>
+                            <?php var_dump($employee); ?>
                             <?php //if(!empty($employee)): ?>
                             <?php     //var_dump($employee);  ?>
                                 <div class="col-sm-2">
@@ -51,11 +51,11 @@
                                         href="<?php 
                                                 echo base_url(
                                                         'BulkAttendance'
-                                                        . '/user_attendence/'.$employee->emp_id); 
+                                                        . '/user_attendence/'.$employee[0]->emp_id); 
                                         ?>">
                                         <div class="thumbnail-link img-thumbnail center-block" style="background-image: url(<?php echo base_url(
                                                     'uploads/staff/employees/'
-                                                    .$employee->emp_image); ?>);">
+                                                    .$employee[0]->emp_image); ?>);">
                                             <!-- <img
                                                 style=""
                                                 class="
@@ -66,9 +66,9 @@
                                         </div>
                                         <p class="text-center bulk-user-name">
                                             <?php echo 
-                                                    $employee->first_name
+                                                    $employee[0]->first_name
                                                     .' '
-                                                    .$employee->last_name; 
+                                                    .$employee[0]->last_name; 
                                             ?>
                                         </p>
                                     </a>
